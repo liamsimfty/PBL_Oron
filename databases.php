@@ -1,10 +1,12 @@
 <?php
-// Membuat database
-$sql = "CREATE DATABASE IF NOT EXISTS PBL_Oron";
-if (mysqli_query($koneksi, $sql)) {
-    echo "Database berhasil dibuat";
+$user = "system";
+$pass = "mufti123";
+$host = "localhost/XE";
+$dbconn = oci_connect($user,$pass,$host);
+if(!$dbconn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message']), ENT_QUOTES, E_USER_ERROR);
 } else {
-    echo "Error creating database: " . mysqli_error($koneksi);
+    echo "ORACLE DATABASES CONNECTED SUCCESSFULLY";
 }
-
 ?>
