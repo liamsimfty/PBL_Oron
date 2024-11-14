@@ -1,5 +1,5 @@
 # (Project Based Learning) PBL Oron
-Is a Group project with combined 4 subject with the member of the Group
+Is a Group project with combined 4 subject 
 
 With the member of project :
 ```
