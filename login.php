@@ -18,6 +18,7 @@
     
     <input type="submit" value="Login">
     <a href="recovery.php"   class="button">Forgot Password</a>
+    <a href="signup.php"   class="button">Dont Have Account?</a>
 </form>
 
 </body>

@@ -1,11 +1,6 @@
 <?php
 include 'connection.php';   
-if (!$conn) {
-    $e = oci_error();
-    trigger_error(htmlentities($e['message']), ENT_QUOTES, E_USER_ERROR);
-} else {
-    echo "ORACLE DATABASES CONNECTED SUCCESSFULLY <br>";
-}
+
     $query = "SELECT * FROM account";
     $stid = oci_parse($conn, $query);
     
@@ -22,7 +17,6 @@ if (!$conn) {
             <th>Username</th>
             <th>Password</th>
             <th>Mnemonic</th>
-            <th>Mnemonic</th>
             <th>Created At</th>
           </tr>";
     
@@ -32,7 +26,6 @@ if (!$conn) {
         echo "<td>" . htmlspecialchars($row['USERNAME']) . "</td>";
         echo "<td>" . htmlspecialchars($row['PASSWORD']) . "</td>";
         echo "<td>" . htmlspecialchars($row['MNEMONIC']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['IS_ACTIVE']) . "</td>";
         echo "<td>" . htmlspecialchars($row['CREATED_AT']) . "</td>";
         echo "</tr>";
     }
