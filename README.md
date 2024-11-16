@@ -2,12 +2,12 @@
 Is a Group project with combined 4 subject 
 
 With the member of project :
-```
-liamsimfty
-Kefas Hutabarat
-Sulthan Isya
-Farhan Arya
-```
+| Member  | Roles |
+| ------------- | ------------- |
+| LiamsiMfty  | BackEnd Developer  |
+| KefasHutabarat  | Database Engginer  |
+| Farhan Arya | UI UX |
+| Sulthan Isya | Tester |
 
 ## ORON
 Your Gateway to Truly Independent Gaming
