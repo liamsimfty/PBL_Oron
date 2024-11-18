@@ -5,3 +5,6 @@ CREATE TABLE account (
     mnemonic VARCHAR2(200) UNIQUE NOT NULL,
     created_at DATE DEFAULT SYSDATE
 ); 
+
+
+
