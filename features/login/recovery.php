@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "connection.php";
+include '../connection/connection.php';   
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';

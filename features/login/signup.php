@@ -40,7 +40,7 @@
 
 <?php
 // Connect to Oracle database
-include "connection.php";
+include 'connection.php';   
 
 // Function to generate mnemonic phrase
 function generateMnemonic() {

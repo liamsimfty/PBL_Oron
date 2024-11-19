@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';   
+include '../connection.php';   
 
     $query = "SELECT * FROM account";
     $stid = oci_parse($conn, $query);

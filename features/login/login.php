@@ -25,8 +25,12 @@
 </html>
 
 <?php
+// Start session
+session_start();
+
 // Connect to Oracle database
-include 'connection.php';
+include '../connection/connection.php';   
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the form
@@ -47,8 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
         // Verify the hashed password from the database with the input password
         if (password_verify($password, $row['PASSWORD'])) {
-            echo "<p>Login successful!</p>";
-            // header("Location: dashboard.php"); // Uncomment if you have a dashboard
+            // Save username in session
+            $_SESSION['username'] = $row['USERNAME'];
+
+            // Redirect to dashboard or homepage
+            header("Location: ../../dashboard.php");
+            exit(); // Stop further execution
         } else {
             echo "<p>Invalid password. Please try again.</p>";
         }
@@ -59,8 +67,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Free the statement and close the connection
     oci_free_statement($stid);
     oci_close($conn);
-
 }
-
 ?>
-
