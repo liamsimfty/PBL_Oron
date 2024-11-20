@@ -2,31 +2,32 @@
 include '../connection/connection.php';   
 
 session_start();
-$isLoggedIn = isset($_SESSION['account_id']);
-$account_id = $_SESSION['account_id'];
+if (isset($_SESSION['account_id'])) {
+    $accountId = $_SESSION['account_id'];
 
-// Query to fetch cart details
-$query = "SELECT 
-          c.cart_id,
-          p.product_id,
-          p.name AS product_name,
-          p.current_price,
-          p.discount
-      FROM 
-          cart c
-      JOIN 
-          products p ON c.product_id = p.product_id
-      WHERE 
-          c.account_id = :account_id";  // Removed the semicolon from the query
+    // Query dengan account_id dari session
+    $query = "SELECT 
+                c.cart_id,
+                p.product_id,
+                p.name AS product_name,
+                p.current_price,
+                p.discount
+              FROM 
+                cart c
+              JOIN 
+                products p ON c.product_id = p.product_id
+              WHERE 
+                c.account_id = $accountId";
+    
+    // Eksekusi query
+    $result = oci_parse($conn, $query);
+    oci_execute($result);
 
-$stid = oci_parse($conn, $query);
-oci_bind_by_name($stid, ":account_id", $account_id);
-
-if (!oci_execute($stid)) {
-    $e = oci_error($stid);
-    echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
+    // Tampilkan data...
+} else {
+    echo "Echo Echo";
     exit;
-}
+}exit;
 
 // Display cart data as an HTML table
 echo "<h2>Your Cart</h2>";
