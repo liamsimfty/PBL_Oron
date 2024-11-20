@@ -2,6 +2,8 @@
 include '../connection/connection.php';   
 
 session_start();
+$isLoggedIn = isset($_SESSION['account_id']);
+$account_id = $_SESSION['account_id'];
 
 // Query to fetch cart details
 $query = "SELECT 
@@ -15,10 +17,11 @@ $query = "SELECT
       JOIN 
           products p ON c.product_id = p.product_id
       WHERE 
-          c.account_id = 23";  // Removed the semicolon from the query
+          c.account_id = :account_id";  // Removed the semicolon from the query
 
 $stid = oci_parse($conn, $query);
-    
+oci_bind_by_name($stid, ":account_id", $account_id);
+
 if (!oci_execute($stid)) {
     $e = oci_error($stid);
     echo "Error: " . htmlentities($e['message'], ENT_QUOTES);

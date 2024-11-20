@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Query to check if the username exists in the database
-    $query = "SELECT username, password FROM account WHERE username = :username";
+    $query = "SELECT username, password, account_id FROM account WHERE username = :username";
     $stid = oci_parse($conn, $query);
 
     // Bind the username to the query
@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['PASSWORD'])) {
             // Save username in session
             $_SESSION['username'] = $row['USERNAME'];
+            $_SESSION['account_id'] = $row['ACCOUNT_ID'];  
 
             // Redirect to dashboard or homepage
             header("Location: ../../dashboard.php");
