@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="products.php">Store</a>
+                        <a class="nav-link" href="features/store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Library</a>
@@ -38,7 +38,7 @@
                         <?php endif; ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cart.php">Cart</a>
+                        <a class="nav-link" href="features/cart/cart.php">Cart</a>
                     </li>
                 </ul>
             </div>
