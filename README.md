@@ -6,8 +6,8 @@ With the member of project :
 | ------------- | ------------- |
 | LiamsiMfty  | BackEnd Developer  |
 | KefasHutabarat  | FrontEnd Developer  |
-| Farhan Arya | UI UX |
-| Sulthan Isya | Tester |
+| Farhan Arya | UI UX Designer |
+| Sulthan Isya | Quality Assurance |
 
 ## ORON
 Your Gateway to Truly Independent Gaming
