@@ -5,7 +5,7 @@ With the member of project :
 | Member  | Roles |
 | ------------- | ------------- |
 | LiamsiMfty  | BackEnd Developer  |
-| KefasHutabarat  | Database Engginer  |
+| KefasHutabarat  | FrontEnd Developer  |
 | Farhan Arya | UI UX |
 | Sulthan Isya | Tester |
 
