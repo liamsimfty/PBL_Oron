@@ -1,7 +1,7 @@
 body {
     display: block;
     align-self: center;
-    background-image: url(blackmyth.png);
+    background-image: url(../assets/img/blackmyth.png);
     background-size: 100%;
     background-position: center;
 }

@@ -3,7 +3,7 @@ body {
     display: block;
     align-self: center;
     justify-content: center;
-    background: url(BG_Oron.png);
+    background: url("../assets/img/BG_Oron.png");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;

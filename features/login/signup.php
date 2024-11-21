@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="../../Styling/signup.css">
     <script>
         function validateForm(event) {
             const password = document.getElementById("password").value;
@@ -40,7 +41,7 @@
 
 <?php
 // Connect to Oracle database
-include 'connection.php';   
+include '../connection/connection.php';      
 
 // Function to generate mnemonic phrase
 function generateMnemonic() {
