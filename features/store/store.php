@@ -34,7 +34,7 @@
     session_start();
     $isLoggedIn = isset($_SESSION['username']);
 
-    $query = "SELECT name, current_price, discount FROM products";
+    $query = "SELECT product_id, name, current_price, discount FROM products";
     $result = oci_parse($conn, $query);
     
     if (!oci_execute($result)) {
@@ -84,11 +84,15 @@
                         echo '<h3>' . htmlspecialchars($row["NAME"]) . '</h3>';
                         if ($row["DISCOUNT"] > 0) {
                             $originalPrice = $row["CURRENT_PRICE"];
-                            $discountedPrice = $row["CURRENT_PRICE"] - ($row["CURRENT_PRICE"] * ($row["DISCOUNT"] / 100));
+                            $discountedPrice = $originalPrice - ($originalPrice * ($row["DISCOUNT"] / 100));
                             echo '<p><strike>$' . number_format($originalPrice, 2) . '</strike> -' . $row["DISCOUNT"] . '% = $' . number_format($discountedPrice, 2) . '</p>';
                         } else {
                             echo '<p>$' . number_format($row["CURRENT_PRICE"], 2) . '</p>';
                         }
+                        echo '<form method="POST" action="store.php">';
+                        echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
+                        echo '<button type="submit" class="btn btn-primary">View Product</button>';
+                        echo '</form>';
                         echo '</div>';
                     }
                     echo '</div>';
