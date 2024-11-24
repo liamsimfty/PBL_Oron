@@ -29,20 +29,26 @@
 </head>
 <body>
     <?php
-    include '../connection/connection.php';
-    // Start session
-    session_start();
-    $isLoggedIn = isset($_SESSION['username']);
+            include '../connection/connection.php';
+            // Start session
+            session_start();
+            $isLoggedIn = isset($_SESSION['username']);
 
-    $query = "SELECT product_id, name, current_price, discount FROM products";
-    $result = oci_parse($conn, $query);
-    
-    if (!oci_execute($result)) {
-        $e = oci_error($result);
-        echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
-        exit;
-    }
+            // Tangani pengiriman produk
+            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
+                $_SESSION["product_id"] = $_POST["product_id"];
+                header("Location: productpage.php");
+                exit();
+            }
 
+            $query = "SELECT product_id, name, current_price, discount FROM products"; // Tambahkan product_id
+            $result = oci_parse($conn, $query);
+
+            if (!oci_execute($result)) {
+                $e = oci_error($result);
+                echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
+                exit;
+            }
     ?>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -91,7 +97,7 @@
                         }
                         echo '<form method="POST" action="store.php">';
                         echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
-                        echo '<button type="submit" class="btn btn-primary">View Product</button>';
+                        echo '<button type="submit">View Product</button>';
                         echo '</form>';
                         echo '</div>';
                     }
