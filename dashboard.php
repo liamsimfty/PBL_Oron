@@ -28,7 +28,7 @@
                         <a class="nav-link" href="features/store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Library</a>
+                        <a class="nav-link" href="features/library/library.php">Library</a>
                     </li>
                     <li class="nav-item">
                         <?php if ($isLoggedIn): ?>
