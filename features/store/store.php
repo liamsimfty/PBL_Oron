@@ -59,20 +59,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="features/store/store.php">Store</a>
+                        <a class="nav-link" href="../store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Library</a>
                     </li>
                     <li class="nav-item">
                         <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="features/profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
                         <?php else: ?>
-                            <a class="nav-link" href="features/login/login.php">Profile</a>
+                            <a class="nav-link" href="../login/login.php">Profile</a>
                         <?php endif; ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="features/cart/cart.php">Cart</a>
+                        <a class="nav-link" href="../cart/cart.php">Cart</a>
                     </li>
                 </ul>
             </div>
@@ -89,8 +89,8 @@
                         echo '<h3>' . htmlspecialchars($row["NAME"]) . '</h3>';
                         if ($row["DISCOUNT"] > 0) {
                             $originalPrice = $row["CURRENT_PRICE"];
-                            $discountedPrice = $originalPrice - ($originalPrice * ($row["DISCOUNT"] / 100));
-                            echo '<p><strike>$' . number_format($originalPrice, 2) . '</strike> -' . $row["DISCOUNT"] . '% = $' . number_format($discountedPrice, 2) . '</p>';
+                            $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                            echo '<p><strike>$' . number_format($originalPrice, 2) . '</strike> -' . ($row["DISCOUNT"] * 100) . '% = $' . number_format($discountedPrice, 2) . '</p>';
                         } else {
                             echo '<p>$' . number_format($row["CURRENT_PRICE"], 2) . '</p>';
                         }

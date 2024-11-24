@@ -20,28 +20,54 @@ if (!$product) {
     exit();
 }
 
+$isLoggedIn = isset($_SESSION['username']);
 // Handle add to cart action
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    session_start();
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
+    if (!$isLoggedIn) {
+        // Redirect ke login jika belum login
+        header("Location: ../login/login.php");
+        exit();
     }
-    
-    // Add product to cart session
-    $_SESSION['cart'][] = [
-        'product_id' => $product['PRODUCT_ID'],
-        'name' => $product['NAME'],
-        'price' => $product['CURRENT_PRICE'] * (1 - $product['DISCOUNT']),
-        'quantity' => 1
-    ];
-    
-    // Redirect to cart page
-    header("Location: cart.php");
-    exit();
+
+    // Dapatkan account_id dari session
+    $accountId = $_SESSION['account_id'];
+
+    // Periksa apakah produk sudah ada di keranjang
+    $checkQuery = "SELECT COUNT(*) AS count FROM cart WHERE account_id = :account_id AND product_id = :product_id";
+    $checkStmt = oci_parse($conn, $checkQuery);
+    oci_bind_by_name($checkStmt, ":account_id", $accountId);
+    oci_bind_by_name($checkStmt, ":product_id", $product_id);
+    oci_execute($checkStmt);
+    $checkResult = oci_fetch_assoc($checkStmt);
+
+    if ($checkResult['COUNT'] > 0) {
+        // Produk sudah ada di keranjang
+        echo '<script language="javascript">';
+        echo 'alert("This product is already in your cart!");';
+        echo '</script>';
+    } else {
+        // Query untuk menambahkan ke tabel cart
+        $insertQuery = "INSERT INTO cart (account_id, product_id) VALUES (:account_id, :product_id)";
+        $insertStmt = oci_parse($conn, $insertQuery);
+        oci_bind_by_name($insertStmt, ":account_id", $accountId);
+        oci_bind_by_name($insertStmt, ":product_id", $product_id);
+
+        if (oci_execute($insertStmt)) {
+            echo '<script language="javascript">';
+            echo 'alert("Product successfully added to your cart!");';
+            echo '</script>';
+        } else {
+            $e = oci_error($insertStmt);
+            echo "<p>Error adding product to cart: " . htmlspecialchars($e['message']) . "</p>";
+        }
+
+        oci_free_statement($insertStmt);
+    }
+
+    oci_free_statement($checkStmt);
 }
 
-// Start session for login status
-$isLoggedIn = isset($_SESSION['username']);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,20 +89,20 @@ $isLoggedIn = isset($_SESSION['username']);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="features/store/store.php">Store</a>
+                        <a class="nav-link" href="../store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Library</a>
                     </li>
                     <li class="nav-item">
                         <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="features/profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
                         <?php else: ?>
-                            <a class="nav-link" href="features/login/login.php">Profile</a>
+                            <a class="nav-link" href="../login/login.php">Profile</a>
                         <?php endif; ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="features/cart/cart.php">Cart</a>
+                        <a class="nav-link" href="../cart/cart.php">Cart</a>
                     </li>
                 </ul>
             </div>
