@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
     .product-container {
         display: grid;
@@ -59,26 +59,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="store.php">Store</a>
+                        <a class="nav-link" href="features/store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Library</a>
                     </li>
                     <li class="nav-item">
                         <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                            <a class="nav-link" href="features/profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
                         <?php else: ?>
-                            <a class="nav-link" href="../login/login.php">Profile</a>
+                            <a class="nav-link" href="features/login/login.php">Profile</a>
                         <?php endif; ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.php">Cart</a>
+                        <a class="nav-link" href="features/cart/cart.php">Cart</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <input type="text" placeholder="Search.." style="display: block; margin: 0 auto; text-align: center;">
 
     <div class="container">
         <div class="row">
