@@ -6,7 +6,7 @@ if (!isset($_SESSION['account_id'])) {
     exit();
 }
 
-$accountId = $_SESSION['account_id'];
+$account_id = $_SESSION['account_id'];
 
 // Handle remove product
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_selected'])) {
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_selected'])) {
         foreach ($_POST['selected_products'] as $productToRemove) {
             $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
             $deleteproduct = oci_parse($conn, $deleteQuery);
-            oci_bind_by_name($deleteproduct, ":account_id", $accountId);
+            oci_bind_by_name($deleteproduct, ":account_id", $account_id);
             oci_bind_by_name($deleteproduct, ":product_id", $productToRemove);
             oci_execute($deleteproduct);
             oci_free_statement($deleteproduct);
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
     if (isset($_POST['selected_products'])) {
         foreach ($_POST['selected_products'] as $productToPay) {
             // Query untuk mendapatkan harga current_price
-            $priceQuery = "SELECT current_price FROM products WHERE product_id = :product_id";
+            $priceQuery = "SELECT current_price, product_id, discount name FROM products WHERE product_id = :product_id";
             $priceStmt = oci_parse($conn, $priceQuery);
             oci_bind_by_name($priceStmt, ":product_id", $productToPay);
             oci_execute($priceStmt);
@@ -39,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
             // Jika current_price = 0, langsung masukkan ke library
             if ($currentPrice == 0) {
                 // Cek apakah game sudah ada di library
-                $checkQuery = "SELECT COUNT(*) AS GAME_COUNT FROM library WHERE account_id = :account_id AND product_id = :product_id";
+                $checkQuery = "SELECT COUNT(*)  AS GAME_COUNT FROM library WHERE account_id = :account_id AND product_id = :product_id";
                 $checkStmt = oci_parse($conn, $checkQuery);
-                oci_bind_by_name($checkStmt, ":account_id", $accountId);
+                oci_bind_by_name($checkStmt, ":account_id", $account_id);
                 oci_bind_by_name($checkStmt, ":product_id", $productToPay);
                 oci_execute($checkStmt);
                 $row = oci_fetch_assoc($checkStmt);
@@ -55,20 +55,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
                                     VALUES (library_seq.NEXTVAL, :product_id, :account_id, SYSTIMESTAMP)";
                     $insertStmt = oci_parse($conn, $insertQuery);
                     oci_bind_by_name($insertStmt, ":product_id", $productToPay);
-                    oci_bind_by_name($insertStmt, ":account_id", $accountId);
+                    oci_bind_by_name($insertStmt, ":account_id", $account_id);
                     oci_execute($insertStmt);
                     oci_free_statement($insertStmt);
             
                     // Hapus dari keranjang
                     $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
                     $deleteStmt = oci_parse($conn, $deleteQuery);
-                    oci_bind_by_name($deleteStmt, ":account_id", $accountId);
+                    oci_bind_by_name($deleteStmt, ":account_id", $account_id);
                     oci_bind_by_name($deleteStmt, ":product_id", $productToPay);
                     oci_execute($deleteStmt);
                     oci_free_statement($deleteStmt);
             
                     echo '<script>alert("Free product added to your library.");</script>';
                 }
+            } else {
+                $priceQuery = "SELECT current_price, product_id, discount FROM products WHERE product_id = :product_id";
+                $priceStmt = oci_parse($conn, $priceQuery);
+                oci_bind_by_name($priceStmt, ":product_id", $productToPay);
+                oci_execute($priceStmt);
+                $priceRow = oci_fetch_assoc($priceStmt);
+                $currentPrice = $priceRow['CURRENT_PRICE'];
+                $discount = $priceRow['DISCOUNT'];
+                oci_free_statement($priceStmt);
+                
+                // Hitung total harga dengan diskon (dalam dollar)
+                $totalPrice = $currentPrice * (1 - $discount);
+                
+                // Tambahkan produk ke array payment_data
+                $_SESSION['payment_data'][] = [
+                    'product_id' => $productToPay,
+                    'total_price' => round($totalPrice, 2), // Bulatkan menjadi 2 desimal
+                    'transaction_id' => rand()
+                ];
+                header("Location: ../payments/process.php");
             }
         }
     } else {
@@ -91,7 +111,7 @@ $query = "SELECT
             c.account_id = :account_id";
 
 $stid = oci_parse($conn, $query);
-oci_bind_by_name($stid, ":account_id", $accountId);
+oci_bind_by_name($stid, ":account_id", $account_id);
 oci_execute($stid);
 
 echo '<h2>Your Cart</h2>';
