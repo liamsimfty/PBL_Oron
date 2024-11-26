@@ -1,11 +1,9 @@
 <?php
 namespace Midtrans;
+include '../connection/connection.php';   
 session_start();
-include '../connection/connection.php';
-
-$account_id = $_SESSION['account_id'];
-$username = $_SESSION['username'];
-//$paymentProducts = $_SESSION['payment_products'];
+$username = isset($_SESSION['username']);
+$account_id = isset($_SESSION['account_id']);
 // This is just for very basic implementation reference, in production, you should validate the incoming requests and implement your backend more securely.
 // Please refer to this docs for snap popup:
 // https://docs.midtrans.com/en/snap/integration-guide?id=integration-steps-overview
@@ -23,68 +21,32 @@ printExampleWarningMessage();
 // Uncomment for production environment
 // Config::$isProduction = true;
 Config::$isSanitized = Config::$is3ds = true;
-
-// Initialize the arrays to store the transaction and item details
-$transaction_details = array();
-$item_details = array();
-
-isset($_GET['transaction_id']);
-$transaction_id = $_GET['transaction_id'];
-
 $query = "
-    SELECT 
-        t.transaction_id, 
-        t.product_id, 
-        t.price_at_checkout AS final_price, 
-        p.name AS name
-    FROM transaction t
-    JOIN products p ON t.product_id = p.product_id
-    WHERE t.account_id = :account_id AND t.payment_status = 'pending'
+SELECT 
+    SUM(t.price_at_checkout) AS total_price
+FROM 
+    transaction t
+WHERE 
+    t.account_id = 62
 ";
-$stid = oci_parse($conn, $query);
-oci_bind_by_name($stid, ":account_id", $accountId);
-oci_execute($stid);
 
-// Initialize the arrays to store the transaction and item details
-$transaction_details = array();
-$item_details = array();
+$statement = oci_parse($conn, $query);
+oci_execute($statement);
 
-isset($_GET['transaction_id']);
-$transaction_id = $_GET['transaction_id'];
+$row = oci_fetch_assoc($statement);
 
-while (($row = oci_fetch_assoc($stid)) != false) {
-    $transaction_id = $row['TRANSACTION_ID'];
-    $finalprice = $row['FINAL_PRICE'];
-    $product_id = $row['PRODUCT_ID'];
-    $name = $row['NAME'];
+// Get the gross_amount from the query result
+$gross_amount = $row['TOTAL_PRICE'];
 
-    // Populate $transaction_details
-    $transaction_details = array(
-        'order_id' => $transaction_id,
-        'gross_amount' => $finalprice
-    );
-
-    // Populate $item_details
-    $item_details[] = array(
-        'id' => $product_id,
-        'price' => $finalprice * 100, // Convert to cents if needed
-        'quantity' => 1, // Assuming 1 item per product in the transaction
-        'name' => $name,
-    );
-}
-// Optional
-$customer_details = array(
-    'name'    => $username,
-    'account_id' => $account_id
+// Prepare transaction details
+$transaction_details = array(
+    'order_id' => rand(),
+    'gross_amount' => $gross_amount * 100, // Total price for all transactions
 );
 
-// Fill transaction details
 $transaction = array(
     'transaction_details' => $transaction_details,
-    'customer_details' => $customer_details,
-    'item_details' => $item_details,
 );
-
 $snap_token = '';
 try {
     $snap_token = Snap::getSnapToken($transaction);

@@ -3,8 +3,7 @@ session_start();
 include '../connection/connection.php';
 
 $account_id = $_SESSION['account_id'];
-$paymentProducts = $_SESSION['payment_data']; // Sekarang ini harusnya array dari produk
-
+$paymentProducts = $_SESSION['payment_data'];
 try {
     // Loop untuk setiap produk
     foreach ($paymentProducts as $product) {
@@ -60,4 +59,6 @@ try {
     // Tangani error
     echo "Error: " . $e->getMessage();
 }
+unset($_SESSION['payment_data']);
+header("Location:payment.php");
 ?>
