@@ -89,6 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
                     'transaction_id' => rand()
                 ];
                 header("Location: ../payments/process.php");
+
+                $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
+                $deleteStmt = oci_parse($conn, $deleteQuery);
+                oci_bind_by_name($deleteStmt, ":account_id", $account_id);
+                oci_bind_by_name($deleteStmt, ":product_id", $productToPay);
+                oci_execute($deleteStmt);
+                oci_free_statement($deleteStmt);
             }
         }
     } else {
