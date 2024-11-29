@@ -4,8 +4,8 @@ Is a Group project with combined 4 subject
 With the member of project :
 | Member  | Roles |
 | ------------- | ------------- |
-| LiamsiMfty  | BackEnd Developer  |
-| KefasHutabarat  | FrontEnd Developer  |
+| liamsimfty  | BackEnd Developer  |
+| Kefas Hutabarat  | FrontEnd Developer  |
 | Farhan Arya | UI UX Designer |
 | Sulthan Isya | Quality Assurance |
 
