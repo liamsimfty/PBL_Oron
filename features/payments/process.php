@@ -4,10 +4,10 @@ include '../connection/connection.php';
 
 $account_id = $_SESSION['account_id'];
 $paymentProducts = $_SESSION['payment_data'];
-$transaction_id = rand();        
 try {
     // Loop untuk setiap produk
     foreach ($paymentProducts as $product) {
+    $transaction_id = rand();        
     $insertQuery = "INSERT INTO transaction (
             transaction_id, 
             account_id, 
@@ -56,5 +56,5 @@ try {
     echo "Error: " . $e->getMessage();
 }
 unset($_SESSION['payment_data']);
-header("Location:payment.php?transaction_id=$transaction_id");
+header("Location:payment.php");
 ?>

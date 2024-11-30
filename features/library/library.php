@@ -23,20 +23,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="features/store/store.php">Store</a>
+                        <a class="nav-link" href="../store/store.php">Store</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="features/library/library.php">Library</a>
+                        <a class="nav-link" href="../library/library.php">Library</a>
                     </li>
                     <li class="nav-item">
                         <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="features/profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
                         <?php else: ?>
-                            <a class="nav-link" href="features/login/login.php">Profile</a>
+                            <a class="nav-link" href="../login/login.php">Profile</a>
                         <?php endif; ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="features/cart/cart.php">Cart</a>
+                        <a class="nav-link" href="../cart/cart.php">Cart</a>
                     </li>
                 </ul>
             </div>
