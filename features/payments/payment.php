@@ -14,7 +14,6 @@ Config::$clientKey = 'SB-Mid-client-FdXCfowRdFheZ1z6';
 // Uncomment for production environment
 // Config::$isProduction = true;
 Config::$isSanitized = Config::$is3ds = true;
-$order_id = $_GET['transaction_id'];
 // Query to fetch total price
 $query = "
 SELECT 
@@ -42,7 +41,7 @@ if ($gross_amount <= 0) {
 
 // Prepare transaction details
 $transaction_details = array(
-    'order_id' => $order_id,
+    'order_id' => $account_id,
     'gross_amount' => $gross_amount
 );
 
