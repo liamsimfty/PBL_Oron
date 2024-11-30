@@ -5,7 +5,7 @@ if (!isset($_SESSION['account_id'])) {
     echo "<p>You need to log in to view your cart.</p>";
     exit();
 }
-
+$isLoggedIn = isset($_SESSION['username']);
 $account_id = $_SESSION['account_id'];
 
 // Handle remove product
@@ -103,6 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
     }
 }
 
+$cart_items = [];
+$totalPrice = 0;
+
 // Query untuk mendapatkan data keranjang
 $query = "SELECT 
             c.cart_id,
@@ -121,61 +124,110 @@ $stid = oci_parse($conn, $query);
 oci_bind_by_name($stid, ":account_id", $account_id);
 oci_execute($stid);
 
-echo '<h2>Your Cart</h2>';
-
-echo '<form method="POST">';
-echo '<table border="1" cellpadding="10">';
-echo '<tr>
-        <th>Select</th>
-        <th>Product Name</th>
-        <th>Current Price</th>
-        <th>Discount</th>
-        <th>Final Price</th>
-      </tr>';
-
-$totalPrice = 0;
+// Simpan data keranjang ke array
 while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
     $finalPrice = $row['CURRENT_PRICE'] - ($row['CURRENT_PRICE'] * ($row['DISCOUNT']));
     $totalPrice += $finalPrice;
 
-    echo '<tr>';
-    echo '<td><input type="checkbox" name="selected_products[]" value="' . htmlspecialchars($row['PRODUCT_ID']) . '"></td>';
-    echo '<td>' . htmlspecialchars($row['PRODUCT_NAME']) . '</td>';
-    echo '<td>$' . number_format($row['CURRENT_PRICE'], 2) . '</td>';
-    echo '<td>' . htmlspecialchars($row['DISCOUNT'] * 100) . '%</td>';
-    echo '<td>$' . number_format($finalPrice, 2) . '</td>';
-    echo '</tr>';
+    $cart_items[] = [
+        'cart_id' => $row['CART_ID'],
+        'product_id' => $row['PRODUCT_ID'],
+        'product_name' => $row['PRODUCT_NAME'],
+        'current_price' => $row['CURRENT_PRICE'],
+        'discount' => $row['DISCOUNT'],
+        'final_price' => $finalPrice
+    ];
 }
-echo '</table>';
-
-// Tombol untuk menghapus produk yang dipilih
-echo '<button type="submit" name="remove_selected">Remove Selected</button>';
-
-// Tombol untuk memproses pembayaran
-echo '<button type="submit" name="process_payment">Process Payment</button>';
-
-// Tombol untuk menghitung total harga berdasarkan produk yang dipilih
-echo '<button type="button" onclick="calculateTotal()">Calculate Total</button>';
-echo '</form>';
 
 oci_free_statement($stid);
 oci_close($conn);
 ?>
-<!-- Tambahkan Total Harga -->
-<h3>Total Price: $<span id="total-price">0.00</span></h3>
 
-<script>
-function calculateTotal() {
-    let checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
-    let rows = document.querySelectorAll('table tr');
-    let total = 0;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+    function calculateTotal() {
+        // Ambil semua checkbox yang dipilih
+        var checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
+        var total = 0;
 
-    checkboxes.forEach(checkbox => {
-        let row = checkbox.closest('tr');
-        let finalPrice = parseFloat(row.cells[4].innerText.replace('$', ''));
-        total += finalPrice;
-    });
+        checkboxes.forEach(function(checkbox) {
+            // Temukan baris terkait dan ambil harga akhir
+            var row = checkbox.closest('tr');
+            var finalPrice = parseFloat(row.querySelector('td:last-child').textContent.replace('$', ''));
+            total += finalPrice;
+        });
 
-    document.getElementById('total-price').innerText = total.toFixed(2);
-}
-</script>
+        alert('Total harga produk yang dipilih: $' + total.toFixed(2));
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">ORON</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../store/store.php">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../library/library.php">Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <?php if ($isLoggedIn): ?>
+                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                        <?php else: ?>
+                            <a class="nav-link" href="../login/login.php">Profile</a>
+                        <?php endif; ?>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../cart/cart.php">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+    <h2>Your Cart</h2>
+
+    <form method="POST" action="process_cart.php">
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>Select</th>
+                <th>Product Name</th>
+                <th>Current Price</th>
+                <th>Discount</th>
+                <th>Final Price</th>
+            </tr>
+            <?php foreach($cart_items as $item): ?>
+            <tr>
+                <td>
+                    <input type="checkbox" name="selected_products[]" 
+                           value="<?= htmlspecialchars($item['product_id']) ?>">
+                </td>
+                <td><?= htmlspecialchars($item['product_name']) ?></td>
+                <td>$<?= number_format($item['current_price'], 2) ?></td>
+                <td><?= htmlspecialchars($item['discount'] * 100) ?>%</td>
+                <td>$<?= number_format($item['final_price'], 2) ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <div>
+            <strong>Total Harga: $<?= number_format($totalPrice, 2) ?></strong>
+        </div>
+
+        <button type="submit" name="remove_selected">Remove Selected</button>
+        <button type="submit" name="process_payment">Process Payment</button>
+        <button type="button" onclick="calculateTotal()">Calculate Total</button>
+    </form>
+</body>
+</html>
