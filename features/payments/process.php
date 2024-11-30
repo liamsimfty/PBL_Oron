@@ -4,23 +4,21 @@ include '../connection/connection.php';
 
 $account_id = $_SESSION['account_id'];
 $paymentProducts = $_SESSION['payment_data'];
+$transaction_id = rand();        
 try {
     // Loop untuk setiap produk
     foreach ($paymentProducts as $product) {
-        // Query untuk menyimpan transaksi
-        $insertQuery = "INSERT INTO transaction (
+    $insertQuery = "INSERT INTO transaction (
             transaction_id, 
             account_id, 
             product_id, 
             payment_status, 
-            payment_gateway, 
             price_at_checkout
         ) VALUES (
-            :transaction_id, 
+            $transaction_id, 
             :account_id, 
             :product_id, 
             :payment_status, 
-            :payment_gateway, 
             :price_at_checkout
         )";
 
@@ -34,9 +32,7 @@ try {
         
         // Default values sesuai definisi tabel
         $payment_status = 'pending';
-        $payment_gateway = 'midtrans';
         oci_bind_by_name($insertStmt, ":payment_status", $payment_status);
-        oci_bind_by_name($insertStmt, ":payment_gateway", $payment_gateway);
         oci_bind_by_name($insertStmt, ":price_at_checkout", $product['total_price']);
 
         // Eksekusi query
@@ -60,5 +56,5 @@ try {
     echo "Error: " . $e->getMessage();
 }
 unset($_SESSION['payment_data']);
-header("Location:payment.php");
+header("Location:payment.php?transaction_id=$transaction_id");
 ?>
