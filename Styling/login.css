@@ -40,7 +40,7 @@ button {
   color: #3d0063;
   padding: 10px 20px;
   border: none;
-  border-radius: 30px;
+  -o-border-radius: 30px;
   cursor: pointer;
   margin-top: 5px;
   width: 320px;
@@ -48,7 +48,7 @@ button {
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  border-radius: 30px;
 }
 
 .form-group label {
