@@ -5,9 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="../../Styling/login.css">
 </head>
 <body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Login Form</h1>
+        <form method="POST" action="login.php" class="form-group">
+            <label for="username" class="ss">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
 
+<<<<<<< HEAD
 <div class="overlay"></div>
 <div class="container">
 <h1>Welcome To Oron</h1>
@@ -32,8 +40,22 @@
         </div>
     </form>
 </div>
+=======
+            <label for="password" class="ss">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <button type="submit" class="login">Login</button><br>
+            <p class="or-login ss">or</p>
+            <div class="social-icons">
+                <a href="recovery.php" class="link">Forgot Password</a> |
+                <a href="signup.php" class="link">Sign Up</a>
+            </div>
+        </form>
+    </div>
+>>>>>>> 0b6d58798b5eaf9694d694c84f9bfb5742df91a1
 </body>
 </html>
+
 
 <?php
 // Start session
