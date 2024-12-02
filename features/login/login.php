@@ -4,27 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../../Styling/login.css">
+    <link rel="stylesheet" href="../../Styling/css/login.css">
 </head>
 <body>
-    <div class="overlay"></div>
-    <div class="container">
-        <h1>Login Form</h1>
-        <form method="POST" action="login.php" class="form-group">
-            <label for="username" class="ss">Username:</label><br>
-            <input type="text" id="username" name="username" required><br><br>
-
-            <label for="password" class="ss">Password:</label><br>
-            <input type="password" id="password" name="password" required><br><br>
-
-            <button type="submit" class="login">Login</button><br>
-            <p class="or-login ss">or</p>
-            <div class="social-icons">
-                <a href="recovery.php" class="link">Forgot Password</a> |
-                <a href="signup.php" class="link">Sign Up</a>
-            </div>
-        </form>
-    </div>
+<div class="overlay"></div>
+<div class="container">
+<h1>Welcome To Oron</h1>
+    
+    <form method="POST" action="login.php">
+        <div class="form-group">
+            <p for="username" class="ss">Username</p>
+            <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+        </div>
+        <div class="form-group">
+            <p for="password" class="ss">Password</p>
+            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+        </div>
+        <div class="form-group">
+            <input class="login " type="submit" value="Login">
+        </div>
+        <div class="form-group">
+            <a href="recovery.php"   class="link">Forgot Password</a>
+        </div>
+        <div class="form-group">
+            <a href="signup.php"   class="link">Dont Have Account?</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>
 
