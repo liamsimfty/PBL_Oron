@@ -25,20 +25,27 @@
 <div class="overlay"></div>
 <div class="container">
   <h1>Create Account</h1>
-  <div class="form-group">
-    <p class="ss">Username</p>
-    <input type="text" placeholder="Username" />
-  </div>
-  <div class="form-group">
-    <p class="ss">Password</p>
-    <input type="password" placeholder="Password" />
-  </div>
-  <div class="form-group">
-    <p class="ss">Confirm Password</p>
-    <input type="password" placeholder="Password" />
-  </div>
-  <button class="su">Sign up</button>
+  
+  <form method="POST" action="signup.php" onsubmit="return validateForm(event)">
+    <div class="form-group">
+      <p class="ss">Username</p>
+      <input type="text" id="username" name="username" placeholder="Username" required>
+    </div>
+    
+    <div class="form-group">
+      <p class="ss">Password</p>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    
+    <div class="form-group">
+      <p class="ss">Confirm Password</p>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+    </div>
+    
+    <button class="su" type="submit">Sign up</button>
+  </form>
 </div>
+
 </body>
 </html>
 
