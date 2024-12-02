@@ -4,7 +4,6 @@ include '../connection/connection.php';
 session_start();
 $username = $_SESSION['username'];
 $account_id = $_SESSION['account_id'];
-$transaction_date = $_SESSION['transaction_date'];
 
 require_once dirname(__FILE__) . '/../../vendor/midtrans/midtrans-php/Midtrans.php';
 
@@ -57,24 +56,17 @@ JOIN
     transaction t ON p.product_id = t.product_id
 WHERE 
     t.account_id = :account_id
-    AND TO_CHAR(t.transaction_date, 'YYYY-MM-DD HH24:MI:SS') = :transaction_date
 ";
 
 $statement_items = oci_parse($conn, $query_items);
-
-// Bind parameter account_id dan transaction_date
 oci_bind_by_name($statement_items, ":account_id", $account_id);
-oci_bind_by_name($statement_items, ":transaction_date", $transaction_date);
-
-// Eksekusi query
 oci_execute($statement_items);
 
-// Ambil hasil query
 $item_details = [];
 while ($item_row = oci_fetch_assoc($statement_items)) {
     $item_details[] = array(
         'id' => $item_row['PRODUCT_ID'],
-        'price' => $item_row['PRICE_AT_CHECKOUT'] * 100, // Konversi ke format Midtrans
+        'price' => $item_row['PRICE_AT_CHECKOUT'] * 100,
         'quantity' => 1,
         'name' => $item_row['NAME'],
     );
@@ -94,28 +86,11 @@ $transaction = array(
 $snap_token = '';
 try {
     $snap_token = Snap::getSnapToken($transaction);
-
-    $updateQuery = "
-    UPDATE transaction
-    SET token = :snap_token
-    WHERE account_id = :account_id
-    AND TO_CHAR(transaction_date, 'YYYY-MM-DD HH24:MI:SS') = :transaction_date
-    ";
-
-    $updateStmt = oci_parse($conn, $updateQuery);
-
-    oci_bind_by_name($updateStmt, ":snap_token", $snap_token);
-    oci_bind_by_name($updateStmt, ":account_id", $account_id);
-    oci_bind_by_name($updateStmt, ":transaction_date", $_SESSION['transaction_date']);
-
-    $result = oci_execute($updateStmt);
-    unset($_SESSION['transaction_date']);
-
-} catch (\Exception $e) {
-    echo "Error generating snap token: " . $e->getMessage() . "<br>";
 }
-
-echo "snapToken = " . $snap_token;
+catch (\Exception $e) {
+    echo $e->getMessage();
+}
+echo "snapToken = ".$snap_token;
 
 function printExampleWarningMessage() {
     if (strpos(Config::$serverKey, 'your ') != false ) {
