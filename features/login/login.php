@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../../Styling/css/login.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
 
-<h2>Login Form</h2>
-
-<form method="POST" action="login.php">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
+<div class="overlay"></div>
+<div class="container">
+<h1>Welcome To Oron</h1>
     
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    
-    <input type="submit" value="Login">
-    <a href="recovery.php"   class="button">Forgot Password</a>
-    <a href="signup.php"   class="button">Dont Have Account?</a>
-</form>
-
+    <form method="POST" action="login.php">
+        <div class="form-group">
+            <p for="username" class="ss">Username</p>
+            <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+        </div>
+        <div class="form-group">
+            <p for="password" class="ss">Password</p>
+            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+        </div>
+        <div class="form-group">
+            <input class="login " type="submit" value="Login">
+        </div>
+        <div class="form-group">
+            <a href="recovery.php"   class="link">Forgot Password</a>
+        </div>
+        <div class="form-group">
+            <a href="signup.php"   class="link">Dont Have Account?</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>
 
