@@ -5,28 +5,38 @@ include '../connection/connection.php';
 $account_id = $_SESSION['account_id'];
 $paymentProducts = $_SESSION['payment_data'];
 try {
+    // Deklarasikan variabel untuk menyimpan transaction_date
+    $transaction_date = null;
+
     // Loop untuk setiap produk
     foreach ($paymentProducts as $product) {
-    $transaction_id = rand();        
-    $insertQuery = "INSERT INTO transaction (
-            transaction_id, 
-            account_id, 
-            product_id, 
-            payment_status, 
-            price_at_checkout
-        ) VALUES (
-            $transaction_id, 
-            :account_id, 
-            :product_id, 
-            :payment_status, 
-            :price_at_checkout
-        )";
+        $transaction_id = rand();
+        
+        // Dapatkan waktu transaksi (gunakan fungsi date() untuk waktu saat ini)
+        if ($transaction_date === null) {
+            $transaction_date = date('Y-m-d H:i:s'); // Format: YYYY-MM-DD HH:MM:SS
+        }
+
+        $insertQuery = "INSERT INTO transaction (
+                transaction_id, 
+                account_id, 
+                product_id, 
+                payment_status, 
+                price_at_checkout,
+                transaction_date
+            ) VALUES (
+                $transaction_id, 
+                :account_id, 
+                :product_id, 
+                :payment_status, 
+                :price_at_checkout,
+                TO_TIMESTAMP(:transaction_date, 'YYYY-MM-DD HH24:MI:SS')
+            )";
 
         // Persiapkan statement
         $insertStmt = oci_parse($conn, $insertQuery);
 
         // Bind parameter
-        oci_bind_by_name($insertStmt, ":transaction_id", $product['transaction_id']);
         oci_bind_by_name($insertStmt, ":account_id", $account_id);
         oci_bind_by_name($insertStmt, ":product_id", $product['product_id']);
         
@@ -34,21 +44,17 @@ try {
         $payment_status = 'pending';
         oci_bind_by_name($insertStmt, ":payment_status", $payment_status);
         oci_bind_by_name($insertStmt, ":price_at_checkout", $product['total_price']);
+        oci_bind_by_name($insertStmt, ":transaction_date", $transaction_date);
 
         // Eksekusi query
         $result = oci_execute($insertStmt);
 
-        if ($result) {
-            // Transaksi berhasil disimpan untuk produk ini
-            echo "Transaksi berhasil dibuat untuk produk: " . $product['product_id'] . "<br>";
-        } else {
-            // Gagal menyimpan transaksi
-            $error = oci_error($insertStmt);
-            echo "Gagal membuat transaksi untuk produk: " . $product['product_id'] . " - " . $error['message'] . "<br>";
-        }
-
         // Bebaskan statement
         oci_free_statement($insertStmt);
+    }
+
+    if ($transaction_date) {
+        $_SESSION['transaction_date'] = $transaction_date;
     }
 
 } catch (Exception $e) {
