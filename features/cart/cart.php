@@ -150,20 +150,17 @@ oci_close($conn);
     <title>Your Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
-    function calculateTotal() {
-        // Ambil semua checkbox yang dipilih
-        var checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
-        var total = 0;
-
-        checkboxes.forEach(function(checkbox) {
-            // Temukan baris terkait dan ambil harga akhir
-            var row = checkbox.closest('tr');
-            var finalPrice = parseFloat(row.querySelector('td:last-child').textContent.replace('$', ''));
-            total += finalPrice;
-        });
-
-        alert('Total harga produk yang dipilih: $' + total.toFixed(2));
-    }
+        function calculateTotal() {
+            let checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
+            let rows = document.querySelectorAll('table tr');
+            let total = 0;
+            checkboxes.forEach(checkbox => {
+                let row = checkbox.closest('tr');
+                let finalPrice = parseFloat(row.cells[4].innerText.replace('$', ''));
+                total += finalPrice;
+            });
+            document.getElementById('total-price').innerText = total.toFixed(2);
+        }
     </script>
 </head>
 <body>
@@ -198,8 +195,8 @@ oci_close($conn);
     <div>
     <h2>Your Cart</h2>
 
-    <form method="POST" action="process_cart.php">
-        <table border="1" cellpadding="10">
+    <form method="POST">
+        <table border="1" cellpadding="5">
             <tr>
                 <th>Select</th>
                 <th>Product Name</th>
@@ -222,12 +219,13 @@ oci_close($conn);
         </table>
 
         <div>
-            <strong>Total Harga: $<?= number_format($totalPrice, 2) ?></strong>
+            <strong>Total Price: $<span id="total-price">0.00</span></strong>
         </div>
 
         <button type="submit" name="remove_selected">Remove Selected</button>
         <button type="submit" name="process_payment">Process Payment</button>
         <button type="button" onclick="calculateTotal()">Calculate Total</button>
+        <a href="../history/transaction.php" class="button">See Transaction History</a>    
     </form>
 </body>
 </html>
