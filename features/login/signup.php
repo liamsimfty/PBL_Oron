@@ -18,24 +18,27 @@
             return true;
         }
     </script>
+    <link rel="stylesheet" href="../../Styling/css/sg.css"
 </head>
 <body>
 
-<h2>Signup Form</h2>
-
-<form method="POST" action="signup.php" onsubmit="return validateForm(event)">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    
-    <label for="confirm_password">Confirm Password:</label>
-    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-    
-    <input type="submit" value="Signup">
-</form>
-
+<div class="overlay"></div>
+<div class="container">
+  <h1>Create Account</h1>
+  <div class="form-group">
+    <p class="ss">Username</p>
+    <input type="text" placeholder="Username" />
+  </div>
+  <div class="form-group">
+    <p class="ss">Password</p>
+    <input type="password" placeholder="Password" />
+  </div>
+  <div class="form-group">
+    <p class="ss">Confirm Password</p>
+    <input type="password" placeholder="Password" />
+  </div>
+  <button class="su">Sign up</button>
+</div>
 </body>
 </html>
 

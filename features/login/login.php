@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../../Styling/css/login.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
@@ -14,6 +15,32 @@
             <label for="username" class="ss">Username:</label><br>
             <input type="text" id="username" name="username" required><br><br>
 
+<<<<<<< HEAD
+<div class="overlay"></div>
+<div class="container">
+<h1>Welcome To Oron</h1>
+    
+    <form method="POST" action="login.php">
+        <div class="form-group">
+            <p for="username" class="ss">Username</p>
+            <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+        </div>
+        <div class="form-group">
+            <p for="password" class="ss">Password</p>
+            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+        </div>
+        <div class="form-group">
+            <input class="login " type="submit" value="Login">
+        </div>
+        <div class="form-group">
+            <a href="recovery.php"   class="link">Forgot Password</a>
+        </div>
+        <div class="form-group">
+            <a href="signup.php"   class="link">Dont Have Account?</a>
+        </div>
+    </form>
+</div>
+=======
             <label for="password" class="ss">Password:</label><br>
             <input type="password" id="password" name="password" required><br><br>
 
@@ -25,6 +52,7 @@
             </div>
         </form>
     </div>
+>>>>>>> 0b6d58798b5eaf9694d694c84f9bfb5742df91a1
 </body>
 </html>
 
