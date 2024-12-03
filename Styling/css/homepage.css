@@ -4,7 +4,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #6c3483;
   background-color: #6c3483;
-  background-image: url('assets/images/hero-bg.png'); /* Background gambar di seluruh halaman */
+  background-image: url('../images/hero-bg.png'); /* Background gambar di seluruh halaman */
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Agar gambar tetap saat scroll */
@@ -17,8 +17,9 @@ body {
   align-items: center;
   padding: 20px 20px;
   background-color: #6c3483;
+  width: 100%;
   position: relative; /* Pastikan navbar tetap di atas konten lain */
-  z-index: 10; /* Navbar tetap di atas */
+  z-index: 1; /* Navbar tetap di atas */
 }
 
 .menu {

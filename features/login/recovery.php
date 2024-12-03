@@ -60,9 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Recovery</title>
+    <link rel="stylesheet" href="../../Styling/css/recovery.css"
 </head>
 <body>
+<div class="overlay"></div>
     <div class="container">
         <h2>Account Recovery</h2>
         
@@ -83,13 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST" action="">
                 <input type="hidden" name="action" value="verify_mnemonic">
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <p for="username" class="ss">Username</p>
+                    <input type="text" id="username" name="username" required><br><br>
                 </div>
                 <div class="form-group">
-                    <label for="mnemonic">Enter your 12-word Recovery Phrase (in correct order):</label>
+                    <p for="mnemonic" class="ss">Enter your 12-word Recovery Phrase (in correct order):</p>
                     <textarea id="mnemonic" name="mnemonic" required 
-                              placeholder="Enter your 12 words separated by spaces"></textarea>
+                              placeholder="Enter your 12 words separated by spaces"></textarea><br><br>
                 </div>
                 <button type="submit" class="button">Verify Recovery Phrase</button>
             </form>
@@ -100,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST" action="">
                 <input type="hidden" name="action" value="reset_password">
                 <div class="form-group">
-                    <label for="new_password">New Password:</label>
+                    <p for="new_password" class="ss">New Password</p>
                     <input type="password" id="new_password" name="new_password" required>
                 </div>
                 <div class="form-group">
