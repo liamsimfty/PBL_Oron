@@ -9,8 +9,8 @@ $transaction_date = $_SESSION['transaction_date'];
 require_once dirname(__FILE__) . '/../../vendor/midtrans/midtrans-php/Midtrans.php';
 
 // Set Your server key
-Config::$serverKey = 'SB-Mid-server-Uq1HNq-vNEmFST7AKmQf5ofo';
-Config::$clientKey = 'SB-Mid-client-FdXCfowRdFheZ1z6';
+Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
+Config::$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];
 
 // Uncomment for production environment
 // Config::$isProduction = true;
