@@ -1,392 +1,127 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 /* Global Styles */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #6c3483;
-  background-color: #6c3483;
-  background-image: url('../images/hero-bg.png'); /* Background gambar di seluruh halaman */
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Agar gambar tetap saat scroll */
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 20px;
-  background-color: #6c3483;
-  width: 100%;
-  position: relative; /* Pastikan navbar tetap di atas konten lain */
-  z-index: 1; /* Navbar tetap di atas */
-}
-
-.menu {
-  display: flex;
-  gap: 20px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-}
-
-.logo-img {
-  width: 30px;
-  height: auto;
-  transition: filter 0.3s ease;
-}
-
-.logo-text {
-  font-size: 24px;
-  color: #fff;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.logo:hover .logo-img,
-.logo:hover .logo-text {
-  color: #FFFB00;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #fff;
-  margin: 0 15px;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-  color: #FFFB00;
-}
-
-/* Hero Section */
-.hero {
-  padding: 20px;
-  text-align: center;
-  position: absolute; /* Menggunakan absolute agar teks di dalam hero tetap berada di atas gambar */
-  z-index: 2; /* Memastikan konten hero tetap di atas gambar */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 80px; /* Memberikan jarak dari navbar */
-}
-
-.btncover {
-  padding: 12px 30px;
-  background-color: #FFFB00;
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-  display: block; /* Mengubah menjadi block untuk bisa menggunakan margin auto */
-  margin: 50px auto 0; /* Margin otomatis untuk center horizontal, dan jarak atas 50px */
-  transform: translatex(-645px);
-  transform: translateY(110);
-}
-
-.btncover:hover {
-  background-color: #ffffff;
-  transform: translatex(-645px); /* Memberikan efek angkat saat hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
-}
-
-
-/* Hero content */
-.hero-content {
-  z-index: 2;
-  position: relative; /* Agar tetap berada di atas gambar dan section hero */
-}
-
-.hero-logo {
-  width: 450px; /* Sesuaikan ukuran logo sesuai kebutuhan */
-  height: auto; /* Membuat gambar menyesuaikan rasio asli */
-  margin-top: 0; /* Menghilangkan margin-top yang menutup navbar */
-  position: relative;
-  top: 200px; 
-  margin-right: 1000px;
-}
-
-.hero p {
-  font-size: 20px;
-  margin: 10px 0;
-  font-weight: 300;
-  text-align: left;
-  position: relative;
-  top: 200px; 
-  margin-left: 35px;
+  background-color: #2c0236;
   color: white;
 }
 
-/* Menambahkan gambar di luar section hero */
-.background-container {
-  position: relative;
-  width: 100%;
-  height: 400px; /* Ukuran gambar, sesuaikan dengan desain */
-}
+/* Header Container */
 
-.background-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Memastikan gambar menutupi area */
-}
-
-
-/* Button */
-.btn {
-  padding: 12px 30px;
-  background-color: #FFFB00;
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-  display: block; /* Mengubah menjadi block untuk bisa menggunakan margin auto */
-  margin: 50px auto 0; /* Margin otomatis untuk center horizontal, dan jarak atas 50px */
-}
-
-.btn:hover {
-  background-color: #ffffff;
-  transform: translateY(-4px); /* Memberikan efek angkat saat hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
-}
-
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .navbar {
-      flex-direction: column;
-      padding: 10px 20px;
-  }
-
-  .navbar a {
-      margin: 10px 0;
-  }
-
-  .hero h1 {
-      font-size: 40px;
-  }
-
-  .hero p {
-      font-size: 16px;
-  }
-}
-
-/* Best Seller Section */
-.best-seller,
-.recommendation {
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #6c3483;
-  margin: 40px 0;
-  min-height: 300px; /* Berikan tinggi minimum */
-}
-
-.best-seller h2,
-.recommendation h2 {
-  color: #ffffff;
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.games-container {
+.header-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: rgba(44, 2, 54, 0.8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand Logo Container */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antara logo dan teks */
+}
+
+/* Logo Image */
+.brand-logo img {
+  width: 30px; /* Ukuran logo */
+  height: 30px;
+  object-fit: contain; /* Sesuaikan gambar dengan proporsi aslinya */
+}
+
+/* Header Title */
+.brand-logo h1 {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Navigation Links */
+header nav ul {
+  list-style: none;
+  display: flex;
   gap: 50px;
-  flex-wrap: wrap;
+  position: relative;
+  left: 0;
 }
 
-.game-card {
-  background: white;
-  color: #000;
-  border-radius: 8px;
-  padding: 20px;
-  width: 200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-}
-
-.game-card:hover {
-  transform: scale(1.05);
-}
-
-.game-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.best-seller,
-.recommendation {
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #6c3483;
-  margin: 40px 0;
-  min-height: 300px; /* Berikan tinggi minimum */
-}
-
-.best-seller h2,
-.recommendation h2{
-  color: #ffffff;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.games-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.game-card {
-  background: white;
-  color: #000;
-  border-radius: 8px;
-  padding: 20px;
-  width: 200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-}
-
-.game-card:hover{
-  transform: scale(1.05);
-}
-
-.game-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.btnrec {
-  padding: 30px 70px;
-  background-color: #FFFB00;
-  color: #000;
-  border: none;
-  border-radius: 30px;
+/* Link Items */
+header nav ul li a {
+  color: white;
+  text-decoration: none;
   font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-  display: block; /* Mengubah menjadi block untuk bisa menggunakan margin auto */
-  margin: 70px auto 0; /* Margin otomatis untuk center horizontal, dan jarak atas 50px */
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.btnrec:hover {
-  background-color: #ffffff;
-  transform: translateY(-4px); /* Memberikan efek angkat saat hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+/* Hover Effect */
+.header-container a:hover {
+  color: #fdda00;
 }
 
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .header-container {
+      flex-direction: column;
+      padding: 15px;
+  }
 
-/* Gaya untuk gambar tambahan */
-.additional-image {
-  margin-top: 30px; /* Jarak antara tombol dan gambar */
-  text-align: center; /* Memastikan gambar ada di tengah */
+  header nav ul {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .brand-logo {
+      margin-bottom: 15px;
+  }
 }
 
-.additional-image img {
-  width: 500%; /* Atur lebar gambar sesuai kebutuhan */
-  max-width: 1520px; /* Maksimum lebar gambar */
-  height: auto; /* Menjaga rasio gambar */
-  transform: translateY(-170px);
-}
-
-/* Blog Section */
-.blog-container {
-  display: flex;
-  flex-wrap: wrap; /* Membuat elemen dapat berpindah ke baris baru */
-  justify-content: center; /* Elemen rata tengah */
-  gap: 20px; /* Jarak antar card */
-  align-items: flex-start; /* Pastikan elemen sejajar ke atas */
-}
-
-.blog-card {
-  display: flex; /* Mengatur card sebagai flex container */
-  flex-direction: row; /* Elemen dalam card sejajar horizontal */
-  background: white;
-  color: #000;
-  border-radius: 8px;
-  padding: 20px;
-  width: calc(50% - 20px); /* Lebar maksimal 2 card per baris */
-  max-width: 600px; /* Batas maksimal ukuran card */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-  align-items: center; /* Membuat elemen vertikalnya rata */
-}
-
-.blog-card:hover {
-  transform: scale(1.05);
-}
-
-.blog h2 {
-  font-size: 40px;
-  margin-bottom: 60px;
-  text-align: center;
-  font-weight: bold; /* Membuat teks menjadi bold */
-}
-
-.blog h2 .highlight1 {
-  color: #ffffff; /* Warna kuning */
-}
-
-.blog h2 .highlight2 {
-  color: #FFFB00; /* Warna putih */
+.nav-link {
+  color: white;
 }
 
 
-.blog-card img {
-  width: 40%; /* Ukuran gambar */
-  border-radius: 8px;
-  margin-right: 20px; /* Jarak gambar dengan teks */
+/* Banner */
+/* Main Banner */
+
+
+/* Gambar Logo */
+/* Main Banner */
+.main-banner {
+  position: relative;
+  text-align: left; /* Mengubah text-align menjadi kiri */
+  color: white;
 }
 
-.blog-card-content {
-  flex: 1; /* Isi teks memenuhi ruang tersisa */
-  text-align: left; /* Teks rata kiri */
+.main-banner img {
+  width: 100%;
+  height: auto;
+  filter: brightness(100%); /* Menurunkan kecerahan gambar agar teks lebih terlihat */
 }
 
-.blog-card h3 {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.blog-card p {
-  margin: 0; /* Menghilangkan margin default paragraf */
-}
-
-.btnblog {
-  padding: 12px 30px;
-  background-color: #FFFB00;
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-  display: block; /* Mengubah menjadi block untuk bisa menggunakan margin auto */
-  margin: 50px auto 0; /* Margin otomatis untuk center horizontal, dan jarak atas 50px */
-}
-
-.btnblog:hover {
-  background-color: #ffffff;
-  transform: translateY(-4px); /* Memberikan efek angkat saat hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+.banner {
+  position: absolute;
+  top: 50%;
+  left: 5%; /* Menggeser konten sedikit ke kiri */
+  transform: translateY(-50%); /* Menjaga konten tetap di tengah secara vertikal */
+  text-align: left; /* Mengatur teks agar rata kiri */
+  color: white;
+  max-width: 600px; /* Batas lebar maksimal untuk konten */
+  padding: 20px; /* Memberikan padding untuk memberikan ruang antara konten dengan batas kontainer */
 }

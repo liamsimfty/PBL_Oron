@@ -1,111 +1,132 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    .product-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        padding: 20px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .product-box {
-        border: 1px solid #ddd;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        text-align: center;
-        padding: 15px;
-    }
-</style>
-
+    <title>Games Collection - ORON</title>
+    <link rel="stylesheet" href="../../Styling/css/games.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <?php
-            include '../connection/connection.php';
-            // Start session
-            session_start();
-            $isLoggedIn = isset($_SESSION['username']);
-
-            // Tangani pengiriman produk
-            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
-                $_SESSION["product_id"] = $_POST["product_id"];
-                header("Location: productpage.php");
-                exit();
-            }
-
-            $query = "SELECT product_id, name, current_price, discount FROM products"; // Tambahkan product_id
-            $result = oci_parse($conn, $query);
-
-            if (!oci_execute($result)) {
-                $e = oci_error($result);
-                echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
-                exit;
-            }
-    ?>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">ORON</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../store/store.php">Store</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-                        <?php else: ?>
-                            <a class="nav-link" href="../login/login.php">Profile</a>
-                        <?php endif; ?>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.php">Cart</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Header -->
+    <header>
+    <div class="header-container">
+        <div class="brand-logo">
+            <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
+            <h1>ORON</h1>
         </div>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="gamesdespage.php">Games</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <div class="container">
-        <div class="row">
-            <?php
-                if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
-                    echo '<div class="product-container">';
-                    foreach ($rows as $row) {
-                        echo '<div class="product-box">';
-                        echo '<h3>' . htmlspecialchars($row["NAME"]) . '</h3>';
-                        if ($row["DISCOUNT"] > 0) {
-                            $originalPrice = $row["CURRENT_PRICE"];
-                            $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
-                            echo '<p><strike>$' . number_format($originalPrice, 2) . '</strike> -' . ($row["DISCOUNT"] * 100) . '% = $' . number_format($discountedPrice, 2) . '</p>';
-                        } else {
-                            echo '<p>$' . number_format($row["CURRENT_PRICE"], 2) . '</p>';
-                        }
-                        echo '<form method="POST" action="store.php">';
-                        echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
-                        echo '<button type="submit">View Product</button>';
-                        echo '</form>';
-                        echo '</div>';
-                    }
-                    echo '</div>';
-                } else {
-                    echo "No products found.";
-                }
-            ?>
+<!-- Main Banner -->
+<section class="main-banner">
+    <img src="../../Styling/images/bg.png" alt="FC25 Banner">
+    <div class="banner">
+        <img src="../../Styling/images/logofc25.png" alt="EA Sports FC25 Logo" class="hero-logo">
+        <p>The legendary FIFA series has been produced by EA <br>SPORTS for over 20 years, and is now the largest sports <br>video game franchise on the planet..</p>
+        <button>Play Now</button>
+    </div>
+</section>
+
+<div class="additional-image2">
+        <img src="../../Styling/images/Vector 7.png" alt="Additional Image2">
+    </div>
+    
+    <div class="additional-image3">
+        <img src="../../Styling/images/Vector 8.png" alt="Additional Image8">
+    </div>
+
+
+    <!-- Games Collection -->
+    <section class="games-collection">
+        <h2>
+        <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
+        </h2>
+        <div class="filter-buttons">
+            <button class="active">ALL</button>
+            <button>Open World</button>
+            <button>RPG</button>
+        </div>
+        <div class="games-grid">
+            <!-- Game Card -->
+            <div class="game-card">
+            <a href="gamedespage.php">
+                <img src="../../Styling/images/game1.png" alt="GTA">
+            </a>
+                <h3>Grand Theft Auto</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+            <a href="gamedespage.php">
+                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
+</a>
+                <h3>Black Myth: Wukong</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
+                <h3>Red Dead Redemption</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/game1.png" alt="GTA">
+                <h3>Grand Theft Auto</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
+                <h3>Black Myth: Wukong</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
+                <h3>Red Dead Redemption</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
+                <h3>Red Dead Redemption</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <div class="game-card">
+                <img src="../../Styling/images/gamered.jpg  " alt="Red Dead Redemption">
+                <h3>Red Dead Redemption</h3>
+                <p>IDR 221.600</p>
+            </div>
+            <!-- Tambahkan lebih banyak game card sesuai kebutuhan -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+    <img src="../../Styling/images/ftbg.png" alt="Oron Logo" class="footer-bg">
+    <div class="footer-container">
+        <div class="about">
+            <h4>About Us</h4>            
+                <p>Oron adalah solusi terbaik untuk membeli dan menjual video game.<br>
+                Dengan dukungan komunitas global, kami memprioritaskan<br>pengalaman pengguna yang aman dan transparan.</p>
+            </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
         </div>
     </div>
+</footer>
 </body>
 </html>
