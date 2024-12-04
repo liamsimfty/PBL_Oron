@@ -1,6 +1,7 @@
 {
     "name": "mufti/pbl_oron",
     "require": {
-        "midtrans/midtrans-php": "^2.6"
+        "midtrans/midtrans-php": "^2.6",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
