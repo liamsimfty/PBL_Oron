@@ -39,5 +39,8 @@ At ORON, we believe creators deserve their fair share. By choosing our platform,
 1. Install [**PHP**](https://www.php.net/downloads.php), [**Xampp**](https://www.apachefriends.org/download.html), [**Oracle**](https://www.oracle.com/database/technologies/xe-downloads.html) and [**Oracle Install Client**](https://www.oracle.com/id/database/technologies/instant-client/downloads.html) this is video for each installation tutorial [Install PHP](https://www.youtube.com/watch?v=n04w2SzGr_U), [Install Xampp](https://www.youtube.com/watch?v=G2VEf-8nepc),[Install Oracle](https://www.youtube.com/watch?v=fgh2o4hveDk) for oracle install client you just extract to C directory and add the directory to your path environment system variable
 2. Git Clone this project ``` git clone https://github.com/liamsimfty/PBL_Oron.git ``` to xampp/htdocs
 3. Open xampp turn on the Apache services and open ``` localhost/dashboard/phpinfo.php ``` and make sure OCI8 is there
-4. Open connection.php change change the password with your oracle password ``` $conn = oci_connect('system', 'you password', 'localhost/xe'); ```
-5. Open ``` localhost/pbl_oron/connection.php ``` if  nothing appear its mean your connection success
+4. install composer and type in terminal ```composer require vlucas/phpdotenv```
+5. Make new file .env open and change the password with your oracle password ``` DB_USERNAME=YOUR_USERNAME DB_PASSWORD=YOUR_PASSWORD```
+6. Open ``` localhost/pbl_oron/connection.php ``` if  nothing appear its mean your connection success
+7. Open Assets/databases/table.txt and add all table in SQLPlus or SQLDeveloper then type ```grant all on (table name) to system;``` and repeat this all
+8. then open ```localhost/pbl_oron/features/connection/signup.php``` and if you 
