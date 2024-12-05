@@ -240,7 +240,7 @@ header nav ul li a {
 .games-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 kolom dalam satu baris */
-    gap: 35px 0px; 
+    gap: 70px 0px; 
     margin-top: 60px;
 }
 
@@ -361,3 +361,4 @@ header nav ul li a {
 .footer-links a:hover {
     color: #ffffff;
 }
+
