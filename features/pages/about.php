@@ -30,7 +30,6 @@
                 <li><a href="../pages/homepage.php">Home</a></li>
                 <li><a href="gamesdespage.php">Games</a></li>
                 <li><a href="../pages/blog.php">Blog</a></li>
-                <li><a href="../pages/about.php">About</a></li>
                 <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
                 <?php if ($isLoggedIn): ?>
                     <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
@@ -42,8 +41,12 @@
         </nav>
     </div>
 </header>
-
-
+<!-- Main Banner -->
+<section class="main-banner">
+    <div class="section-image1">
+    <img src="../../Styling/images/about1.png" alt="FC25 Banner">
+    </div>
+</section>
 
 </body>
 </html>

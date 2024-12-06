@@ -37,11 +37,11 @@
                 <?php else: ?>
                     <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
                 <?php endif; ?>
-                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
         </nav>
     </div>
 </header>
+
 
 
 

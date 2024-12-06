@@ -88,3 +88,28 @@ header nav ul li a {
         margin-bottom: 15px;
     }
 }
+
+/* Gambar Logo */
+/* Main Banner */
+.main-banner {
+    position: relative;
+    text-align: left; /* Mengubah text-align menjadi kiri */
+    color: white;
+}
+
+.main-banner img {
+    width: 100%;
+    height: auto;
+    filter: brightness(100%); /* Menurunkan kecerahan gambar agar teks lebih terlihat */
+}
+
+.banner {
+    position: absolute;
+    top: 50%;
+    left: 5%; /* Menggeser konten sedikit ke kiri */
+    transform: translateY(-50%); /* Menjaga konten tetap di tengah secara vertikal */
+    text-align: left; /* Mengatur teks agar rata kiri */
+    color: white;
+    max-width: 600px; /* Batas lebar maksimal untuk konten */
+    padding: 20px; /* Memberikan padding untuk memberikan ruang antara konten dengan batas kontainer */
+}
