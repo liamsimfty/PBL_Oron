@@ -40,9 +40,10 @@ if ($gross_amount <= 0) {
     die('Error: Gross amount must be greater than 0.');
 }
 
+$token_id = $_GET['token_id'];
 // Prepare transaction details
 $transaction_details = array(
-    'order_id' => $account_id,
+    'order_id' => $token_id,
     'gross_amount' => $gross_amount
 );
 
@@ -97,7 +98,7 @@ try {
 
     $updateQuery = "
     UPDATE transaction
-    SET token = :snap_token
+    SET snap_token = :snap_token
     WHERE account_id = :account_id
     AND TO_CHAR(transaction_date, 'YYYY-MM-DD HH24:MI:SS') = :transaction_date
     ";
@@ -109,8 +110,6 @@ try {
     oci_bind_by_name($updateStmt, ":transaction_date", $_SESSION['transaction_date']);
 
     $result = oci_execute($updateStmt);
-    unset($_SESSION['transaction_date']);
-
 } catch (\Exception $e) {
     echo "Error generating snap token: " . $e->getMessage() . "<br>";
 }
@@ -128,7 +127,10 @@ function printExampleWarningMessage() {
         die();
     } 
 }
-
+oci_free_statement($statement);
+oci_free_statement($statement_items);
+oci_free_statement($updateStmt);
+oci_close($conn);
 ?>
 
 <!DOCTYPE html>
