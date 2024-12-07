@@ -36,16 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
             $currentPrice = $priceRow['CURRENT_PRICE'];
             oci_free_statement($priceStmt);
 
+            // Cek apakah game sudah ada di library
+            $checkQuery = "SELECT COUNT(*)  AS GAME_COUNT FROM library WHERE account_id = :account_id AND product_id = :product_id";
+            $checkStmt = oci_parse($conn, $checkQuery);
+            oci_bind_by_name($checkStmt, ":account_id", $account_id);
+            oci_bind_by_name($checkStmt, ":product_id", $productToPay);
+            oci_execute($checkStmt);
+            $row = oci_fetch_assoc($checkStmt);
+            oci_free_statement($checkStmt);
             // Jika current_price = 0, langsung masukkan ke library
             if ($currentPrice == 0) {
-                // Cek apakah game sudah ada di library
-                $checkQuery = "SELECT COUNT(*)  AS GAME_COUNT FROM library WHERE account_id = :account_id AND product_id = :product_id";
-                $checkStmt = oci_parse($conn, $checkQuery);
-                oci_bind_by_name($checkStmt, ":account_id", $account_id);
-                oci_bind_by_name($checkStmt, ":product_id", $productToPay);
-                oci_execute($checkStmt);
-                $row = oci_fetch_assoc($checkStmt);
-                oci_free_statement($checkStmt);
             
                 if ($row['GAME_COUNT'] > 0) {
                     echo '<script>alert("You already own this game.");</script>';
@@ -70,32 +70,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
                     echo '<script>alert("Free product added to your library.");</script>';
                 }
             } else {
-                $priceQuery = "SELECT current_price, product_id, discount FROM products WHERE product_id = :product_id";
-                $priceStmt = oci_parse($conn, $priceQuery);
-                oci_bind_by_name($priceStmt, ":product_id", $productToPay);
-                oci_execute($priceStmt);
-                $priceRow = oci_fetch_assoc($priceStmt);
-                $currentPrice = $priceRow['CURRENT_PRICE'];
-                $discount = $priceRow['DISCOUNT'];
-                oci_free_statement($priceStmt);
                 
-                // Hitung total harga dengan diskon (dalam dollar)
-                $totalPrice = $currentPrice * (1 - $discount);
-                
-                // Tambahkan produk ke array payment_data
-                $_SESSION['payment_data'][] = [
-                    'product_id' => $productToPay,
-                    'total_price' => round($totalPrice, 2), // Bulatkan menjadi 2 desimal
-                    'transaction_id' => rand()
-                ];
-                header("Location: ../payments/process.php");
+                if ($row['GAME_COUNT'] > 0) {
+                    echo '<script>alert("You already own this game.");</script>';
+                } else {
+                    $priceQuery = "SELECT current_price, product_id, discount FROM products WHERE product_id = :product_id";
+                    $priceStmt = oci_parse($conn, $priceQuery);
+                    oci_bind_by_name($priceStmt, ":product_id", $productToPay);
+                    oci_execute($priceStmt);
+                    $priceRow = oci_fetch_assoc($priceStmt);
+                    $currentPrice = $priceRow['CURRENT_PRICE'];
+                    $discount = $priceRow['DISCOUNT'];
+                    oci_free_statement($priceStmt);
+                    
+                    // Hitung total harga dengan diskon (dalam dollar)
+                    $totalPrice = $currentPrice * (1 - $discount);
+                    
+                    // Tambahkan produk ke array payment_data
+                    $_SESSION['payment_data'][] = [
+                        'product_id' => $productToPay,
+                        'total_price' => round($totalPrice, 2), // Bulatkan menjadi 2 desimal
+                        'transaction_id' => rand()
+                    ];
+                    header("Location: ../payments/process.php");
 
-                $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
-                $deleteStmt = oci_parse($conn, $deleteQuery);
-                oci_bind_by_name($deleteStmt, ":account_id", $account_id);
-                oci_bind_by_name($deleteStmt, ":product_id", $productToPay);
-                oci_execute($deleteStmt);
-                oci_free_statement($deleteStmt);
+                    $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
+                    $deleteStmt = oci_parse($conn, $deleteQuery);
+                    oci_bind_by_name($deleteStmt, ":account_id", $account_id);
+                    oci_bind_by_name($deleteStmt, ":product_id", $productToPay);
+                    oci_execute($deleteStmt);
+                    oci_free_statement($deleteStmt);
+                }
+
             }
         }
     } else {
