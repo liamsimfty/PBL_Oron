@@ -2,12 +2,9 @@
 include '../connection/connection.php';      
 session_start();
 
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['username']);
-
-// Check if user is logged in and has account_id
+// Redirect if not logged in
 if (!isset($_SESSION['account_id'])) {
-    echo "<tr><td colspan='3'>Please log in to view your library.</td></tr>";
+    header('Location: ../login/login.php');
     exit();
 }
 
@@ -57,65 +54,45 @@ oci_close($conn);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">ORON</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../store/store.php">Store</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../library/library.php">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="../profile/profile.php"><?= htmlspecialchars($_SESSION['username']) ?></a>
-                        <?php else: ?>
-                            <a class="nav-link" href="../login/login.php">Profile</a>
-                        <?php endif; ?>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.php">Cart</a>
-                    </li>
-                </ul>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>My Library</h2>
+            <div>
+                <button id="downloadSelected" class="btn btn-primary me-2">Download Selected</button>
+                <button id="downloadAll" class="btn btn-secondary">Download All</button>
             </div>
         </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox" id="select-all">
-                    </th>
-                    <th>Game Name</th>
-                    <th>Purchase Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($library_items as $item): ?>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="selected_products[]" 
-                               value="<?= htmlspecialchars($item['product_id']) ?>">
-                    </td>
-                    <td><?= htmlspecialchars($item['game_name']) ?></td>
-                    <td><?= htmlspecialchars($item['purchase_date']) ?></td>
-                </tr>
-                <?php endforeach; ?>
-                
-                <?php if (empty($library_items)): ?>
-                <tr>
-                    <td colspan="3" class="text-center">No games in your library</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+
+        <form id="libraryForm">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="select-all">
+                        </th>
+                        <th>Game Name</th>
+                        <th>Purchase Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($library_items as $item): ?>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selected_products[]" 
+                                   value="<?= htmlspecialchars($item['product_id']) ?>">
+                        </td>
+                        <td><?= htmlspecialchars($item['game_name']) ?></td>
+                        <td><?= htmlspecialchars($item['purchase_date']) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    
+                    <?php if (empty($library_items)): ?>
+                    <tr>
+                        <td colspan="3" class="text-center">No games in your library</td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
