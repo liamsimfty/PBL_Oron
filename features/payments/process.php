@@ -7,11 +7,11 @@ $paymentProducts = $_SESSION['payment_data'];
 try {
     // Deklarasikan variabel untuk menyimpan transaction_date
     $transaction_date = null;
+    $token_id = rand();
 
     // Loop untuk setiap produk
     foreach ($paymentProducts as $product) {
         $transaction_id = rand();
-        
         // Dapatkan waktu transaksi (gunakan fungsi date() untuk waktu saat ini)
         if ($transaction_date === null) {
             $transaction_date = date('Y-m-d H:i:s'); // Format: YYYY-MM-DD HH:MM:SS
@@ -21,14 +21,14 @@ try {
                 transaction_id, 
                 account_id, 
                 product_id, 
-                payment_status, 
+                token_id,
                 price_at_checkout,
                 transaction_date
             ) VALUES (
                 $transaction_id, 
                 :account_id, 
                 :product_id, 
-                :payment_status, 
+                $token_id,
                 :price_at_checkout,
                 TO_TIMESTAMP(:transaction_date, 'YYYY-MM-DD HH24:MI:SS')
             )";
@@ -40,13 +40,9 @@ try {
         oci_bind_by_name($insertStmt, ":account_id", $account_id);
         oci_bind_by_name($insertStmt, ":product_id", $product['product_id']);
         
-        // Default values sesuai definisi tabel
-        $payment_status = 'pending';
-        oci_bind_by_name($insertStmt, ":payment_status", $payment_status);
         oci_bind_by_name($insertStmt, ":price_at_checkout", $product['total_price']);
         oci_bind_by_name($insertStmt, ":transaction_date", $transaction_date);
 
-        // Eksekusi query
         $result = oci_execute($insertStmt);
 
         // Bebaskan statement
@@ -62,5 +58,5 @@ try {
     echo "Error: " . $e->getMessage();
 }
 unset($_SESSION['payment_data']);
-header("Location:payment.php");
+header("Location:payment.php?token_id=$token_id");
 ?>
