@@ -30,13 +30,11 @@
                 <li><a href="../pages/homepage.php">Home</a></li>
                 <li><a href="gamesdespage.php">Games</a></li>
                 <li><a href="../pages/blog.php">Blog</a></li>
-                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
                 <?php if ($isLoggedIn): ?>
                     <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
                 <?php else: ?>
                     <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
                 <?php endif; ?>
-                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
         </nav>
     </div>
@@ -44,9 +42,124 @@
 <!-- Main Banner -->
 <section class="main-banner">
     <div class="section-image1">
-    <img src="../../Styling/images/about1.png" alt="FC25 Banner">
+    <img src="../../Styling/images/about1.png" alt="About Us">
     </div>
 </section>
+
+
+<div class="additional-image2">
+    <img src="../../Styling/images/Vector 7.png" alt="Additional Image 2">
+</div>
+<div class="additional-image3">
+    <img src="../../Styling/images/Vector 8.png" alt="Additional Image 3">
+</div>
+
+<div class="title-oron">
+    <div class="title">
+        <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
+        <h1>ORON</h1>
+    </div>
+</div>
+
+<div class="about-us">
+    <div class="img-container">
+        <img src="../../Styling/images/vr.png" alt="VR Analog">
+    </div>
+</div>
+
+<!-- FEATURES -->
+
+<div class="features">
+    <h1>Features</h1>
+    <p>Dive into ultimate destination for playing, discussing, and crafting unforgettable gaming experience</p>
+</div>
+
+<div class="features-caps">
+    <div class="caps1-3">
+        <div class="caps-1">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+            </div>
+            <h5 class="captions">Your Space For All Things Gaming</h5>
+            <p class="descriptions">Join discussions, discover creative content, and stay updated with news - 
+                all from the Oron Community and official creators. Game Hubs bring gamers together to rate,
+                share, and enjoy everything gaming.
+            </p>
+        </div>
+        <div class="caps-2">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+            <h5 class="captions">Supporting Game Creators</h5>
+            <p class="descriptions">With Oron, every game you purchase is authentic, ensuring your support goes 
+                directly to the rightful owners and creators behind each title.</p>
+        </div>
+        <div class="caps-3">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+            </div>
+            <h5 class="captions">Handpicked Games, Just For You</h5>
+            <p class="descriptions">From blockbuster AAA titles to standout indie gems and timeless classics, 
+                every game on Oron is here because it’s been carefully chosen with you in mind.</p>
+        </div>
+    </div>
+    <div class="caps4-6">
+        <div class="caps-4">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+            </div>
+            <h5 class="captions">Purchase Your Way</h5>
+            <p class="descriptions">Oron’s storefront offers over 100 payment methods in 35+ currencies, 
+                giving you the freedom to pay however suits you best.</p>
+        </div>
+        <div class="caps-5">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-comment"></i>
+                </div>
+            </div>
+            <h5 class="captions">Connect Like Never Before</h5>
+            <p class="descriptions">Stay close to your crew with an enhanced friends list, text, and voice chat features. 
+                Oron Chat makes it easy and fun to organize, connect, and jump into games with friends anytime.</p>
+        </div>
+        <div class="caps-6">
+            <div class="caps-logo-container">
+                <div class="fa">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+            </div>
+            <h5 class="captions">True Ownership With Oron</h5>
+            <p class="descriptions">We believe in your right to fully own the games you buy. With DRM-free gaming, 
+                you’ll never be locked out or forced to prove ownership—your games are yours to keep, no strings attached.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ACHIEVEMENT -->
+
+<div class="achievement">
+    <div class="achievement-container">
+
+    </div>
+</div>
+
+<!-- FEEDBACK -->
+
+<div class="feedback-title">
+    <h1>Feedback</h1>
+</div>
+
+
+
+
 
 </body>
 </html>

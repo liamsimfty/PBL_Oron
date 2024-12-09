@@ -47,3 +47,80 @@
   opacity: 1;
 }
 
+/* Header Container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: rgba(44, 2, 54, 0.8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand Logo Container */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antara logo dan teks */
+}
+
+/* Logo Image */
+.brand-logo img {
+  width: 30px; /* Ukuran logo */
+  height: 30px;
+  object-fit: contain; /* Sesuaikan gambar dengan proporsi aslinya */
+}
+
+/* Header Title */
+.brand-logo h1 {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Navigation Links */
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  position: relative;
+  left: 0;
+}
+
+/* Link Items */
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Hover Effect */
+.header-container a:hover {
+  color: #fdda00;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .header-container {
+      flex-direction: column;
+      padding: 15px;
+  }
+
+  header nav ul {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .brand-logo {
+      margin-bottom: 15px;
+  }
+}
