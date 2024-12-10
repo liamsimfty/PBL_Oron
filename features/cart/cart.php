@@ -1,4 +1,6 @@
 <?php
+namespace Midtrans;
+require_once dirname(__FILE__) . '/../../vendor/midtrans/midtrans-php/Midtrans.php';
 include '../connection/connection.php';
 session_start();
 if (!isset($_SESSION['account_id'])) {
@@ -92,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
                         'total_price' => round($totalPrice, 2), // Bulatkan menjadi 2 desimal
                         'transaction_id' => rand()
                     ];
-                    header("Location: ../payments/process.php");
+                    header("Location: ../process/process.php");
 
                     $deleteQuery = "DELETE FROM cart WHERE account_id = :account_id AND product_id = :product_id";
                     $deleteStmt = oci_parse($conn, $deleteQuery);
@@ -170,6 +172,9 @@ oci_close($conn);
             });
             document.getElementById('total-price').innerText = total.toFixed(2);
         }
+
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SET_YOUR_CLIENT_KEY_HERE"
     </script>
 </head>
 <body>
@@ -228,7 +233,28 @@ oci_close($conn);
         <button type="submit" name="remove_selected">Remove Selected</button>
         <button type="submit" name="process_payment">Process Payment</button>
         <button type="button" onclick="calculateTotal()">Calculate Total</button>
-        <a href="../history/transaction.php" class="button">See Transaction History</a>    
+        <a href="../history/transaction.php" class="button">See Transaction History</a>
     </form>
+    <?php
+        Config::$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];
+        $snap_token = isset($_GET['snap_token']) ? $_GET['snap_token'] : null;
+        if ($snap_token) {
+        ?>
+        <!DOCTYPE html>
+        <html>
+            <body>
+                <!-- Midtrans Snap.js -->
+                <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo Config::$clientKey; ?>"></script>
+                <script type="text/javascript">
+                    window.snap.pay('<?php echo $snap_token; ?>');
+                </script>
+            </body>
+        </html>
+        <?php
+    } else {
+        echo 'snap token not found';
+    }
+    ?>
+
 </body>
 </html>

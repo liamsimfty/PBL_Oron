@@ -58,5 +58,5 @@ try {
     echo "Error: " . $e->getMessage();
 }
 unset($_SESSION['payment_data']);
-header("Location:payment.php?token_id=$token_id");
+header("Location:process2.php?token_id=$token_id");
 ?>

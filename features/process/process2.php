@@ -131,19 +131,5 @@ oci_free_statement($statement);
 oci_free_statement($statement_items);
 oci_free_statement($updateStmt);
 oci_close($conn);
+header("Location:../cart/cart.php?snap_token=$snap_token");
 ?>
-
-<!DOCTYPE html>
-<html>
-    <body>
-        <button id="pay-button">Pay!</button>
-        <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo Config::$clientKey;?>"></script>
-        <script type="text/javascript">
-            document.getElementById('pay-button').onclick = function(){
-                // SnapToken acquired from previous step
-                snap.pay('<?php echo $snap_token?>');
-            };
-        </script>
-    </body>
-</html>
