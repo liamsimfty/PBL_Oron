@@ -79,7 +79,7 @@
         <div class="caps-1">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-user-group"></i>
+                    <i class="fa-solid fa-user-group fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">Your Space For All Things Gaming</h5>
@@ -91,7 +91,7 @@
         <div class="caps-2">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">Supporting Game Creators</h5>
@@ -101,7 +101,7 @@
         <div class="caps-3">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-chart-simple"></i>
+                    <i class="fa-solid fa-chart-simple fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">Handpicked Games, Just For You</h5>
@@ -113,7 +113,7 @@
         <div class="caps-4">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-wallet"></i>
+                    <i class="fa-solid fa-wallet fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">Purchase Your Way</h5>
@@ -123,7 +123,7 @@
         <div class="caps-5">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-comment"></i>
+                    <i class="fa-solid fa-comment fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">Connect Like Never Before</h5>
@@ -133,7 +133,7 @@
         <div class="caps-6">
             <div class="caps-logo-container">
                 <div class="fa">
-                    <i class="fa-solid fa-envelope"></i>
+                    <i class="fa-solid fa-envelope fa-2x"></i>
                 </div>
             </div>
             <h5 class="captions">True Ownership With Oron</h5>
@@ -147,7 +147,26 @@
 
 <div class="achievement">
     <div class="achievement-container">
-
+        <div class="ach">
+            <i class="fa-regular fa-thumbs-up fa-2x"></i>
+            <h1>299+</h1>
+            <h3>Top Games</h3>
+        </div>
+        <div class="ach">
+            <i class="fa-solid fa-gamepad fa-2x"></i>
+            <h1>489+</h1>
+            <h3>Games Title</h3>
+        </div>
+        <div class="ach">
+            <i class="fa-solid fa-user-plus  fa-2x"></i>
+            <h1>900+</h1>
+            <h3>Active Players</h3>
+        </div>
+        <div class="ach">
+            <i class="fa-solid fa-medal fa-2x"></i>
+            <h1>99%</h1>
+            <h3>Quality Gaming Experience</h3>
+        </div>
     </div>
 </div>
 
@@ -158,7 +177,11 @@
 </div>
 
 
+<!-- FOOTER -->
 
+<footer class="footer">
+    <img src="../../Styling/images/footerbg.png" alt="Footer">
+</footer>
 
 
 </body>

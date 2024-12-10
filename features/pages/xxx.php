@@ -35,6 +35,20 @@
                     <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
                 <?php else: ?>
                     <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
+                        <ul>
+                          <li>
+                            <a></a>
+                          </li>
+                          <li>
+                            <a></a>
+                          </li>
+                          <li>
+                            <a></a>
+                          </li>
+                          <li>
+                            <a></a>
+                          </li>
+                        </ul>
                 <?php endif; ?>
                     <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
