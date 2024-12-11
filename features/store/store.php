@@ -10,13 +10,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
     <?php
-    // Start session
-    session_start();
+            include '../connection/connection.php';
+            // Start session
+            session_start();
+            $isLoggedIn = isset($_SESSION['username']);
 
-    // Check if user is logged in
-    $isLoggedIn = isset($_SESSION['username']);
+            // Tangani pengiriman produk
+            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
+                $_SESSION["product_id"] = $_POST["product_id"];
+                header("Location: productpage.php");
+                exit();
+            }
+
+            $query = "SELECT product_id, name, current_price, discount FROM products"; // Tambahkan product_id
+            $result = oci_parse($conn, $query);
+
+            if (!oci_execute($result)) {
+                $e = oci_error($result);
+                echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
+                exit;
+            }
     ?>
 
     <!-- Header -->
@@ -69,60 +83,53 @@
     <!-- Games Collection -->
     <section class="games-collection">
         <h2>
-        <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
+            <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
         </h2>
+
         <div class="filter-buttons">
             <button class="active">ALL</button>
             <button>Open World</button>
             <button>RPG</button>
         </div>
+
         <div class="games-grid">
-            <!-- Game Card -->
-            <div class="game-card">
-            <a href="gamedespage.php">
-                <img src="../../Styling/images/game1.png" alt="GTA">
-            </a>
-                <h3>Grand Theft Auto</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-            <a href="gamedespage.php">
-                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-</a>
-                <h3>Black Myth: Wukong</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/game1.png" alt="GTA">
-                <h3>Grand Theft Auto</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-                <h3>Black Myth: Wukong</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card">
-                <img src="../../Styling/images/gamered.jpg  " alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <!-- Tambahkan lebih banyak game card sesuai kebutuhan -->
+            <?php
+            if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
+                foreach ($rows as $row) {
+                    echo '<div class="game-card">';
+                    
+                    // Optional: If you have an image URL in the database
+                    if (!empty($row["IMAGE_URL"])) {
+                        echo '<a href="gamedespage.php?id=' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
+                        echo '<img src="' . htmlspecialchars($row["IMAGE_URL"]) . '" alt="' . htmlspecialchars($row["NAME"]) . '">';
+                        echo '</a>';
+                    }
+
+                    echo '<h3>' . htmlspecialchars($row["NAME"]) . '</h3>';
+                    
+                    echo '<div class="product-price">';
+                    if ($row["DISCOUNT"] > 0) {
+                        $originalPrice = $row["CURRENT_PRICE"];
+                        $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                        echo '<p><strike>IDR ' . number_format($originalPrice, 0) . '</strike> ';
+                        echo '-' . ($row["DISCOUNT"] * 100) . '% ';
+                        echo '= IDR ' . number_format($discountedPrice, 0) . '</p>';
+                    } else {
+                        echo '<p>IDR ' . number_format($row["CURRENT_PRICE"], 0) . '</p>';
+                    }
+                    echo '</div>';
+
+                    echo '<form method="POST" action="store.php">';
+                    echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
+                    echo '<button type="submit">View Product</button>';
+                    echo '</form>';
+
+                    echo '</div>';
+                }
+            } else {
+                echo '<div class="no-products">No products found.</div>';
+            }
+            ?>
         </div>
     </section>
 

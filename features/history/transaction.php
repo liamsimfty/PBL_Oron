@@ -22,7 +22,7 @@ $query = "
     AND EXISTS (
         SELECT 1 
         FROM transaction t2 
-        WHERE t2.token = t.token
+        WHERE t2.snap_token = t.snap_token
     )
     GROUP BY t.transaction_date
     ORDER BY t.transaction_date DESC
@@ -70,7 +70,6 @@ oci_execute($stid);
                 <th>Transaction Date</th>
                 <th>Status Pembayaran</th>
                 <th>Total Harga</th>
-                <th>Tombol Pay</th>
             </tr>
         </thead>
         <tbody>
@@ -83,13 +82,6 @@ oci_execute($stid);
                     <td><?= $row['TRANSACTION_DATE']; ?></td>
                     <td><?= htmlspecialchars($row['PAYMENT_STATUS']); ?></td>
                     <td><?= number_format($row['TOTAL_PRICE'], 2); ?></td>
-                    <td>
-                        <?php if ($row['PAYMENT_STATUS'] == 'pending'): ?>
-                            <button onclick="payTransaction('<?= $row['TRANSACTION_DATE']; ?>')">Pay</button>
-                        <?php else: ?>
-                            Paid
-                        <?php endif; ?>
-                    </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
