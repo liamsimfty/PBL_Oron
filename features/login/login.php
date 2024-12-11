@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['account_id'] = $row['ACCOUNT_ID'];  
 
             // Redirect to dashboard or homepage
-            header("Location: ../pages/homepage.php");
+            header("Location: ../pages/newheader.php");
             exit(); // Stop further execution
         } else {
             echo "<p>Invalid password. Please try again.</p>";

@@ -31,7 +31,22 @@
                 <li><a href="gamesdespage.php">Games</a></li>
                 <li><a href="../pages/blog.php">Blog</a></li>
                 <?php if ($isLoggedIn): ?>
-                    <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+                    <li class="profile-container"><a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                        <ul class="profile">
+                          <li>
+                            <a>Profile</a>
+                          </li>
+                          <li>
+                            <a>Log Out</a>
+                          </li>
+                          <li>
+                            <a>Setting</a>
+                          </li>
+                          <li>
+                            <a>Support</a>
+                          </li>
+                        </ul>
+                    </li>
                 <?php else: ?>
                     <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
                 <?php endif; ?>

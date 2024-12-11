@@ -31,26 +31,22 @@
                 <li><a href="../pages/blog.php">Blog</a></li>
                 <li><a href="../pages/about.php">About</a></li>
                 <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                <?php if ($isLoggedIn): ?>
-                    <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-                <?php else: ?>
-                    <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
-                        <ul>
-                          <li>
-                            <a></a>
-                          </li>
-                          <li>
-                            <a></a>
-                          </li>
-                          <li>
-                            <a></a>
-                          </li>
-                          <li>
-                            <a></a>
-                          </li>
-                        </ul>
-                <?php endif; ?>
-                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li><i class="fa-solid fa-user"></i></a>
+                    <ul class="dropdown">
+                      <li>
+                        <a></a>
+                      </li>
+                      <li>
+                        <a></a>
+                      </li>
+                      <li>
+                        <a></a>
+                      </li>
+                      <li>
+                        <a></a>
+                      </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

@@ -26,10 +26,10 @@
         </div>
         <nav>
             <ul>
-                <li><a class="nav-link" href="../../features/pages/homepage.php">HOME</a></li>
-                <li><a class="nav-link" href="../../features/store/store.php">STORE</a></li>
-                <li><a class="nav-link" href="../../features/pages/blog.php">BLOG</a></li>
-                <li><a class="nav-link" href="../../features/pages/about.php">ABOUT</a></li>
+                <li><a class="nav-link" href="../../features/pages/homepage.php">Home</a></li>
+                <li><a class="nav-link" href="../../features/store/store.php">Store</a></li>
+                <li><a class="nav-link" href="../../features/pages/blog.php">Blog</a></li>
+                <li><a class="nav-link" href="../../features/pages/about.php">About</a></li>
                 <li><a class="nav-link" href="../../features/store/store.php"><i class="fa-solid fa-magnifying-glass"></i></a></li>
                 <?php if ($isLoggedIn): ?>
                     <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
