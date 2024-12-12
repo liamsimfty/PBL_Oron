@@ -1,2 +1,5 @@
 /vendor/
 .env
+/assets/storeImg/
+/assets/images/
+/laporan/

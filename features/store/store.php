@@ -8,6 +8,10 @@
     <title>Games Collection - ORON</title>
     <link rel="stylesheet" href="../../Styling/css/games.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
+                
 </head>
 <body>
     <?php
@@ -23,7 +27,7 @@
                 exit();
             }
 
-            $query = "SELECT product_id, name, current_price, discount FROM products"; // Tambahkan product_id
+            $query = "SELECT product_id, name, current_price, discount, image FROM products"; // Tambahkan product_id
             $result = oci_parse($conn, $query);
 
             if (!oci_execute($result)) {
@@ -71,13 +75,8 @@
 </section>
 
 
-<div class="additional-image2">
-        <img src="../../Styling/images/Vector 7.png" alt="Additional Image2">
-</div>
-    
-<div class="additional-image3">
-    <img src="../../Styling/images/Vector 8.png" alt="Additional Image8">
-</div>
+<div class="vector-7"></div>
+<div class="vector-8"></div>
 
 
     <!-- Games Collection -->
@@ -96,35 +95,48 @@
             <?php
             if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
                 foreach ($rows as $row) {
-                    echo '<div class="game-card">';
-                    
-                    // Optional: If you have an image URL in the database
-                    if (!empty($row["IMAGE_URL"])) {
-                        echo '<a href="gamedespage.php?id=' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
-                        echo '<img src="' . htmlspecialchars($row["IMAGE_URL"]) . '" alt="' . htmlspecialchars($row["NAME"]) . '">';
-                        echo '</a>';
-                    }
-
-                    echo '<h3>' . htmlspecialchars($row["NAME"]) . '</h3>';
-                    
-                    echo '<div class="product-price">';
-                    if ($row["DISCOUNT"] > 0) {
-                        $originalPrice = $row["CURRENT_PRICE"];
-                        $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
-                        echo '<p><strike>IDR ' . number_format($originalPrice, 0) . '</strike> ';
-                        echo '-' . ($row["DISCOUNT"] * 100) . '% ';
-                        echo '= IDR ' . number_format($discountedPrice, 0) . '</p>';
-                    } else {
-                        echo '<p>IDR ' . number_format($row["CURRENT_PRICE"], 0) . '</p>';
-                    }
-                    echo '</div>';
-
-                    echo '<form method="POST" action="store.php">';
-                    echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($row["PRODUCT_ID"]) . '">';
-                    echo '<button type="submit">View Product</button>';
-                    echo '</form>';
-
-                    echo '</div>';
+                    $productId = htmlspecialchars($row["PRODUCT_ID"]);
+                    ?>
+                    <a href="productpage.php?product_id=<?php echo $productId; ?>" class="game-card">
+                        <div class="game-card-inner">
+                            <?php if (!empty($row["IMAGE"])): ?>
+                                <div class="image-container">
+                                    <img src="../../<?php echo htmlspecialchars($row["IMAGE"]); ?>" 
+                                        alt="<?php echo htmlspecialchars($row["NAME"]); ?>">
+                                </div>
+                            <?php endif; ?>
+                            
+                            <div class="content-overlay">
+                                <h3><?php echo htmlspecialchars($row["NAME"]); ?></h3>
+                                
+                                <div class="product-price">
+                                    <?php if ($row["DISCOUNT"] > 0): 
+                                        $originalPrice = $row["CURRENT_PRICE"];
+                                        $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                                    ?>
+                                        <div class="price-container">
+                                            <div class="discount-info">
+                                                <span class="discount-badge">
+                                                    -<?php echo ($row["DISCOUNT"] * 100); ?>%
+                                                </span>
+                                                <span class="original-price">
+                                                    IDR <?php echo number_format($originalPrice, 0); ?>
+                                                </span>
+                                            </div>
+                                            <div class="final-price">
+                                                IDR <?php echo number_format($discountedPrice * 1000, 0); ?>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="final-price">
+                                            IDR <?php echo number_format($row["CURRENT_PRICE"] * 1000, 0); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php
                 }
             } else {
                 echo '<div class="no-products">No products found.</div>';
