@@ -73,41 +73,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title><?php echo htmlspecialchars($product['NAME']); ?> - ORON Store</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Games Collection - ORON</title>
+    <link rel="stylesheet" href="../../Styling/css/games.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
 </head>
 <body>
     <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">ORON</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../store/store.php">Store</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <?php if ($isLoggedIn): ?>
-                            <a class="nav-link" href="../profile/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-                        <?php else: ?>
-                            <a class="nav-link" href="../login/login.php">Profile</a>
-                        <?php endif; ?>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.php">Cart</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="header-container">
+        <div class="brand-logo">
+            <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
+            <h1>ORON</h1>
         </div>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="../pages/homepage.php">Home</a></li>
+                <li><a href="gamesdespage.php">Games</a></li>
+                <li><a href="../pages/blog.php">Blog</a></li>
+                <li><a href="../pages/about.php">About</a></li>
+                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+                <?php if ($isLoggedIn): ?>
+                    <li><a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+                <?php else: ?>
+                    <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
+                <?php endif; ?>
+                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+        </nav>
+    </div>
     </header>
 
     <main>

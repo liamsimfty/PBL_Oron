@@ -140,7 +140,7 @@ if (!oci_execute($result)) {
                                                     -<?php echo ($row["DISCOUNT"] * 100); ?>%
                                                 </span>
                                                 <span class="original-price">
-                                                    IDR <?php echo number_format($originalPrice, 0); ?>
+                                                    IDR <?php echo number_format($originalPrice * 1000, 0); ?>
                                                 </span>
                                             </div>
                                             <div class="final-price">
