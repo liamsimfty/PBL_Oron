@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Games Collection - ORON</title>
-    <link rel="stylesheet" href="../../Styling/css/games.css">
+    <link rel="stylesheet" href="../../Styling/css/store.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.cdnfonts.com/css/lemonmilk');
@@ -14,28 +14,46 @@
                 
 </head>
 <body>
-    <?php
-            include '../connection/connection.php';
-            // Start session
-            session_start();
-            $isLoggedIn = isset($_SESSION['username']);
+<?php
+include '../connection/connection.php';
+// Start session
+session_start();
+$isLoggedIn = isset($_SESSION['username']);
 
-            // Tangani pengiriman produk
-            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
-                $_SESSION["product_id"] = $_POST["product_id"];
-                header("Location: productpage.php");
-                exit();
-            }
+// Handle search query
+$searchQuery = '';
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["search"])) {
+    $searchQuery = trim($_GET["search"]);
+}
 
-            $query = "SELECT product_id, name, current_price, discount, image FROM products"; // Tambahkan product_id
-            $result = oci_parse($conn, $query);
+// Handle product selection
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
+    $_SESSION["product_id"] = $_POST["product_id"];
+    header("Location: productpage.php");
+    exit();
+}
 
-            if (!oci_execute($result)) {
-                $e = oci_error($result);
-                echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
-                exit;
-            }
-    ?>
+// Base query
+$query = "SELECT product_id, name, current_price, discount, image FROM products";
+
+// Append search condition if searchQuery is not empty
+if (!empty($searchQuery)) {
+    $query .= " WHERE LOWER(name) LIKE '%' || :search || '%'";
+}
+
+$result = oci_parse($conn, $query);
+
+// Bind search parameter if applicable
+if (!empty($searchQuery)) {
+    oci_bind_by_name($result, ':search', $searchQuery);
+}
+
+if (!oci_execute($result)) {
+    $e = oci_error($result);
+    echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
+    exit;
+}
+?>
 
     <!-- Header -->
     <header>
@@ -85,13 +103,15 @@
             <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
         </h2>
 
-        <div class="filter-buttons">
-            <button class="active">ALL</button>
-            <button>Open World</button>
-            <button>RPG</button>
+    <!-- Search Form -->
+        <div class="search-bar">
+            <form method="get" action="store.php#products">
+                <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
+                <button type="submit">Search</button>
+            </form>
         </div>
 
-        <div class="games-grid">
+        <div class="games-grid" id="products">
             <?php
             if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
                 foreach ($rows as $row) {

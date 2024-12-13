@@ -1,0 +1,485 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c0236;
+    color: white;
+}
+
+/* Header Container */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgba(44, 2, 54, 0.8);
+    /* backdrop-filter: blur(10px); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand Logo Container */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara logo dan teks */
+}
+
+/* Logo Image */
+.brand-logo img {
+    width: 30px; /* Ukuran logo */
+    height: 30px;
+    object-fit: contain; /* Sesuaikan gambar dengan proporsi aslinya */
+}
+
+/* Header Title */
+.brand-logo h1 {
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Navigation Links */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    position: relative;
+    left: 0;
+}
+
+/* Link Items */
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* Hover Effect */
+.header-container a:hover {
+    color: #fdda00;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .brand-logo {
+        margin-bottom: 15px;
+    }
+}
+
+
+
+/* Banner */
+/* Main Banner */
+
+
+/* Gambar Logo */
+/* Main Banner */
+.main-banner {
+    position: relative;
+    text-align: left; /* Mengubah text-align menjadi kiri */
+    color: white;
+}
+
+.main-banner img {
+    width: 100%;
+    height: auto;
+    filter: brightness(100%); /* Menurunkan kecerahan gambar agar teks lebih terlihat */
+}
+
+.banner {
+    position: absolute;
+    top: 50%;
+    left: 5%; /* Menggeser konten sedikit ke kiri */
+    transform: translateY(-50%); /* Menjaga konten tetap di tengah secara vertikal */
+    text-align: left; /* Mengatur teks agar rata kiri */
+    color: white;
+    max-width: 600px; /* Batas lebar maksimal untuk konten */
+    padding: 20px; /* Memberikan padding untuk memberikan ruang antara konten dengan batas kontainer */
+}
+
+/* Gambar Logo */
+.hero-logo {
+    width: 80%; /* Menyesuaikan ukuran gambar logo */
+    margin-bottom: 20px; /* Memberikan jarak antara logo dan teks */
+}
+
+/* Teks deskripsi */
+.banner p {
+    font-size: 18px;
+    margin-bottom: 30px; /* Memberikan jarak antara teks dan tombol */
+    line-height: 1.5;
+}
+
+/* Tombol Play Now */
+.banner button {
+    padding: 12px 30px;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Animasi transisi untuk efek hover */
+}
+
+/* Efek Hover pada Tombol */
+.banner button:hover {
+    background-color: #fdda00;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Gaya untuk gambar tambahan */
+.additional-image1 {
+    margin-top: 30px; /* Jarak antara tombol dan gambar */
+    text-align: center; /* Memastikan gambar ada di tengah */
+}
+
+.additional-image img1 {
+    width: 500%; /* Atur lebar gambar sesuai kebutuhan */
+    max-width: 1520px; /* Maksimum lebar gambar */
+    height: auto; /* Menjaga rasio gambar */
+    transform: translateY(-33px);
+}
+
+.additional-image2 {
+    position: relative; /* Menjadikan kontainer gambar sebagai posisi relatif */
+}
+
+.additional-image2 img {
+    position: absolute; /* Memungkinkan kita menggeser gambar secara bebas */
+    top: -148px; /* Geser gambar ke atas sebanyak 20px */
+    left: 0px; /* Geser gambar ke kanan sebanyak 30px */
+}
+
+.additional-image3 {
+    position: relative; /* Menjadikan kontainer gambar sebagai posisi relatif */
+}
+
+.additional-image3 img {
+    position: absolute; /* Memungkinkan kita menggeser gambar secara bebas */
+    top: -148px; /* Geser gambar ke atas sebanyak 20px */
+    left: 1146px; /* Geser gambar ke kanan sebanyak 30px */
+}
+
+
+/* Games Collection */
+.games-collection {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.games-collection h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: 800; /* Membuat teks menjadi bold */
+    padding-top: 6%;
+}
+
+.games-collection .highlight1 {
+    color: #ffffff; /* Warna kuning */
+}
+
+.games-collection .highlight2 {
+    color: #FFFB00; /* Warna putih */
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    margin-bottom: 30px;
+    text-align: center; /* Membuat tombol berada di tengah */
+    margin-top: 60px;
+}
+
+.filter-buttons button {
+    margin: 0 15px; /* Menambah jarak antar tombol */
+    padding: 12px 25px; /* Ukuran padding tombol */
+    font-size: 16px; /* Ukuran font yang pas */
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff; /* Warna background tombol */
+    border-radius: 30px; /* Membuat tombol lebih bulat */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Animasi transisi pada hover dan aktif */
+}
+
+.filter-buttons button:hover {
+    background-color: #FFFB00; /* Warna background saat hover */
+    border: 2px solid #FFFB00; /* Border berubah saat hover */
+    transform: translateY(-5px); /* Efek mengangkat tombol sedikit saat hover */
+}
+
+.filter-buttons button.active {
+    background-color: #FFFB00; /* Warna background untuk tombol aktif */
+    color: black; /* Warna teks saat tombol aktif */
+}
+/* Grid Layout */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(360px, 1fr));
+    row-gap: 54px;
+    padding: 25px 120px;
+    justify-items: center;
+    align-items: center;
+}
+
+
+
+/* Game Card */
+.game-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+    max-width: 261px;
+    width: 261px;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+}
+
+.game-card-inner {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #1f2937;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Image Container */
+.image-container {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .image-container img {
+    transform: scale(1.1);
+}
+
+/* Content Overlay */
+.content-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.9) 0%,
+                rgba(0, 0, 0, 0.7) 50%,
+                transparent 100%);
+}
+
+/* Typography */
+.content-overlay h3 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-family: 'Lemon/Milk', sans-serif;
+    font-weight: 300;
+    margin: 0 0 12px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 0.975rem;
+}
+
+/* Price Styling */
+.product-price {
+    color: #ffffff;
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-info {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    gap: 8px;
+    height: 100%; /* Set the height to 100% */
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-badge {
+    background-color: #fbbf24;
+    color: #000000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.575rem;
+}
+
+.original-price {
+    color: #9ca3af;
+    text-decoration: line-through;
+    font-size: 0.575rem;
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+.final-price {
+    color: #fbbf24;
+    font-weight: 700;
+    font-size: 0.875rem;
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+/* No Products Message */
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #9ca3af;
+    font-size: 1.125rem;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .games-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(360px, 1fr));
+        gap: 54px;
+        padding: 120px;
+        padding-top: 25px;
+    }
+
+    .content-overlay {
+        padding: 16px;
+    }
+
+    .content-overlay h3 {
+        font-size: 1.15rem;
+        font-family: 'Lemon/Milk', sans-serif;
+    }
+
+    .final-price {
+        font-size: 1.15rem;
+        font-family: 'Lemon/Milk', sans-serif;
+    }
+}
+
+/* Footer */
+.footer {
+    position: relative;
+    width: 100%;
+    height: auto; /* Footer akan menyesuaikan dengan konten di dalamnya */
+    color: white;
+}
+
+/* Background image */
+.footer-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Membuat gambar menutupi seluruh area footer */
+    padding-top: 10%;
+}
+
+/* Container untuk konten footer */
+.footer-container {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%); /* Menjaga konten tetap di tengah secara vertikal */
+    width: 90%;
+    max-width: 1200px; /* Menentukan lebar maksimal */
+    z-index: 1; /* Membuat konten muncul di atas gambar */
+}
+
+/* Bagian About */
+.about {
+    margin-bottom: 30px; /* Memberikan jarak bawah pada section about */
+}
+
+/* Teks Judul About */
+/* Kontainer Footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* About di kiri, Links di kanan */
+    align-items: center; /* Pastikan tingginya sama */
+    padding: 20px; /* Jarak dalam kontainer */
+}
+
+/* Bagian About */
+.about {
+    max-width: 50%; /* Lebar maksimal 50% dari footer */
+    text-align: left; /* Rata kiri */
+    padding-top: 35%;
+}
+
+.about h4 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgb(0, 0, 0);
+    text-align: justify; /* Rata kiri-kanan */}
+
+/* Bagian Footer Links */
+.footer-links {
+    max-width: 20%; /* Lebar maksimal 40% dari footer */
+    text-align: right; /* Konten rata kanan */
+    padding-top: 35%;
+    padding-left: 58%;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect untuk link */
+.footer-links a:hover {
+    color: #ffffff;
+}
