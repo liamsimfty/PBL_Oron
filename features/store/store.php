@@ -33,20 +33,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
     exit();
 }
 
-// Base query
-$query = "SELECT product_id, name, current_price, discount, image FROM products";
+$limit = 4;
+$pn = 1;  
+if (isset($_GET["page"])) {  
+    $pn  = $_GET["page"];  
+    $start_from = ($pn - 1) * $limit;   
+    $queryPagination = "
+    SELECT * FROM products
+    ORDER BY name  
+    OFFSET :start_row ROWS
+    FETCH NEXT :limit ROWS ONLY";
+    $result = oci_parse($conn, $queryPagination);
+    oci_bind_by_name($result, ':start_row', $start_from);
+    oci_bind_by_name($result, ':limit', $limit);
+}  
+else {  
+    // Base query
+    $query = "SELECT product_id, name, current_price, discount, image FROM products ORDER BY name FETCH FIRST 4 ROWS ONLY";
+    $result = oci_parse($conn, $query);
+}   
+
 
 // Append search condition if searchQuery is not empty
+$querySearch = "SELECT product_id, name, current_price, discount, image FROM products";
 if (!empty($searchQuery)) {
-    $query .= " WHERE LOWER(name) LIKE '%' || :search || '%'";
-}
-
-$result = oci_parse($conn, $query);
-
-// Bind search parameter if applicable
-if (!empty($searchQuery)) {
+    $querySearch .= " WHERE LOWER(name) LIKE '%' || :search || '%'";
+    $result = oci_parse($conn, $querySearch);
     oci_bind_by_name($result, ':search', $searchQuery);
 }
+
 
 if (!oci_execute($result)) {
     $e = oci_error($result);
@@ -163,6 +178,31 @@ if (!oci_execute($result)) {
             }
             ?>
         </div>
+        <?php
+            $count_query = "SELECT COUNT(*) as total FROM products";
+            $resultcount = oci_parse($conn, $count_query);
+            oci_execute($resultcount);
+            $total_row = oci_fetch_assoc($resultcount);
+            $total_records = $total_row['TOTAL'];
+            $total_pages = ceil($total_records / $limit);
+            echo "<div class='pagination'>";
+            if ($pn > 1) {
+                echo "<a href='?page=" . ($pn - 1) . "'>Previous</a> ";
+            }
+
+            for ($i = 1; $i <= $total_pages; $i++) {
+                if ($i == $pn) {
+                    echo "<strong>$i</strong> "; // Current page
+                } else {
+                    echo "<a href='?page=$i'>$i</a> ";
+                }
+            }
+
+            if ($pn < $total_pages) {
+                echo "<a href='?page=" . ($pn + 1) . "#products'>Next</a>";
+            }
+            echo "</div>";
+        ?>
     </section>
 
     <!-- Footer -->
