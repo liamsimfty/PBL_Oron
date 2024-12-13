@@ -115,9 +115,9 @@ if (!oci_execute($result)) {
             <?php
             if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
                 foreach ($rows as $row) {
-                    $productId = htmlspecialchars($row["PRODUCT_ID"]);
+                    $product_id = htmlspecialchars($row["PRODUCT_ID"]);
                     ?>
-                    <a href="productpage.php?product_id=<?php echo $productId; ?>" class="game-card">
+                    <a href="productpage.php?product_id=<?php echo $product_id; ?>" class="game-card">
                         <div class="game-card-inner">
                             <?php if (!empty($row["IMAGE"])): ?>
                                 <div class="image-container">

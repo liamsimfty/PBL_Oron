@@ -2,13 +2,17 @@
 include '../connection/connection.php';
 session_start();
 
+if (isset($_GET['product_id'])) {
+    $product_id = htmlspecialchars($_GET['product_id']);
+    $_SESSION['product_id'] = $product_id;
+}
+
 // Get product ID from URL
 if (!isset($_SESSION["product_id"])) {
     header("Location: store.php");
     exit();
 }
 
-$product_id = $_SESSION["product_id"];
 $query = "SELECT * FROM products WHERE product_id = :product_id";
 $result = oci_parse($conn, $query);
 oci_bind_by_name($result, ":product_id", $product_id);

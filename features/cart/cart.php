@@ -120,7 +120,8 @@ $query = "SELECT
             p.product_id,
             p.name AS product_name,
             p.current_price,
-            p.discount
+            p.discount,
+            p.image
           FROM 
             cart c
           JOIN 
@@ -143,6 +144,7 @@ while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
         'product_name' => $row['PRODUCT_NAME'],
         'current_price' => $row['CURRENT_PRICE'],
         'discount' => $row['DISCOUNT'],
+        'image' => $row['IMAGE'],
         'final_price' => $finalPrice
     ];
 }
@@ -157,28 +159,35 @@ oci_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../Styling/css/cart.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
     <script>
-        function calculateTotal() {
-            let checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
-            let rows = document.querySelectorAll('table tr');
-            let total = 0;
-            checkboxes.forEach(checkbox => {
-                let row = checkbox.closest('tr');
-                let finalPrice = parseFloat(row.cells[4].innerText.replace('$', ''));
-                total += finalPrice;
-            });
-            document.getElementById('total-price').innerText = total.toFixed(2);
-        }
+        // Function to update total price
+        function calculateTotal() { 
+        // Select all checked checkboxes
+        let checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
+        let total = 0;
 
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SET_YOUR_CLIENT_KEY_HERE"
+        checkboxes.forEach(checkbox => {
+            // Find the closest cart-item element and get its final-price element
+            let cartItem = checkbox.closest('.cart-item');
+            let finalPriceElement = cartItem.querySelector('.final-price');
+            if (finalPriceElement) {
+                // Extract and parse the price value from the final-price element
+                let finalPrice = parseFloat(finalPriceElement.textContent.replace(/IDR\s|,/g, ''));
+                total += finalPrice;
+            }
+        });
+
+        // Update the total price in the summary section
+        document.getElementById('total-price').textContent = `IDR ${total.toLocaleString()}`;
+        }
     </script>
 </head>
 <body>
-<header>
+<!-- <header>
     <div class="header-container">
         <div class="brand-logo">
             <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
@@ -200,41 +209,50 @@ oci_close($conn);
             </ul>
         </nav>
     </div>
-</header>
-    <h2>Your Cart</h2>
+</header> -->
+    <h1>Cart</h1>
+    <form method="POST" class="cart-container">
+        <div class="cart-main">
+            <div class="cart-header">
+                <div class="product-col">PRODUCT</div>
+                <div class="price-col">PRICE</div>
+            </div>
 
-    <form method="POST">
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>Select</th>
-                <th>Product Name</th>
-                <th>Current Price</th>
-                <th>Discount</th>
-                <th>Final Price</th>
-            </tr>
-            <?php foreach($cart_items as $item): ?>
-            <tr>
-                <td>
-                    <input type="checkbox" name="selected_products[]" 
-                           value="<?= htmlspecialchars($item['product_id']) ?>">
-                </td>
-                <td><?= htmlspecialchars($item['product_name']) ?></td>
-                <td>$<?= number_format($item['current_price'], 2) ?></td>
-                <td><?= htmlspecialchars($item['discount'] * 100) ?>%</td>
-                <td>$<?= number_format($item['final_price'], 2) ?></td>
-            </tr>
+            <?php foreach ($cart_items as $item): ?>
+            <div class="cart-item">
+                <div class="product-col">
+                    <input type="checkbox" class="product-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_id']) ?>" onclick="calculateTotal()"="<?= htmlspecialchars($item['final_price'] * 1000) ?>">
+                    <?php if (!empty($item['image'])): ?>
+                        <img src="../../<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
+                    <?php else: ?>
+                        <img src="https://placehold.co/80x80" alt="<?= htmlspecialchars($item['product_name']) ?>">
+                    <?php endif; ?>
+                    <span><?= htmlspecialchars($item['product_name']) ?></span>
+                </div>
+                <div class="price-col">
+                    <?php if ($item['discount'] > 0): ?>
+                    <span class="discount-badge">-<?= htmlspecialchars($item['discount'] * 100) ?>%</span>
+                    <span class="original-price">IDR <?= number_format($item['current_price'] * 1000, 0) ?></span>
+                    <?php endif; ?>
+                    <span class="final-price" id="final-price">IDR <?= number_format($item['final_price'] * 1000, 0) ?></span>
+                </div>
+            </div>
             <?php endforeach; ?>
-        </table>
-
-        <div>
-            <strong>Total Price: $<span id="total-price">0.00</span></strong>
         </div>
 
-        <button type="submit" name="remove_selected">Remove Selected</button>
-        <button type="submit" name="process_payment">Process Payment</button>
-        <button type="button" onclick="calculateTotal()">Calculate Total</button>
-        <a href="../history/transaction.php" class="button">See Transaction History</a>
-    </form>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Total</span>
+                <span id="total-price" class="final-price">IDR 0</span>
+            </div>
+            <button type="submit" name="remove_selected" class="checkout-btn">Remove Selected</button>
+            <button type="submit" name="process_payment" class="checkout-btn">Continue to Payment</button>
+            <div class="transaction-history">
+                <a href="../history/history.php" >Transaction History</a>
+            </div>
+        </div>
+</form>
+
     <?php
         Config::$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];
         $snap_token = isset($_GET['snap_token']) ? $_GET['snap_token'] : null;
