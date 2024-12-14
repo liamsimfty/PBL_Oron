@@ -10,14 +10,21 @@
     box-sizing: border-box;
     font-family: 'Lemon/Milk', sans-serif;
   }
-  
+
+  header {
+    width: 100%;
+  }
+
   body {
     background-color: var(--purple);
-    min-height: 100vh;
-    padding: 20rem;
-    padding-top: 8rem;
   }
-  
+
+  .cart{
+   justify-content: center; 
+   padding-top: 10rem;
+   padding-left: 18rem;
+   padding-right: 18rem;
+  }
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -28,12 +35,14 @@
     font-size: 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
+    font-family: 'Lemon/Milk', sans-serif;
   }
   
   .cart-container {
     display: flex;
     gap: 2rem;
     justify-content: center;
+    
   }
   
   .cart-main {
@@ -56,6 +65,10 @@
     align-items: center;
     padding: 1rem 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    
   }
   
   .product-col {
@@ -69,25 +82,6 @@
     height: 80px;
     border-radius: 0.5rem;
     object-fit: cover;
-  }
-  
-  .quantity-col {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .quantity-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--purple);
-    color: var(--white);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .cart-summary {
@@ -122,49 +116,53 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    margin-right: 1rem;
   }
-  
-  .price-col {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-  
-  .original-price {
-    text-decoration: line-through;
-    color: #666;
-    font-size: 0.9em;
-    margin-left: 0;
-  }
-  
-  .discount-badge {
-    background-color: #fbbf24;
-    color: #000000;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 0.575rem;
-  }
-  
-  .discount-badge::after {
-    content: '';
-    position: absolute;
-    right: -6px;
-    top: 0;
-    width: 0;
-    height: 0;
-    border-top: 11px solid transparent;
-    border-bottom: 11px solid transparent;
-    border-left: 6px solid var(--black);
-  }
-  
-  .final-price {
-    font-weight: bold;
-    color: var(--black);
-    font-size: 1.1em;
-  }
+
+.product-price {
+    color: #ffffff;
+    font-family: 'Lemon/Milk', sans-serif;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-info {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 8px;
+  height: 100%; /* Set the height to 100% */
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-badge {
+  background-color: #fbbf24;
+  color: #000000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.575rem;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.original-price {
+  color: #9ca3af;
+  text-decoration: line-through;
+  font-size: 0.575rem;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.final-price {
+  color: #000000;
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-family: 'Lemon/Milk', sans-serif;
+}
   
   .cart-header {
     display: grid;
@@ -186,10 +184,6 @@
     align-items: center;
     gap: 1rem;
   }
-  
-  .product-checkbox {
-    margin-right: 1rem;
-  }
 
   .transaction-history {
     text-align: center; /* Center text */
@@ -201,3 +195,33 @@
     font-size: 10px;
 }
   
+.pagination {
+  display: flex; /* Menggunakan flexbox untuk tata letak */
+  justify-content: center; /* Memusatkan pagination */
+  align-items: center; /* Memusatkan secara vertikal */
+  margin: 20px 0; /* Memberikan jarak di atas dan bawah */
+}
+
+.pagination-link {
+  padding: 10px 15px; /* Memberikan padding di dalam link */
+  margin: 0 5px; /* Memberikan jarak antar link */
+  text-decoration: none; /* Menghilangkan garis bawah */
+  color: #007BFF; /* Warna teks */
+  border: 1px solid #007BFF; /* Border dengan warna yang sama */
+  border-radius: 5px; /* Sudut melengkung */
+  transition: background-color 0.3s, color 0.3s; /* Efek transisi */
+}
+
+.pagination-link:hover {
+  background-color: #007BFF; /* Warna latar belakang saat hover */
+  color: white; /* Warna teks saat hover */
+}
+
+.pagination-current {
+  padding: 10px 15px; /* Memberikan padding di dalam current page */
+  margin: 0 5px; /* Memberikan jarak antar link */
+  font-weight: bold; /* Menebalkan teks */
+  color: #333; /* Warna teks untuk current page */
+  border: 1px solid #ccc; /* Border abu-abu */
+  border-radius: 5px; /* Sudut melengkung */
+}

@@ -3,100 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Lemon/Milk', sans-serif;
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: #2c0236;
     color: white;
+    font-family: 'Lemon/Milk', sans-serif;
 }
 
-/* Header Container */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background-color: rgba(44, 2, 54, 0.8);
-    /* backdrop-filter: blur(10px); */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Brand Logo Container */
-.brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Jarak antara logo dan teks */
-}
-
-/* Logo Image */
-.brand-logo img {
-    width: 30px; /* Ukuran logo */
-    height: 30px;
-    object-fit: contain; /* Sesuaikan gambar dengan proporsi aslinya */
-}
-
-/* Header Title */
-.brand-logo h1 {
-    font-size: 24px;
-    color: #ffffff;
-    font-weight: bold;
-    margin: 0;
-}
-
-/* Navigation Links */
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 50px;
-    position: relative;
-    left: 0;
-}
-
-/* Link Items */
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-/* Hover Effect */
-.header-container a:hover {
-    color: #fdda00;
-}
-
-/* Responsive Styling */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        padding: 15px;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .brand-logo {
-        margin-bottom: 15px;
-    }
-}
-
-
-
-/* Banner */
-/* Main Banner */
-
-
-/* Gambar Logo */
-/* Main Banner */
 .main-banner {
     position: relative;
     text-align: left; /* Mengubah text-align menjadi kiri */
@@ -186,6 +102,41 @@ header nav ul li a {
     left: 1146px; /* Geser gambar ke kanan sebanyak 30px */
 }
 
+.search-bar {
+    display: flex; /* Menggunakan flexbox untuk tata letak yang lebih baik */
+    justify-content: center; /* Memusatkan konten secara horizontal */
+    align-items: center; /* Memusatkan konten secara vertikal */
+    margin: 20px; /* Memberikan jarak di sekitar search bar */
+}
+
+.search-bar form {
+    display: flex; /* Menggunakan flexbox untuk form */
+    width: 100%; /* Mengatur lebar form */
+    max-width: 300px; /* Mengatur lebar maksimum form */
+}
+
+.search-bar input[type="text"] {
+    flex: 1; /* Membuat input mengambil ruang yang tersedia */
+    padding: 10px; /* Memberikan padding di dalam input */
+    border: 1px solid #ccc; /* Border abu-abu */
+    border-radius: 5px 0 0 5px; /* Membuat sudut input melengkung */
+    font-size: 16px; /* Ukuran font */
+}
+
+.search-bar button {
+    padding: 10px 15px; /* Memberikan padding di dalam tombol */
+    background-color: #007BFF; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border default */
+    border-radius: 0 5px 5px 0; /* Membuat sudut tombol melengkung */
+    cursor: pointer; /* Mengubah kursor saat hover */
+    font-size: 16px; /* Ukuran font */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.search-bar button:hover {
+    background-color: #0056b3; /* Warna latar belakang saat hover */
+}
 
 /* Games Collection */
 .games-collection {
@@ -482,4 +433,35 @@ header nav ul li a {
 /* Hover effect untuk link */
 .footer-links a:hover {
     color: #ffffff;
+}
+
+.pagination {
+    display: flex; /* Menggunakan flexbox untuk tata letak */
+    justify-content: center; /* Memusatkan pagination */
+    align-items: center; /* Memusatkan secara vertikal */
+    margin: 20px 0; /* Memberikan jarak di atas dan bawah */
+}
+
+.pagination-link {
+    padding: 10px 15px; /* Memberikan padding di dalam link */
+    margin: 0 5px; /* Memberikan jarak antar link */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    color: #fbbf24;
+    color: #fbbf24;
+    border-radius: 5px; /* Sudut melengkung */
+    transition: background-color 0.3s, color 0.3s; /* Efek transisi */
+}
+
+.pagination-link:hover {
+    background-color: #007BFF; /* Warna latar belakang saat hover */
+    color: white; /* Warna teks saat hover */
+}
+
+.pagination-current {
+    padding: 10px 15px; /* Memberikan padding di dalam current page */
+    margin: 0 5px; /* Memberikan jarak antar link */
+    font-weight: bold; /* Menebalkan teks */
+    color: #fbbf24;
+    border: 1px solid #ccc; /* Border abu-abu */
+    border-radius: 5px; /* Sudut melengkung */
 }

@@ -21,6 +21,20 @@ body {
   background-color: #ffffff;
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: rgba(44, 2, 54, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -28,8 +42,17 @@ body {
   background-color: var(--third);
   padding: 0 8%;
   box-shadow: var(--shadow);
+  position: fixed; /* Make the navbar fixed */
+  top: 0; /* Stick to the top of the viewport */
+  width: 100%; /* Ensure it takes the full width */
+  z-index: 1000; /* Ensure it stays above other content */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
+.navbar.sticky {
+  background-color: var(--fourth); /* Change background color when sticky */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow when sticky */
+}
 .navbar img {
     width: 30px;
     height: 30px;
@@ -115,6 +138,7 @@ body {
   bottom: 0.3rem;
   font-size: 0.5rem;
   color: var(--green);
+  text-align: center;
 }
 
 .profile-dropdown-btn span {

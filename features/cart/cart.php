@@ -158,100 +158,125 @@ oci_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Games Collection - ORON</title>
+    <link rel="stylesheet" href="../../Styling/css/newheader.css" />
     <link rel="stylesheet" href="../../Styling/css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.cdnfonts.com/css/lemonmilk');
-    </style>
-    <script>
-        // Function to update total price
-        function calculateTotal() { 
-        // Select all checked checkboxes
-        let checkboxes = document.querySelectorAll('input[name="selected_products[]"]:checked');
-        let total = 0;
+    </style> 
+    <script src="../../Styling/JS/function.js"></script> 
 
-        checkboxes.forEach(checkbox => {
-            // Find the closest cart-item element and get its final-price element
-            let cartItem = checkbox.closest('.cart-item');
-            let finalPriceElement = cartItem.querySelector('.final-price');
-            if (finalPriceElement) {
-                // Extract and parse the price value from the final-price element
-                let finalPrice = parseFloat(finalPriceElement.textContent.replace(/IDR\s|,/g, ''));
-                total += finalPrice;
-            }
-        });
-
-        // Update the total price in the summary section
-        document.getElementById('total-price').textContent = `IDR ${total.toLocaleString()}`;
-        }
-    </script>
 </head>
 <body>
-<!-- <header>
-    <div class="header-container">
-        <div class="brand-logo">
-            <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
+<header>
+    <div>
+        <nav class="navbar">
+            <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
             <h1>ORON</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="../pages/homepage.php">Home</a></li>
-                <li><a href="gamesdespage.php">Games</a></li>
-                <li><a href="../pages/blog.php">Blog</a></li>
-                <li><a href="../pages/about.php">About</a></li>
-                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                <?php if ($isLoggedIn): ?>
-                    <li> <a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-                <?php else: ?>
-                    <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
-                <?php endif; ?>
-                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <ul class="navbar-list">
+            <li><a href="../pages/homepage.php">Home</a></li>
+            <li><a href="../store/store.php">Store</a></li>
+            <li><a href="../pages/blog.php">Blog</a></li>
+            <li><a href="../pages/about.php">About</a></li>
+            <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
+        
+            <div class="profile-dropdown">
+            <div onclick="toggle()" class="profile-dropdown-btn">
+                <div class="profile-img">
+                <i class="fa-solid fa-circle"></i>
+                </div>
+                
+                <span>
+                <?php if ($isLoggedIn): ?>
+                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                <?php else: ?>
+                    Guest
+                <?php endif; ?>
+                <i class="fa-solid fa-angle-down"></i>
+                </span>
+            </div>
+        
+            <ul class="profile-dropdown-list">
+                <?php if ($isLoggedIn): ?>
+                <li class="profile-dropdown-list-item">
+                    <a href="../pages/profile.php">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                    </a>
+                </li>
+                <li class="profile-dropdown-list-item">
+                    <a href="../login/login.php">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                    </a>
+                </li>
+                <?php else: ?>
+                <li class="profile-dropdown-list-item">
+                    <a href="../login/login.php">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log in
+                    </a>
+                </li>
+                <?php endif; ?>
+            </ul>
+            </div>
         </nav>
-    </div>
-</header> -->
+        </div>
+</header>
+<div class="cart">
     <h1>Cart</h1>
-    <form method="POST" class="cart-container">
-        <div class="cart-main">
-            <div class="cart-header">
-                <div class="product-col">PRODUCT</div>
-                <div class="price-col">PRICE</div>
+        <form method="POST" class="cart-container">
+            <div class="cart-main">
+                <div class="cart-header">
+                    <div class="product-col">PRODUCT</div>
+                    <div class="price-col">PRICE</div>
+                </div>
+
+                <?php foreach ($cart_items as $item): ?>
+                <div class="cart-item">
+                    <div class="product-col">
+                        <input type="checkbox" class="product-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_id']) ?>" onclick="calculateTotal()"="<?= htmlspecialchars($item['final_price'] * 1000) ?>">
+                        <?php if (!empty($item['image'])): ?>
+                            <img src="../../<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
+                        <?php else: ?>
+                            <img src="https://placehold.co/80x80" alt="<?= htmlspecialchars($item['product_name']) ?>">
+                        <?php endif; ?>
+                        <span><?= htmlspecialchars($item['product_name']) ?></span>
+                    </div>
+                    <div>
+                            <div class="product-price">
+                                <div class="price-container">
+                                    <div class="discount-item">
+                                        <?php if ($item['discount'] > 0): ?>
+                                            <span class="discount-badge">-<?= htmlspecialchars($item['discount'] * 100) ?>%</span>
+                                            <span class="original-price">IDR <?= number_format($item['current_price'] * 1000, 0) ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                            <span class="final-price" id="final-price">IDR <?= number_format($item['final_price'] * 1000, 0) ?></span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
 
-            <?php foreach ($cart_items as $item): ?>
-            <div class="cart-item">
-                <div class="product-col">
-                    <input type="checkbox" class="product-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_id']) ?>" onclick="calculateTotal()"="<?= htmlspecialchars($item['final_price'] * 1000) ?>">
-                    <?php if (!empty($item['image'])): ?>
-                        <img src="../../<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
-                    <?php else: ?>
-                        <img src="https://placehold.co/80x80" alt="<?= htmlspecialchars($item['product_name']) ?>">
-                    <?php endif; ?>
-                    <span><?= htmlspecialchars($item['product_name']) ?></span>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span id="total-price" class="final-price">IDR 0</span>
                 </div>
-                <div class="price-col">
-                    <?php if ($item['discount'] > 0): ?>
-                    <span class="discount-badge">-<?= htmlspecialchars($item['discount'] * 100) ?>%</span>
-                    <span class="original-price">IDR <?= number_format($item['current_price'] * 1000, 0) ?></span>
-                    <?php endif; ?>
-                    <span class="final-price" id="final-price">IDR <?= number_format($item['final_price'] * 1000, 0) ?></span>
+                <button type="submit" name="remove_selected" class="checkout-btn">Remove Selected</button>
+                <button type="submit" name="process_payment" class="checkout-btn">Continue to Payment</button>
+                <div class="transaction-history">
+                    <a href="../history/transaction.php" >Transaction History</a>
                 </div>
             </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="cart-summary">
-            <div class="summary-row">
-                <span>Total</span>
-                <span id="total-price" class="final-price">IDR 0</span>
-            </div>
-            <button type="submit" name="remove_selected" class="checkout-btn">Remove Selected</button>
-            <button type="submit" name="process_payment" class="checkout-btn">Continue to Payment</button>
-            <div class="transaction-history">
-                <a href="../history/history.php" >Transaction History</a>
-            </div>
-        </div>
-</form>
+    </form>
+</div>
 
     <?php
         Config::$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];

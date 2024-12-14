@@ -1,19 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Games Collection - ORON</title>
-    <link rel="stylesheet" href="../../Styling/css/store.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
-    </style>
-                
-</head>
-<body>
 <?php
 include '../connection/connection.php';
 // Start session
@@ -70,30 +54,79 @@ if (!oci_execute($result)) {
 }
 ?>
 
-    <!-- Header -->
-    <header>
-    <div class="header-container">
-        <div class="brand-logo">
-            <img src="../../Styling/images/oron-logo.png" alt="Logo ORON">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Games Collection - ORON</title>
+    <link rel="stylesheet" href="../../Styling/css/newheader.css" />
+    <link rel="stylesheet" href="../../Styling/css/store.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <nav class="navbar">
+            <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
             <h1>ORON</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="../pages/homepage.php">Home</a></li>
-                <li><a href="gamesdespage.php">Games</a></li>
-                <li><a href="../pages/blog.php">Blog</a></li>
-                <li><a href="../pages/about.php">About</a></li>
-                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                <?php if ($isLoggedIn): ?>
-                    <li><a class="nav-link" href="features/profile/profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-                <?php else: ?>
-                    <li><a href="../profile/profile.php"><i class="fa-solid fa-user"></i></a></li>
-                <?php endif; ?>
-                    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <ul class="navbar-list">
+            <li><a href="../pages/homepage.php">Home</a></li>
+            <li><a href="../store/store.php">Store</a></li>
+            <li><a href="../pages/blog.php">Blog</a></li>
+            <li><a href="../pages/about.php">About</a></li>
+            <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+            <li><a href="../../features/cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
+        
+            <div class="profile-dropdown">
+            <div class="profile-dropdown-btn" onclick="toggle()">
+                <div class="profile-img">
+                <i class="fa-solid fa-circle"></i>
+                </div>
+                
+                <span>
+                <?php if ($isLoggedIn): ?>
+                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                <?php else: ?>
+                    Guest
+                <?php endif; ?>
+                <i class="fa-solid fa-angle-down"></i>
+                </span>
+            </div>
+        
+            <ul class="profile-dropdown-list">
+                <?php if ($isLoggedIn): ?>
+                <li class="profile-dropdown-list-item">
+                    <a href="../pages/profile.php">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                    </a>
+                </li>
+                <li class="profile-dropdown-list-item">
+                    <a href="../login/login.php">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                    </a>
+                </li>
+                <?php else: ?>
+                <li class="profile-dropdown-list-item">
+                    <a href="../login/login.php">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log in
+                    </a>
+                </li>
+                <?php endif; ?>
+            </ul>
+            </div>
         </nav>
-    </div>
-    </header>
+        </div>
+</header>
 
 <!-- Main Banner -->
 <section class="main-banner">
@@ -107,13 +140,8 @@ if (!oci_execute($result)) {
     </div>
 </section>
 
-
-<div class="vector-7"></div>
-<div class="vector-8"></div>
-
-
     <!-- Games Collection -->
-    <section class="games-collection">
+    <section class="games-collection" id="products">
         <h2>
             <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
         </h2>
@@ -122,11 +150,11 @@ if (!oci_execute($result)) {
         <div class="search-bar">
             <form method="get" action="store.php#products">
                 <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
-                <button type="submit">Search</button>
+                <button type="submit"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></button>
             </form>
         </div>
 
-        <div class="games-grid" id="products">
+        <div class="games-grid">
             <?php
             if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
                 foreach ($rows as $row) {
@@ -185,21 +213,22 @@ if (!oci_execute($result)) {
             $total_row = oci_fetch_assoc($resultcount);
             $total_records = $total_row['TOTAL'];
             $total_pages = ceil($total_records / $limit);
+
             echo "<div class='pagination'>";
             if ($pn > 1) {
-                echo "<a href='?page=" . ($pn - 1) . "'>Previous</a> ";
+                echo "<a class='pagination-link' href='?page=" . ($pn - 1) . "#products'>Previous</a> ";
             }
 
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $pn) {
-                    echo "<strong>$i</strong> "; // Current page
+                    echo "<span class='pagination-current'>$i</span> "; // Current page
                 } else {
-                    echo "<a href='?page=$i'>$i</a> ";
+                    echo "<a class='pagination-link' href='?page=$i#products'>$i</a> ";
                 }
             }
 
             if ($pn < $total_pages) {
-                echo "<a href='?page=" . ($pn + 1) . "#products'>Next</a>";
+                echo "<a class='pagination-link' href='?page=" . ($pn + 1) . "#products'>Next</a>";
             }
             echo "</div>";
         ?>
@@ -224,5 +253,6 @@ if (!oci_execute($result)) {
         </div>
     </div>
 </footer>
+<script src="../../Styling/JS/function.js"></script> 
 </body>
 </html>
