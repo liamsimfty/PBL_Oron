@@ -1,0 +1,84 @@
+.footer {
+    position: relative;
+    width: 100%;
+    height: auto; /* Footer akan menyesuaikan dengan konten di dalamnya */
+    color: white;
+}
+
+/* Background image */
+.footer-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Membuat gambar menutupi seluruh area footer */
+    padding-top: 10%;
+}
+
+/* Container untuk konten footer */
+.footer-container {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%); /* Menjaga konten tetap di tengah secara vertikal */
+    width: 90%;
+    max-width: 1200px; /* Menentukan lebar maksimal */
+    z-index: 1; /* Membuat konten muncul di atas gambar */
+}
+
+/* Bagian About */
+.about {
+    margin-bottom: 30px; /* Memberikan jarak bawah pada section about */
+}
+
+/* Teks Judul About */
+/* Kontainer Footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* About di kiri, Links di kanan */
+    align-items: center; /* Pastikan tingginya sama */
+    padding: 20px; /* Jarak dalam kontainer */
+}
+
+/* Bagian About */
+.about {
+    max-width: 50%; /* Lebar maksimal 50% dari footer */
+    text-align: left; /* Rata kiri */
+    padding-top: 35%;
+}
+
+.about h4 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgb(0, 0, 0);
+    text-align: justify; /* Rata kiri-kanan */}
+
+/* Bagian Footer Links */
+.footer-links {
+    max-width: 20%; /* Lebar maksimal 40% dari footer */
+    text-align: right; /* Konten rata kanan */
+    padding-top: 35%;
+    padding-left: 58%;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}

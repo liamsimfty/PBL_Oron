@@ -162,6 +162,7 @@ oci_close($conn);
     <title>Games Collection - ORON</title>
     <link rel="stylesheet" href="../../Styling/css/newheader.css" />
     <link rel="stylesheet" href="../../Styling/css/cart.css">
+    <link rel="stylesheet" href="../../Styling/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.cdnfonts.com/css/lemonmilk');
@@ -277,6 +278,24 @@ oci_close($conn);
             </div>
     </form>
 </div>
+<footer class="footer">
+    <img src="../../Styling/images/ftbg.png" alt="Oron Logo" class="footer-bg">
+    <div class="footer-container">
+        <div class="about">
+            <h4>About Us</h4>            
+                <p>Oron adalah solusi terbaik untuk membeli dan menjual video game.<br>
+                Dengan dukungan komunitas global, kami memprioritaskan<br>pengalaman pengguna yang aman dan transparan.</p>
+            </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
 
     <?php
         Config::$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];
