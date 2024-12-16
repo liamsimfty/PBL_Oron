@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             echo '</script>';
         } else {
             $e = oci_error($insertStmt);
-            echo "<p>Error adding product to cart: " . htmlspecialchars($e['message']) . "</p>";
+            echo "<script>Error adding product to cart: " . htmlspecialchars($e['message']) . "</script>";
         }
 
         oci_free_statement($insertStmt);

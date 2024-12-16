@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Show password reset form
             $showResetForm = true;
         } else {
-            $error = "Invalid username or recovery phrase!";
+            echo '<script>alert("Invalid Recovery Or User Password")</script>';
         }
         oci_free_statement($stid);
     }
@@ -46,11 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Clear the recovery session
                     unset($_SESSION['recovery_account_id']);
                 } else {
-                    $error = "Error resetting password.";
+                    echo '<script>alert("Error Resetting Password")</script>';
                 }
                 oci_free_statement($stid);
             } else {
-                $error = "Passwords do not match!";
+                echo '<script>alert("Password Do Not Match")</script>';
             }
         }
     }

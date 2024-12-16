@@ -72,14 +72,20 @@ if ($transaction == 'capture') {
 
     oci_free_statement($updateStmt);
 }  else if ($transaction == 'deny') {
-    // TODO set payment status in merchant's database to 'Denied'
-    echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
+    $updateQuery = "UPDATE transaction SET payment_status = 'deny' WHERE token_id = :order_id";
+    $updateStmt = oci_parse($conn, $updateQuery);
+    oci_bind_by_name($updateStmt, ':order_id', $order_id);
+    $result = oci_execute($updateStmt);
 } else if ($transaction == 'expire') {
-    // TODO set payment status in merchant's database to 'expire'
-    echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
+    $updateQuery = "UPDATE transaction SET payment_status = 'expire' WHERE token_id = :order_id";
+    $updateStmt = oci_parse($conn, $updateQuery);
+    oci_bind_by_name($updateStmt, ':order_id', $order_id);
+    $result = oci_execute($updateStmt);
 } else if ($transaction == 'cancel') {  
-    // TODO set payment status in merchant's database to 'Denied'
-    echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
+    $updateQuery = "UPDATE transaction SET payment_status = 'cancel' WHERE token_id = :order_id";
+    $updateStmt = oci_parse($conn, $updateQuery);
+    oci_bind_by_name($updateStmt, ':order_id', $order_id);
+    $result = oci_execute($updateStmt);
 }
 
 function printExampleWarningMessage() {

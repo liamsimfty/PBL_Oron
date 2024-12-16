@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $row = oci_fetch_array($checkStid, OCI_ASSOC);
     if ($row['USER_COUNT'] > 0) {
-        echo "<p>Username already exists. Please choose another username.</p>";
+        echo '<script>alert("Username Already Exist")</script>';
     } else {
         // Hash the password for security
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -117,13 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION['mnemonic'] = $mnemonic;
             
-            echo "<p>User successfully created!</p>";
             // Redirect to mnemonic display page
             header("Location: mnemonic.php");
             exit;
         } else {
             $e = oci_error($stid);
-            echo "<p>Error creating user: " . htmlentities($e['message'], ENT_QUOTES) . "</p>";
+            echo "<script>Error creating user: " . htmlentities($e['message'], ENT_QUOTES) . "</script>";
         }
     }
 

@@ -70,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../pages/newheader.php");
             exit(); // Stop further execution
         } else {
-            echo "<p>Invalid password. Please try again.</p>";
+            echo '<script>alert("Invalid Password")</script>';
         }
     } else {
-        echo "<p>No user found with that username.</p>";
+        echo '<script>alert("No User Found With That Username")</script>';
     }
 
     // Free the statement and close the connection
