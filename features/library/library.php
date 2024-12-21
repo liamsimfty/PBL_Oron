@@ -65,10 +65,11 @@ oci_close($conn);
         </div>
         <div class="navbar-link">
             <ul class="navbar-list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Store</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">About</a></li>
+            <li><a href="../pages/homepage.php">Home</a></li>
+            <li><a href="../store/store.php">Store</a></li>
+            <li><a href="../pages/blog.php">Blog</a></li>
+            <li><a href="../pages/about.php">About</a></li>
+            <li><a href="../library/library.php">Library</a></li>
                 <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
                 <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
@@ -107,5 +108,26 @@ oci_close($conn);
         </div>
     </main>
     <!-- Library Section End -->
+    <footer class="footer">
+        <img src="../../Styling/images/ftbg.png" alt="Oron Logo" class="footer-bg">
+        <div class="footer-container">
+            <div class="about">
+                <h4>About Us</h4>            
+                    <p>Oron adalah solusi terbaik untuk membeli dan menjual video game.<br>
+                    Dengan dukungan komunitas global, kami memprioritaskan<br>pengalaman pengguna yang aman dan transparan.</p>
+                </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Footer End -->
 </body>
 </html>

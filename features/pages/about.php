@@ -32,6 +32,7 @@ $isLoggedIn = isset($_SESSION['username']);
     <li><a href="../store/store.php">Store</a></li>
     <li><a href="../pages/blog.php">Blog</a></li>
     <li><a href="../pages/about.php">About</a></li>
+    <li><a href="../library/library.php">Library</a></li>
     <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
     <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
   </ul>
