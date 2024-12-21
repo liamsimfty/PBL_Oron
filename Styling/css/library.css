@@ -1,0 +1,229 @@
+/* MAIN SOURCES OFF STYLING AND VARIABLES */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+:root {
+  --primary: #fffb00;
+  --secondary: #2e0049;
+  --third: #340434;
+  --fourth: #3b091c;
+  --shadow: 0px 2px 8px 0px var(--secondary-light);
+}
+
+/* GENERAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--secondary);
+  }
+
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: var(--secondary);
+    padding: 0 8%;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .navbar-logo {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    width: 150px;
+    height: 100%;   
+  }
+
+  .navbar-logo-img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .navbar h1 {
+    padding-left: 10px;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .navbar-link{
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    cursor: pointer;
+  }
+
+  .navbar-list {
+    width: 100%;
+    text-align: right;
+    padding-right: 2rem;
+  }
+  
+ /* Enhanced Navbar Link Effects */
+.navbar-list li {
+    display: inline-block;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.navbar-list li a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    padding-bottom: 5px;
+    display: inline-block;
+    position: relative;
+    transition: color 0.3s ease; /* Smooth color transition for text */
+}
+
+/* Creating the sliding underline effect */
+.navbar-list li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary); /* Yellow underline */
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+/* Change both text color and show underline on hover */
+.navbar-list li a:hover {
+    color: var(--primary); /* Text becomes yellow on hover */
+}
+
+.navbar-list li a:hover::after {
+    width: 100%;
+}
+
+/* Active state styling */
+.navbar-list li a.active {
+    color: var(--primary);
+}
+
+.navbar-list li a.active::after {
+    width: 100%;
+}
+
+/* Consistent styling for icons */
+.navbar-list li a i {
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-list li a:hover i {
+    color: var(--primary);
+}
+
+  /* Library Section */
+main.Library {
+    padding-top: 100px; /* Add padding to account for fixed navbar */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Library h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fdf309;
+    margin-bottom: 40px;
+    padding: 10px 20px;
+}
+
+.libray-table {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Table Center Alignment Styles */
+.libray-table table {
+    width: 55%;
+    border-collapse: collapse;
+    text-align: center; /* Center all table content by default */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.libray-table th {
+    background-color: #fdf309;
+    color: #400a5c;
+    text-transform: uppercase;
+    text-align: center; /* Center header text */
+    padding: 15px;
+    font-weight: 900;
+}
+
+.libray-table td {
+    background-color: #fdf309;
+    color: #400a5c;
+    text-align: center; /* Center cell content */
+    padding: 15px;
+    vertical-align: middle; /* Vertically center content */
+    font-weight: 600;
+}
+
+/* Specific alignment for buttons to ensure they're centered */
+.libray-table td button {
+    display: inline-block; /* Helps with centering */
+    margin: 0 auto;
+}
+
+/* Keep the bottom border for rows */
+.libray-table tr {
+    border-bottom: 3px solid #400a5c;
+}
+
+.libray-table tr:last-child {
+    border-bottom: none;
+}
+
+/* Minimalist Button Styles */
+.libray-table button {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border: none;
+    padding: 8px 16px;  /* Reduced padding for more compact look */
+    border-radius: 20px; /* Increased border-radius for pill shape */
+    cursor: pointer;
+    font-size: 0.85em; /* Slightly smaller font size */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; /* Added letter spacing for better readability */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.libray-table button:hover {
+    background-color: var(--third);
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.libray-table button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

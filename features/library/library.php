@@ -45,45 +45,67 @@ while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
 oci_free_statement($stid);
 oci_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Library</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <title>ORON Library</title>
+    <link rel="stylesheet" href="../../Styling/css/library.css">
 </head>
 <body>
-        <form id="libraryForm">
-            <table class="table table-striped">
+    <!-- Navbar Start-->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="../../Styling/images/oron-logo.png" class="navbar-logo-img" alt="logo"/>
+            <h1>ORON</h1>
+        </div>
+        <div class="navbar-link">
+            <ul class="navbar-list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Store</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+        </div>
+    </nav>    
+    <!-- Navbar End -->
+
+    <!-- Library Section Start -->
+    <main class="Library">
+        <h1>Library</h1>
+        <div class="libray-table">
+            <table>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Game Name</th>
-                        <th>Purchase Date</th>
+                        <th>Games</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($library_items as $item): ?>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="selected_products[]" 
-                                   value="<?= htmlspecialchars($item['product_id']) ?>">
-                        </td>
-                        <td><?= htmlspecialchars($item['game_name']) ?></td>
-                        <td><?= htmlspecialchars($item['purchase_date']) ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                    
-                    <?php if (empty($library_items)): ?>
-                    <tr>
-                        <td colspan="3" class="text-center">No games in your library</td>
-                    </tr>
+                    <?php if (!empty($library_items)): ?>
+                        <?php foreach($library_items as $key => $item): ?>
+                            <tr>
+                                <td><?= $key + 1 ?></td>
+                                <td><?= htmlspecialchars($item['game_name']) ?></td>
+                                <td><button>Download</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">No games in your library</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+    </main>
+    <!-- Library Section End -->
 </body>
 </html>
