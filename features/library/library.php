@@ -108,7 +108,9 @@ oci_close($conn);
         </div>
     </main>
     <!-- Library Section End -->
-    <footer class="footer">
+
+     <!-- Footer Section Start -->
+     <footer class="footer">
         <img src="../../Styling/images/ftbg.png" alt="Oron Logo" class="footer-bg">
         <div class="footer-container">
             <div class="about">
@@ -126,8 +128,10 @@ oci_close($conn);
             </div>
         </div>
     </footer>
-    <!-- Footer End -->
+    <!-- Footer Section End -->
 
-    <!-- Footer End -->
+    <!-- Script Start-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script End-->
 </body>
 </html>
