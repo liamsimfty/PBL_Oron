@@ -18,6 +18,9 @@ unset($_SESSION['mnemonic']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../Styling/css/mnemonic.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
 </head>
 <body>
 <div class="overlay"></div>

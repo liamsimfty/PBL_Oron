@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
   <link rel="stylesheet" href="../../Styling/css/homepage.css" />
   <link rel="stylesheet" href="../../Styling/css/swiper-bundle.min.css">
+  <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+  </style>
   <title>Profile Dropdown</title>
 </head>
 <body>
