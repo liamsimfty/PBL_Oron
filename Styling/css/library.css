@@ -232,7 +232,7 @@ main.Library {
 /* FOOTER */
 .footer {
     position: relative;
-    width: 50%;
+    width: 100%;
     height: auto; /* Footer akan menyesuaikan dengan konten di dalamnya */
     color: white;
 }
