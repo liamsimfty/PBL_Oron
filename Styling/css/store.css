@@ -326,7 +326,6 @@ body {
 
 /* Games Collection */
 .games-collection {
-    padding: 40px 20px;
     text-align: center;
 }
 
@@ -376,11 +375,10 @@ body {
 }
 /* Grid Layout */
 .games-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(360px, 1fr));
-    row-gap: 54px;
-    padding: 25px 120px;
-    justify-items: center;
+    display: flex;
+    width: 100%;
+    gap: 60px;
+    justify-content: center;
     align-items: center;
 }
 
