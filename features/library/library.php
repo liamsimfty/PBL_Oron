@@ -55,7 +55,7 @@ oci_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
-    <title>ORON Library</title>
+    <title>ORON | Library</title>
     <link rel="stylesheet" href="../../Styling/css/newheader.css" />
     <link rel="stylesheet" href="../../Styling/css/library.css">
     <link rel="stylesheet" href="../../Styling/css/footer.css">

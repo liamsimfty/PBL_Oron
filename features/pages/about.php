@@ -10,7 +10,7 @@
     <style>
         @import url('https://fonts.cdnfonts.com/css/lemonmilk');
     </style>
-    <title>Profile Dropdown</title>
+    <title>ORON | About</title>
 </head>
 <body>
 
