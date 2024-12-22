@@ -10,22 +10,17 @@ $account_id = $_SESSION['account_id'];
 
 // Query untuk mengambil data transaksi
 $query = "
-    SELECT 
-        TO_CHAR(t.transaction_date, 'HH24:MI DD Month YYYY') AS transaction_date,
-        LISTAGG(p.name || ' ($' || TO_CHAR(t.price_at_checkout, 'FM999999.99') || ')', CHR(10)) 
-            WITHIN GROUP (ORDER BY p.name) AS nama_games,
-        MIN(t.payment_status) AS payment_status,
-        SUM(t.price_at_checkout) AS total_price
-    FROM transaction t
-    JOIN products p ON t.product_id = p.product_id
-    WHERE t.account_id = :account_id
-    AND EXISTS (
-        SELECT 1 
-        FROM transaction t2 
-        WHERE t2.snap_token = t.snap_token
-    )
-    GROUP BY TO_CHAR(t.transaction_date, 'HH24:MI DD Month YYYY')
-    ORDER BY MAX(t.transaction_date) DESC NULLS LAST
+SELECT 
+    TRUNC(t.transaction_date) AS transaction_date,
+    LISTAGG(p.name || ' ($' || TO_CHAR(t.price_at_checkout, 'FM999999.99') || ')', CHR(10)) 
+        WITHIN GROUP (ORDER BY p.name) AS nama_games,
+    MIN(t.payment_status) AS payment_status,
+    SUM(t.price_at_checkout) AS total_price
+FROM transaction t
+JOIN products p ON t.product_id = p.product_id
+WHERE t.account_id = :account_id
+GROUP BY TRUNC(t.transaction_date)
+ORDER BY TRUNC(t.transaction_date) DESC NULLS LAST
 ";
 
 // Menyiapkan dan menjalankan query

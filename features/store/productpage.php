@@ -5,10 +5,7 @@ session_start();
 if (isset($_GET['product_id'])) {
     $product_id = htmlspecialchars($_GET['product_id']);
     $_SESSION['product_id'] = $product_id;
-}
-
-// Get product ID from URL
-if (!isset($_SESSION["product_id"])) {
+} else {
     header("Location: store.php");
     exit();
 }
@@ -19,11 +16,6 @@ $result = oci_parse($conn, $query);
 oci_bind_by_name($result, ":product_id", $product_id);
 oci_execute($result);
 $product = oci_fetch_assoc($result);
-
-if (!$product) {
-    header("Location: store.php");
-    exit();
-}
 
 // Query untuk mendapatkan media (gambar/video) dari product_media
 $mediaQuery = "SELECT media_url, media_type FROM product_media WHERE product_id = :product_id";
@@ -155,17 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         </nav>
     </div>
 </header>
-<?php
-// Your PHP logic here
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($product['NAME']); ?></title>
-    <link rel="stylesheet" href="styles/product.css">
-</head>
 <body>
     <main>
         <h2><?php echo htmlspecialchars($product['NAME']); ?></h2>
