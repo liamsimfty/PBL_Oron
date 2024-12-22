@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+:root {
+  --primary: #fffb00;
+  --secondary: #2e0049;
+  --third: #340434;
+  --fourth: #3b091c;
+  --shadow: 0px 2px 8px 0px var(--secondary-light);
+}
+
 /* General Reset */
 * {
     margin: 0;
@@ -8,7 +17,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: yellow;
+    background-color: var(--secondary);
     color: white;
     font-family: 'Lemon/Milk', sans-serif;
 }

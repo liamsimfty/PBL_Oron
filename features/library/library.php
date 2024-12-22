@@ -57,24 +57,62 @@ oci_close($conn);
     <link rel="stylesheet" href="../../Styling/css/library.css">
 </head>
 <body>
-    <!-- Navbar Start-->
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <img src="../../Styling/images/oron-logo.png" class="navbar-logo-img" alt="logo"/>
+    <!-- Navbar Start -->
+    <div class="navbar">
+        <nav class="navbar">
+            <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
             <h1>ORON</h1>
-        </div>
-        <div class="navbar-link">
             <ul class="navbar-list">
-            <li><a href="../pages/homepage.php">Home</a></li>
-            <li><a href="../store/store.php">Store</a></li>
-            <li><a href="../pages/blog.php">Blog</a></li>
-            <li><a href="../pages/about.php">About</a></li>
-            <li><a href="../library/library.php">Library</a></li>
+                <li><a href="../pages/homepage.php">Home</a></li>
+                <li><a href="../store/store.php">Store</a></li>
+                <li><a href="../pages/blog.php">Blog</a></li>
+                <li><a href="../pages/about.php">About</a></li>
                 <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
                 <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
-        </div>
-    </nav>    
+        
+            <div class="profile-dropdown">
+                <div onclick="toggle()" class="profile-dropdown-btn">
+                    <div class="profile-img">
+                        <i class="fa-solid fa-circle"></i>
+                    </div>
+                    
+                    <span>
+                        <?php if (isset($_SESSION['account_id'])): ?>
+                            <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        <?php else: ?>
+                            Guest
+                        <?php endif; ?>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </span>
+                </div>
+        
+                <ul class="profile-dropdown-list">
+                    <?php if (isset($_SESSION['account_id'])): ?>
+                        <li class="profile-dropdown-list-item">
+                            <a href="../pages/profile.php">
+                                <i class="fa-regular fa-user"></i>
+                                Edit Profile
+                            </a>
+                        </li>
+                        <li class="profile-dropdown-list-item">
+                            <a href="../login/logout.php">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                Log out
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="profile-dropdown-list-item">
+                            <a href="../login/login.php">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                Log in
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <!-- Navbar End -->
 
     <!-- Library Section Start -->
@@ -109,15 +147,15 @@ oci_close($conn);
     </main>
     <!-- Library Section End -->
 
-     <!-- Footer Section Start -->
-     <footer class="footer">
+    <!-- Footer Section Start -->
+    <footer class="footer">
         <img src="../../Styling/images/ftbg.png" alt="Oron Logo" class="footer-bg">
         <div class="footer-container">
             <div class="about">
                 <h4>About Us</h4>            
-                    <p>Oron adalah solusi terbaik untuk membeli dan menjual video game.<br>
-                    Dengan dukungan komunitas global, kami memprioritaskan<br>pengalaman pengguna yang aman dan transparan.</p>
-                </div>
+                <p>Oron adalah solusi terbaik untuk membeli dan menjual video game.<br>
+                Dengan dukungan komunitas global, kami memprioritaskan<br>pengalaman pengguna yang aman dan transparan.</p>
+            </div>
             <div class="footer-links">
                 <ul>
                     <li><a href="#">Home</a></li>
@@ -130,8 +168,8 @@ oci_close($conn);
     </footer>
     <!-- Footer Section End -->
 
-    <!-- Script Start-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script End-->
+    <!-- Script Start -->
+    <script src="../../Styling/JS/newheader.js"></script>
+    <!-- Script End -->
 </body>
 </html>
