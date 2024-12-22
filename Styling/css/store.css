@@ -377,7 +377,8 @@ body {
 .games-grid {
     display: flex;
     width: 100%;
-    gap: 60px;
+    gap: 100px;
+    margin-top: 50px;
     justify-content: center;
     align-items: center;
 }
