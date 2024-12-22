@@ -265,7 +265,7 @@ body {
 
 .very-first-grid p {
   padding-top: 10px;
-  font-size: 14px;
+  font-size: 11px;
   color: #ffffff;
 }
 
@@ -282,15 +282,18 @@ body {
 
 .h1-1 {
   color: var(--primary);
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 .h1-2 {
   color: white;
+  font-size: 20px;  
 }
 
 .dice-container p {
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 13px;
   color: black;
   padding-bottom: 7px;
 }

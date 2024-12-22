@@ -90,63 +90,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<header>
-    <div>
-        <nav class="navbar">
-            <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
-            <h1>ORON</h1>
-            <ul class="navbar-list">
-            <li><a href="../pages/homepage.php">Home</a></li>
-            <li><a href="../store/store.php">Store</a></li>
-            <li><a href="../pages/blog.php">Blog</a></li>
-            <li><a href="../pages/about.php">About</a></li>
-            <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-            <li><a href="../../features/cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            </ul>
-        
-            <div class="profile-dropdown">
-            <div class="profile-dropdown-btn" onclick="toggle()">
-                <div class="profile-img">
-                <i class="fa-solid fa-circle"></i>
-                </div>
-                
-                <span>
-                <?php if ($isLoggedIn): ?>
-                    <?php echo htmlspecialchars($_SESSION['username']); ?>
-                <?php else: ?>
-                    Guest
-                <?php endif; ?>
-                <i class="fa-solid fa-angle-down"></i>
-                </span>
-            </div>
-        
-            <ul class="profile-dropdown-list">
-                <?php if ($isLoggedIn): ?>
-                <li class="profile-dropdown-list-item">
-                    <a href="../pages/profile.php">
-                    <i class="fa-regular fa-user"></i>
-                    Edit Profile
-                    </a>
-                </li>
-                <li class="profile-dropdown-list-item">
-                    <a href="../login/login.php">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    Log out
-                    </a>
-                </li>
-                <?php else: ?>
-                <li class="profile-dropdown-list-item">
-                    <a href="../login/login.php">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    Log in
-                    </a>
-                </li>
-                <?php endif; ?>
-            </ul>
-            </div>
-        </nav>
+<nav class="navbar">
+  <div class="navbar-logo">
+    <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
+    <h1>ORON</h1>
+  </div>
+  <div class="navbar-link">
+  <ul class="navbar-list">
+    <li><a href="../pages/homepage.php">Home</a></li>
+    <li><a href="../store/store.php">Store</a></li>
+    <li><a href="../library/library.php">library</a></li>
+    <li><a href="../pages/about.php">About</a></li>
+    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+  </ul>
+
+  <div class="profile-dropdown">
+    <div onclick="toggle()" class="profile-dropdown-btn">
+      <div class="profile-img">
+        <i class="fa-solid fa-circle"></i>
+      </div>
+      
+      <span>
+        <?php if ($isLoggedIn): ?>
+          <?php echo htmlspecialchars($_SESSION['username']); ?>
+        <?php else: ?>
+          Guest
+        <?php endif; ?>
+        <i class="fa-solid fa-angle-down"></i>
+      </span>
     </div>
-</header>
+
+    <ul class="profile-dropdown-list">
+      <?php if ($isLoggedIn): ?>
+        <li class="profile-dropdown-list-item">
+          <a href="../login/login.php">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Log out
+          </a>
+        </li>
+      <?php else: ?>
+        <li class="profile-dropdown-list-item">
+          <a href="../login/login.php">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Log in
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+  </div>
+</nav>
 <body>
     <main>
         <h2><?php echo htmlspecialchars($product['NAME']); ?></h2>

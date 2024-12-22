@@ -10,6 +10,8 @@ if (!isset($_SESSION['account_id'])) {
 
 // Get the account_id from session
 $accountId = $_SESSION['account_id'];
+$isLoggedIn = isset($_SESSION['username']);
+
 
 // Query to get library data for the user
 $query = "SELECT 
@@ -54,66 +56,64 @@ oci_close($conn);
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <title>ORON Library</title>
+    <link rel="stylesheet" href="../../Styling/css/newheader.css" />
     <link rel="stylesheet" href="../../Styling/css/library.css">
+    <link rel="stylesheet" href="../../Styling/css/footer.css">
+        <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
 </head>
 <body>
-    <!-- Navbar Start -->
-    <div class="navbar">
-        <nav class="navbar">
-            <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
-            <h1>ORON</h1>
-            <ul class="navbar-list">
-                <li><a href="../pages/homepage.php">Home</a></li>
-                <li><a href="../store/store.php">Store</a></li>
-                <li><a href="../pages/blog.php">Blog</a></li>
-                <li><a href="../pages/about.php">About</a></li>
-                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            </ul>
-        
-            <div class="profile-dropdown">
-                <div onclick="toggle()" class="profile-dropdown-btn">
-                    <div class="profile-img">
-                        <i class="fa-solid fa-circle"></i>
-                    </div>
-                    
-                    <span>
-                        <?php if (isset($_SESSION['account_id'])): ?>
-                            <?php echo htmlspecialchars($_SESSION['username']); ?>
-                        <?php else: ?>
-                            Guest
-                        <?php endif; ?>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </span>
-                </div>
-        
-                <ul class="profile-dropdown-list">
-                    <?php if (isset($_SESSION['account_id'])): ?>
-                        <li class="profile-dropdown-list-item">
-                            <a href="../pages/profile.php">
-                                <i class="fa-regular fa-user"></i>
-                                Edit Profile
-                            </a>
-                        </li>
-                        <li class="profile-dropdown-list-item">
-                            <a href="../login/logout.php">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                Log out
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="profile-dropdown-list-item">
-                            <a href="../login/login.php">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                Log in
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </nav>
+<nav class="navbar">
+  <div class="navbar-logo">
+    <img src="../../Styling/images/oron-logo.png" class="navbar-logo" alt="logo" />
+    <h1>ORON</h1>
+  </div>
+  <div class="navbar-link">
+  <ul class="navbar-list">
+    <li><a href="../pages/homepage.php">Home</a></li>
+    <li><a href="../store/store.php">Store</a></li>
+    <li><a href="../library/library.php">library</a></li>
+    <li><a href="../pages/about.php">About</a></li>
+    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+  </ul>
+
+  <div class="profile-dropdown">
+    <div onclick="toggle()" class="profile-dropdown-btn">
+      <div class="profile-img">
+        <i class="fa-solid fa-circle"></i>
+      </div>
+      
+      <span>
+        <?php if ($isLoggedIn): ?>
+          <?php echo htmlspecialchars($_SESSION['username']); ?>
+        <?php else: ?>
+          Guest
+        <?php endif; ?>
+        <i class="fa-solid fa-angle-down"></i>
+      </span>
     </div>
-    <!-- Navbar End -->
+
+    <ul class="profile-dropdown-list">
+      <?php if ($isLoggedIn): ?>
+        <li class="profile-dropdown-list-item">
+          <a href="../login/login.php">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Log out
+          </a>
+        </li>
+      <?php else: ?>
+        <li class="profile-dropdown-list-item">
+          <a href="../login/login.php">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Log in
+          </a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+  </div>
+</nav>
 
     <!-- Library Section Start -->
     <main class="Library">

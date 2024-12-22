@@ -33,11 +33,9 @@ $isLoggedIn = isset($_SESSION['username']);
   <ul class="navbar-list">
     <li><a href="../pages/homepage.php">Home</a></li>
     <li><a href="../store/store.php">Store</a></li>
-    <li><a href="../pages/blog.php">Blog</a></li>
+    <li><a href="../library/library.php">library</a></li>
     <li><a href="../pages/about.php">About</a></li>
-    <li><a href="../library/library.php">Library</a></li>
-    <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-    <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+    <li><a href="../cart/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
   </ul>
 
   <div class="profile-dropdown">
@@ -59,12 +57,6 @@ $isLoggedIn = isset($_SESSION['username']);
     <ul class="profile-dropdown-list">
       <?php if ($isLoggedIn): ?>
         <li class="profile-dropdown-list-item">
-          <a href="../pages/profile.php">
-            <i class="fa-regular fa-user"></i>
-            Edit Profile
-          </a>
-        </li>
-        <li class="profile-dropdown-list-item">
           <a href="../login/login.php">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             Log out
@@ -82,7 +74,6 @@ $isLoggedIn = isset($_SESSION['username']);
   </div>
   </div>
 </nav>
-
 <!-- MAIN IMAGE OF ABOUT PAGE -->
 <div class="main-image">
     <img src="../../Styling/images/about.png">
