@@ -1,0 +1,220 @@
+/* MAIN SOURCES OFF STYLING AND VARIABLES */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+:root {
+  --primary: #fffb00;
+  --secondary: #2e0049;
+  --third: #340434;
+  --fourth: #3b091c;
+  --shadow: 0px 2px 8px 0px var(--secondary-light);
+}
+
+/* GENERAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100vh; /* Minimum height of viewport */
+    width: 100%;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column; /* Enables proper footer positioning */
+  }
+
+/* NAVBAR */
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  background-color: var(--secondary);
+  padding: 0 8%;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  width: 150px;
+  height: 100%;   
+}
+
+.navbar-logo-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.navbar h1 {
+  padding-left: 10px;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+}
+
+.navbar-link{
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  cursor: pointer;
+}
+
+.navbar-list {
+  width: 100%;
+  text-align: right;
+  padding-right: 2rem;
+}
+
+/* Enhanced Navbar Link Effects */
+.navbar-list li {
+  display: inline-block;
+  margin: 0 1rem;
+  position: relative;
+}
+
+.navbar-list li a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  padding-bottom: 5px;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease; /* Smooth color transition for text */
+}
+
+/* Creating the sliding underline effect */
+.navbar-list li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary); /* Yellow underline */
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+
+/* Change both text color and show underline on hover */
+.navbar-list li a:hover {
+  color: var(--primary); /* Text becomes yellow on hover */
+}
+
+.navbar-list li a:hover::after {
+  width: 100%;
+}
+
+/* Active state styling */
+.navbar-list li a.active {
+  color: var(--primary);
+}
+
+.navbar-list li a.active::after {
+  width: 100%;
+}
+
+/* Consistent styling for icons */
+.navbar-list li a i {
+  padding-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.navbar-list li a:hover i {
+  color: var(--primary);
+}
+
+/* PROFILE */
+/* Add padding-top to main element to push content below navbar */
+main {
+  padding-top: 110px; /* Adjust this value based on navbar height (70px) plus desired spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h1 {
+  font-size: 2.5em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 50px; /* Increased margin to make space for profile image */
+    position: relative;
+    z-index: 1;
+}
+
+main h1 span {
+  color: var(--primary);
+}
+
+/* Adjust container margin to work with the new main padding */
+/* Perbarui style container untuk bentuk yang sesuai */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffea00;
+  border-radius: 40px; /* Membuat sudut lebih melengkung */
+  padding: 40px 30px; /* Padding lebih besar */
+  text-align: center;
+  position: relative; /* Untuk positioning gambar */
+  margin-top: 50px; /* Add space for the profile image */
+}
+
+/* Style untuk gambar profil */
+.container img {
+  border-radius: 30px; /* Membuat sudut gambar lebih melengkung */
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  position: absolute; /* Posisi absolute agar bisa diletakkan di atas container */
+  top: -60px; /* Menggeser ke atas setengah dari tinggi gambar */
+  left: 50%; /* Posisi di tengah horizontal */
+  transform: translateX(-50%); /* Menggeser ke kiri setengah dari lebar gambar */
+  border: 5px solid var(--secondary); /* Border ungu */
+  background-color: white; /* Background putih */
+  z-index: 2;
+}
+
+/* Update style untuk profile-info */
+.profile-info {
+  margin-top: 70px; /* Memberikan ruang untuk gambar di atas */
+}
+
+.profile-info div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2); /* Border lebih tipis */
+}
+
+.profile-info div span:first-child {
+  color: #ff0000; /* Warna merah untuk text "NAMA" */
+  font-weight: bold;
+}
+
+/* Style untuk tombol edit */
+.edit-button button {
+  background-color: #3a0078;
+  color: #fff;
+  border: none;
+  padding: 8px 25px;
+  font-size: 1em;
+  border-radius: 20px; /* Membuat tombol lebih rounded */
+  cursor: pointer;
+  margin-top: 20px;
+  text-transform: uppercase; /* Membuat text menjadi kapital */
+}
