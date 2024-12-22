@@ -1,3 +1,8 @@
+*{
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+
 body {
     margin: 0;
     display: block;
@@ -21,12 +26,10 @@ body {
   
   h1 {
     color: yellow;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
   
   .form-group {
     margin-bottom: 15px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bolder;
     height: 90px;
     }
@@ -46,7 +49,6 @@ body {
       cursor: pointer;
       margin-top: 15px;
       width: 320px;
-      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       font-size: larger;
     }
     .social-icons {

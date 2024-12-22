@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login</title>
     <link rel="stylesheet" href="../../Styling/css/login.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
 </head>
 <body>
 <div class="overlay"></div>
@@ -67,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['account_id'] = $row['ACCOUNT_ID'];  
 
             // Redirect to dashboard or homepage
-            header("Location: ../pages/newheader.php");
+            header("Location: ../pages/homepage.php");
             exit(); // Stop further execution
         } else {
             echo '<script>alert("Invalid Password")</script>';

@@ -18,7 +18,10 @@
             return true;
         }
     </script>
-    <link rel="stylesheet" href="../../Styling/css/sg.css"
+    <link rel="stylesheet" href="../../Styling/css/sg.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/lemonmilk');
+    </style>
 </head>
 <body>
 

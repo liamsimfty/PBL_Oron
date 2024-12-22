@@ -1,3 +1,7 @@
+* {
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
 body {
   margin: 0;
   display: block;
@@ -21,7 +25,6 @@ body {
 
 .form-group {
   margin-bottom: 15px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-weight: bolder;
 }
 input {
@@ -39,7 +42,6 @@ button {
   cursor: pointer;
   margin-top: 15px;
   width: 320px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: larger;
 }
 
@@ -59,7 +61,6 @@ button {
   border-radius: 30px;
   cursor: pointer;
   width: 320px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: larger;
 }
 
@@ -86,7 +87,6 @@ button {
 
 h1 {
   color: yellow;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .overlay {
