@@ -1,3 +1,59 @@
+<?php
+include '../connection/connection.php';
+// Start session
+session_start();
+$isLoggedIn = isset($_SESSION['username']);
+
+// Handle search query
+$searchQuery = '';
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["search"])) {
+    $searchQuery = trim($_GET["search"]);
+}
+
+// Handle product selection
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
+    $_SESSION["product_id"] = $_POST["product_id"];
+    header("Location: productpage.php");
+    exit();
+}
+
+$limit = 4;
+$pn = 1;  
+if (isset($_GET["page"])) {  
+    $pn  = $_GET["page"];  
+    $start_from = ($pn - 1) * $limit;   
+    $queryPagination = "
+    SELECT * FROM products
+    ORDER BY name  
+    OFFSET :start_row ROWS
+    FETCH NEXT :limit ROWS ONLY";
+    $result = oci_parse($conn, $queryPagination);
+    oci_bind_by_name($result, ':start_row', $start_from);
+    oci_bind_by_name($result, ':limit', $limit);
+}  
+else {  
+    // Base query
+    $query = "SELECT product_id, name, current_price, discount, image FROM products ORDER BY name FETCH FIRST 4 ROWS ONLY";
+    $result = oci_parse($conn, $query);
+}   
+
+
+// Append search condition if searchQuery is not empty
+$querySearch = "SELECT product_id, name, current_price, discount, image FROM products";
+if (!empty($searchQuery)) {
+    $querySearch .= " WHERE LOWER(name) LIKE '%' || :search || '%'";
+    $result = oci_parse($conn, $querySearch);
+    oci_bind_by_name($result, ':search', $searchQuery);
+}
+
+
+if (!oci_execute($result)) {
+    $e = oci_error($result);
+    echo "Error: " . htmlentities($e['message'], ENT_QUOTES);
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,17 +66,9 @@
   <style>
         @import url('https://fonts.cdnfonts.com/css/lemonmilk');
   </style>
-  <title>Profile Dropdown</title>
+  <title>ORON | Home</title>
 </head>
 <body>
-
-    <?php
-    // Start session
-    session_start();
-
-    // Check if user is logged in
-    $isLoggedIn = isset($_SESSION['username']);
-    ?>
 
 
 <nav class="navbar">
@@ -102,145 +150,194 @@
 
 <!-- NEWLY ADDED GAMES SECTION -->
 
-<div class="newly-added-container">
-  <h1>New Games</h1>
-</div>
+<!-- Games Collection -->
+<section class="games-collection" id="products">
+    <h2>
+        <span class="highlight1">NEW</span> <span class="highlight2">GAMES</span>
+    </h2>
 
-<section class="container">
-  <div class="card__container swiper">
-    <div class="card__content">
-        <div class="swiper-wrapper">
-          <!-- Game Card -->
-          <div class="game-card swiper-slide">
-            <a href="gamedespage.php">
-                <img src="../../Styling/images/game1.png" alt="GTA">
-            </a>
-                <h3>Grand Theft Auto</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-            <a href="gamedespage.php">
-                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-            </a>
-                <h3>Black Myth: Wukong</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/game1.png" alt="GTA">
-                <h3>Grand Theft Auto</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-                <h3>Black Myth: Wukong</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-            <div class="game-card swiper-slide">
-                <img src="../../Styling/images/gamered.jpg  " alt="Red Dead Redemption">
-                <h3>Red Dead Redemption</h3>
-                <p>IDR 221.600</p>
-            </div>
-        </div>
+<!-- Search Form -->
+    <div class="search-bar">
+        <form method="get" action="homepage.php#products">
+            <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
+            <button type="submit"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></button>
+        </form>
     </div>
 
-    <!-- Navigation buttons -->
-    <div class="swiper-button-next">
-        <i class="ri-arrow-right-s-line"></i>
+    <div class="games-grid">
+        <?php
+        if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
+            foreach ($rows as $row) {
+                $product_id = htmlspecialchars($row["PRODUCT_ID"]);
+                ?>
+                <a href="productpage.php?product_id=<?php echo $product_id; ?>" class="game-card">
+                    <div class="game-card-inner">
+                        <?php if (!empty($row["IMAGE"])): ?>
+                            <div class="image-container">
+                                <img src="../../<?php echo htmlspecialchars($row["IMAGE"]); ?>" 
+                                    alt="<?php echo htmlspecialchars($row["NAME"]); ?>">
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="content-overlay">
+                            <h3><?php echo htmlspecialchars($row["NAME"]); ?></h3>
+                            
+                            <div class="product-price">
+                                <?php if ($row["DISCOUNT"] > 0): 
+                                    $originalPrice = $row["CURRENT_PRICE"];
+                                    $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                                ?>
+                                    <div class="price-container">
+                                        <div class="discount-info">
+                                            <span class="discount-badge">
+                                                -<?php echo ($row["DISCOUNT"] * 100); ?>%
+                                            </span>
+                                            <span class="original-price">
+                                                IDR <?php echo number_format($originalPrice * 1000, 0); ?>
+                                            </span>
+                                        </div>
+                                        <div class="final-price">
+                                            IDR <?php echo number_format($discountedPrice * 1000, 0); ?>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="final-price">
+                                        IDR <?php echo number_format($row["CURRENT_PRICE"] * 1000, 0); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php
+            }
+        } else {
+            echo '<div class="no-products">No products found.</div>';
+        }
+        ?>
     </div>
-    
-    <div class="swiper-button-prev">
-        <i class="ri-arrow-left-s-line"></i>
-    </div>
+    <?php
+        $count_query = "SELECT COUNT(*) as total FROM products";
+        $resultcount = oci_parse($conn, $count_query);
+        oci_execute($resultcount);
+        $total_row = oci_fetch_assoc($resultcount);
+        $total_records = $total_row['TOTAL'];
+        $total_pages = ceil($total_records / $limit);
 
-    <!-- Pagination -->
-    <div class="swiper-pagination"></div>
-  </div>
+        echo "<div class='pagination'>";
+        if ($pn > 1) {
+            echo "<a class='pagination-link' href='?page=" . ($pn - 1) . "#products'>Previous</a> ";
+        }
+
+        for ($i = 1; $i <= $total_pages; $i++) {
+            if ($i == $pn) {
+                echo "<span class='pagination-current'>$i</span> "; // Current page
+            } else {
+                echo "<a class='pagination-link' href='?page=$i#products'>$i</a> ";
+            }
+        }
+
+        if ($pn < $total_pages) {
+            echo "<a class='pagination-link' href='?page=" . ($pn + 1) . "#products'>Next</a>";
+        }
+        echo "</div>";
+    ?>
 </section>
 
-<div class="newly-added-container">
-  <h1>Top Free Games</h1>
-</div>
 
-<section class="container">
-    <div class="card__container swiper">
-      <div class="card__content">
-          <div class="swiper-wrapper">
-              <!-- Game Card -->
-    <div class="game-card swiper-slide">
-      <a href="gamedespage.php">
-          <img src="../../Styling/images/game1.png" alt="GTA">
-      </a>
-          <h3>Grand Theft Auto</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-      <a href="gamedespage.php">
-          <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-      </a>
-          <h3>Black Myth: Wukong</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-          <h3>Red Dead Redemption</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/game1.png" alt="GTA">
-          <h3>Grand Theft Auto</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/game3.jpg" alt="Black Myth: Wukong">
-          <h3>Black Myth: Wukong</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-          <h3>Red Dead Redemption</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/gamered.jpg" alt="Red Dead Redemption">
-          <h3>Red Dead Redemption</h3>
-          <p>IDR 221.600</p>
-      </div>
-      <div class="game-card swiper-slide">
-          <img src="../../Styling/images/gamered.jpg  " alt="Red Dead Redemption">
-          <h3>Red Dead Redemption</h3>
-          <p>IDR 221.600</p>
-      </div>
-          </div>
-      </div>
+<section class="games-collection" id="products">
+    <h2>
+        <span class="highlight1">TOP FREE</span> <span class="highlight2">GAMES</span>
+    </h2>
 
-      <!-- Navigation buttons -->
-      <div class="swiper-button-next">
-          <i class="ri-arrow-right-s-line"></i>
-      </div>
-      
-      <div class="swiper-button-prev">
-          <i class="ri-arrow-left-s-line"></i>
-      </div>
-
-      <!-- Pagination -->
-      <div class="swiper-pagination"></div>
+<!-- Search Form -->
+    <div class="search-bar">
+        <form method="get" action="homepage.php#products">
+            <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
+            <button type="submit"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></button>
+        </form>
     </div>
+
+    <div class="games-grid">
+        <?php
+        if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
+            foreach ($rows as $row) {
+                $product_id = htmlspecialchars($row["PRODUCT_ID"]);
+                ?>
+                <a href="productpage.php?product_id=<?php echo $product_id; ?>" class="game-card">
+                    <div class="game-card-inner">
+                        <?php if (!empty($row["IMAGE"])): ?>
+                            <div class="image-container">
+                                <img src="../../<?php echo htmlspecialchars($row["IMAGE"]); ?>" 
+                                    alt="<?php echo htmlspecialchars($row["NAME"]); ?>">
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="content-overlay">
+                            <h3><?php echo htmlspecialchars($row["NAME"]); ?></h3>
+                            
+                            <div class="product-price">
+                                <?php if ($row["DISCOUNT"] > 0): 
+                                    $originalPrice = $row["CURRENT_PRICE"];
+                                    $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                                ?>
+                                    <div class="price-container">
+                                        <div class="discount-info">
+                                            <span class="discount-badge">
+                                                -<?php echo ($row["DISCOUNT"] * 100); ?>%
+                                            </span>
+                                            <span class="original-price">
+                                                IDR <?php echo number_format($originalPrice * 1000, 0); ?>
+                                            </span>
+                                        </div>
+                                        <div class="final-price">
+                                            IDR <?php echo number_format($discountedPrice * 1000, 0); ?>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="final-price">
+                                        IDR <?php echo number_format($row["CURRENT_PRICE"] * 1000, 0); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php
+            }
+        } else {
+            echo '<div class="no-products">No products found.</div>';
+        }
+        ?>
+    </div>
+    <?php
+        $count_query = "SELECT COUNT(*) as total FROM products";
+        $resultcount = oci_parse($conn, $count_query);
+        oci_execute($resultcount);
+        $total_row = oci_fetch_assoc($resultcount);
+        $total_records = $total_row['TOTAL'];
+        $total_pages = ceil($total_records / $limit);
+
+        echo "<div class='pagination'>";
+        if ($pn > 1) {
+            echo "<a class='pagination-link' href='?page=" . ($pn - 1) . "#products'>Previous</a> ";
+        }
+
+        for ($i = 1; $i <= $total_pages; $i++) {
+            if ($i == $pn) {
+                echo "<span class='pagination-current'>$i</span> "; // Current page
+            } else {
+                echo "<a class='pagination-link' href='?page=$i#products'>$i</a> ";
+            }
+        }
+
+        if ($pn < $total_pages) {
+            echo "<a class='pagination-link' href='?page=" . ($pn + 1) . "#products'>Next</a>";
+        }
+        echo "</div>";
+    ?>
 </section>
+
 
 <!-- VECTOR -->
 <div class="vectors">

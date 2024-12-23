@@ -133,99 +133,99 @@ if (!oci_execute($result)) {
     </div>
 </section>
 
-    <!-- Games Collection -->
-    <section class="games-collection" id="products">
-        <h2>
-            <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
-        </h2>
+<!-- Games Collection -->
+<section class="games-collection" id="products">
+    <h2>
+        <span class="highlight1">GAMES</span> <span class="highlight2">COLLECTION</span>
+    </h2>
 
-    <!-- Search Form -->
-        <div class="search-bar">
-            <form method="get" action="store.php#products">
-                <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
-                <button type="submit"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></button>
-            </form>
-        </div>
+<!-- Search Form -->
+    <div class="search-bar">
+        <form method="get" action="store.php#products">
+            <input type="text" name="search" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search for games..." />
+            <button type="submit"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></button>
+        </form>
+    </div>
 
-        <div class="games-grid">
-            <?php
-            if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
-                foreach ($rows as $row) {
-                    $product_id = htmlspecialchars($row["PRODUCT_ID"]);
-                    ?>
-                    <a href="productpage.php?product_id=<?php echo $product_id; ?>" class="game-card">
-                        <div class="game-card-inner">
-                            <?php if (!empty($row["IMAGE"])): ?>
-                                <div class="image-container">
-                                    <img src="../../<?php echo htmlspecialchars($row["IMAGE"]); ?>" 
-                                        alt="<?php echo htmlspecialchars($row["NAME"]); ?>">
-                                </div>
-                            <?php endif; ?>
+    <div class="games-grid">
+        <?php
+        if ($result && oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW) > 0) {
+            foreach ($rows as $row) {
+                $product_id = htmlspecialchars($row["PRODUCT_ID"]);
+                ?>
+                <a href="productpage.php?product_id=<?php echo $product_id; ?>" class="game-card">
+                    <div class="game-card-inner">
+                        <?php if (!empty($row["IMAGE"])): ?>
+                            <div class="image-container">
+                                <img src="../../<?php echo htmlspecialchars($row["IMAGE"]); ?>" 
+                                    alt="<?php echo htmlspecialchars($row["NAME"]); ?>">
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="content-overlay">
+                            <h3><?php echo htmlspecialchars($row["NAME"]); ?></h3>
                             
-                            <div class="content-overlay">
-                                <h3><?php echo htmlspecialchars($row["NAME"]); ?></h3>
-                                
-                                <div class="product-price">
-                                    <?php if ($row["DISCOUNT"] > 0): 
-                                        $originalPrice = $row["CURRENT_PRICE"];
-                                        $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
-                                    ?>
-                                        <div class="price-container">
-                                            <div class="discount-info">
-                                                <span class="discount-badge">
-                                                    -<?php echo ($row["DISCOUNT"] * 100); ?>%
-                                                </span>
-                                                <span class="original-price">
-                                                    IDR <?php echo number_format($originalPrice * 1000, 0); ?>
-                                                </span>
-                                            </div>
-                                            <div class="final-price">
-                                                IDR <?php echo number_format($discountedPrice * 1000, 0); ?>
-                                            </div>
+                            <div class="product-price">
+                                <?php if ($row["DISCOUNT"] > 0): 
+                                    $originalPrice = $row["CURRENT_PRICE"];
+                                    $discountedPrice = $originalPrice - ($originalPrice * $row["DISCOUNT"]);
+                                ?>
+                                    <div class="price-container">
+                                        <div class="discount-info">
+                                            <span class="discount-badge">
+                                                -<?php echo ($row["DISCOUNT"] * 100); ?>%
+                                            </span>
+                                            <span class="original-price">
+                                                IDR <?php echo number_format($originalPrice * 1000, 0); ?>
+                                            </span>
                                         </div>
-                                    <?php else: ?>
                                         <div class="final-price">
-                                            IDR <?php echo number_format($row["CURRENT_PRICE"] * 1000, 0); ?>
+                                            IDR <?php echo number_format($discountedPrice * 1000, 0); ?>
                                         </div>
-                                    <?php endif; ?>
-                                </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="final-price">
+                                        IDR <?php echo number_format($row["CURRENT_PRICE"] * 1000, 0); ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    </a>
-                <?php
-                }
-            } else {
-                echo '<div class="no-products">No products found.</div>';
+                    </div>
+                </a>
+            <?php
             }
-            ?>
-        </div>
-        <?php
-            $count_query = "SELECT COUNT(*) as total FROM products";
-            $resultcount = oci_parse($conn, $count_query);
-            oci_execute($resultcount);
-            $total_row = oci_fetch_assoc($resultcount);
-            $total_records = $total_row['TOTAL'];
-            $total_pages = ceil($total_records / $limit);
-
-            echo "<div class='pagination'>";
-            if ($pn > 1) {
-                echo "<a class='pagination-link' href='?page=" . ($pn - 1) . "#products'>Previous</a> ";
-            }
-
-            for ($i = 1; $i <= $total_pages; $i++) {
-                if ($i == $pn) {
-                    echo "<span class='pagination-current'>$i</span> "; // Current page
-                } else {
-                    echo "<a class='pagination-link' href='?page=$i#products'>$i</a> ";
-                }
-            }
-
-            if ($pn < $total_pages) {
-                echo "<a class='pagination-link' href='?page=" . ($pn + 1) . "#products'>Next</a>";
-            }
-            echo "</div>";
+        } else {
+            echo '<div class="no-products">No products found.</div>';
+        }
         ?>
-    </section>
+    </div>
+    <?php
+        $count_query = "SELECT COUNT(*) as total FROM products";
+        $resultcount = oci_parse($conn, $count_query);
+        oci_execute($resultcount);
+        $total_row = oci_fetch_assoc($resultcount);
+        $total_records = $total_row['TOTAL'];
+        $total_pages = ceil($total_records / $limit);
+
+        echo "<div class='pagination'>";
+        if ($pn > 1) {
+            echo "<a class='pagination-link' href='?page=" . ($pn - 1) . "#products'>Previous</a> ";
+        }
+
+        for ($i = 1; $i <= $total_pages; $i++) {
+            if ($i == $pn) {
+                echo "<span class='pagination-current'>$i</span> "; // Current page
+            } else {
+                echo "<a class='pagination-link' href='?page=$i#products'>$i</a> ";
+            }
+        }
+
+        if ($pn < $total_pages) {
+            echo "<a class='pagination-link' href='?page=" . ($pn + 1) . "#products'>Next</a>";
+        }
+        echo "</div>";
+    ?>
+</section>
 
     <!-- Footer -->
     <footer class="footer">

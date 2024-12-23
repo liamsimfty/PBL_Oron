@@ -254,40 +254,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-/* Gaya untuk gambar tambahan */
-.additional-image1 {
-    margin-top: 30px; /* Jarak antara tombol dan gambar */
-    text-align: center; /* Memastikan gambar ada di tengah */
-}
-
-.additional-image img1 {
-    width: 500%; /* Atur lebar gambar sesuai kebutuhan */
-    max-width: 1520px; /* Maksimum lebar gambar */
-    height: auto; /* Menjaga rasio gambar */
-    transform: translateY(-33px);
-}
-
-.additional-image2 {
-    position: relative; /* Menjadikan kontainer gambar sebagai posisi relatif */
-}
-
-.additional-image2 img {
-    position: absolute; /* Memungkinkan kita menggeser gambar secara bebas */
-    top: -148px; /* Geser gambar ke atas sebanyak 20px */
-    left: 0px; /* Geser gambar ke kanan sebanyak 30px */
-}
-
-.additional-image3 {
-    position: relative; /* Menjadikan kontainer gambar sebagai posisi relatif */
-}
-
-.additional-image3 img {
-    position: absolute; /* Memungkinkan kita menggeser gambar secara bebas */
-    top: -148px; /* Geser gambar ke atas sebanyak 20px */
-    left: 1146px; /* Geser gambar ke kanan sebanyak 30px */
-}
-
 .search-bar {
     display: flex; /* Menggunakan flexbox untuk tata letak yang lebih baik */
     justify-content: center; /* Memusatkan konten secara horizontal */

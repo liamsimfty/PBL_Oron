@@ -338,7 +338,6 @@ label[for="hearts"] {
 /* NEWLY ADDED GAMES STYLING */
 
 .newly-added-container {
-  margin-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -485,9 +484,45 @@ label[for="hearts"] {
   }
 }
 
+.search-bar {
+  display: flex; /* Menggunakan flexbox untuk tata letak yang lebih baik */
+  justify-content: center; /* Memusatkan konten secara horizontal */
+  align-items: center; /* Memusatkan konten secara vertikal */
+  margin: 20px; /* Memberikan jarak di sekitar search bar */
+}
+
+.search-bar form {
+  display: flex; /* Menggunakan flexbox untuk form */
+  width: 100%; /* Mengatur lebar form */
+  max-width: 300px; /* Mengatur lebar maksimum form */
+  height: 44.5px;
+}
+
+.search-bar input[type="text"] {
+  flex: 1; /* Membuat input mengambil ruang yang tersedia */
+  padding: 10px; /* Memberikan padding di dalam input */
+  border: 1px solid #ccc; /* Border abu-abu */
+  border-radius: 5px 0 0 5px; /* Membuat sudut input melengkung */
+  font-size: 16px; /* Ukuran font */
+}
+
+.search-bar button {
+  padding: 10px 15px; /* Memberikan padding di dalam tombol */
+  background-color: #007BFF; /* Warna latar belakang tombol */
+  color: white; /* Warna teks tombol */
+  border: none; /* Menghilangkan border default */
+  border-radius: 0 5px 5px 0; /* Membuat sudut tombol melengkung */
+  cursor: pointer; /* Mengubah kursor saat hover */
+  font-size: 16px; /* Ukuran font */
+  transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.search-bar button:hover {
+  background-color: #0056b3; /* Warna latar belakang saat hover */
+}
+
 /* Games Collection */
 .games-collection {
-  padding: 40px 20px;
   text-align: center;
 }
 
@@ -535,47 +570,172 @@ label[for="hearts"] {
   background-color: #FFFB00; /* Warna background untuk tombol aktif */
   color: black; /* Warna teks saat tombol aktif */
 }
+/* Grid Layout */
 .games-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolom dalam satu baris */
-  gap: 70px 0px; 
-  margin-top: 60px;
-}
-
-.game-card {
-  background-color: #340042;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-  transition: transform 0.3s;
-  width: 100%; /* Pastikan kartu mengambil seluruh lebar kolom yang disediakan */
-  max-width: 250px; /* Menentukan lebar maksimal agar tidak terlalu besar */
-  margin: 0 auto; /* Mengatur agar kartu berada di tengah dalam kolom */
-}
-
-.game-card img {
+  display: flex;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  gap: 100px;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
 }
 
-.game-card h3 {
-  margin: 10px 0;
-  color: #fdda00;
-}
 
-.game-card p {
-  color: #ffffff;
+
+/* Game Card */
+.game-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease;
+  max-width: 261px;
+  width: 261px;
 }
 
 .game-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-8px);
+}
+
+.game-card-inner {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Image Container */
+.image-container {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.game-card:hover .image-container img {
+  transform: scale(1.1);
+}
+
+/* Content Overlay */
+.content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, 
+              rgba(0, 0, 0, 0.9) 0%,
+              rgba(0, 0, 0, 0.7) 50%,
+              transparent 100%);
+}
+
+/* Typography */
+.content-overlay h3 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-family: 'Lemon/Milk', sans-serif;
+  font-weight: 300;
+  margin: 0 0 12px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 0.975rem;
+}
+
+/* Price Styling */
+.product-price {
+  color: #ffffff;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-info {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 8px;
+  height: 100%; /* Set the height to 100% */
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.discount-badge {
+  background-color: #fbbf24;
+  color: #000000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.575rem;
+}
+
+.original-price {
+  color: #9ca3af;
+  text-decoration: line-through;
+  font-size: 0.575rem;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+.final-price {
+  color: #fbbf24;
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-family: 'Lemon/Milk', sans-serif;
+}
+
+/* No Products Message */
+.no-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #9ca3af;
+  font-size: 1.125rem;
+}
+
+.pagination {
+  display: flex; /* Menggunakan flexbox untuk tata letak */
+  justify-content: center; /* Memusatkan pagination */
+  align-items: center; /* Memusatkan secara vertikal */
+  margin: 20px 0; /* Memberikan jarak di atas dan bawah */
+}
+
+.pagination-link {
+  padding: 10px 15px; /* Memberikan padding di dalam link */
+  margin: 0 5px; /* Memberikan jarak antar link */
+  text-decoration: none; /* Menghilangkan garis bawah */
+  color: #fbbf24;
+  color: #fbbf24;
+  border-radius: 5px; /* Sudut melengkung */
+  transition: background-color 0.3s, color 0.3s; /* Efek transisi */
+}
+
+.pagination-link:hover {
+  background-color: #007BFF; /* Warna latar belakang saat hover */
+  color: white; /* Warna teks saat hover */
+}
+
+.pagination-current {
+  padding: 10px 15px; /* Memberikan padding di dalam current page */
+  margin: 0 5px; /* Memberikan jarak antar link */
+  font-weight: bold; /* Menebalkan teks */
+  color: #fbbf24;
+  border: 1px solid #ccc; /* Border abu-abu */
+  border-radius: 5px; /* Sudut melengkung */
 }
 
 /* VECTOR STYLING */
 
 .vectors {
-  margin-top: 150px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -673,3 +833,27 @@ label[for="hearts"] {
   font-family: Arial, Helvetica, sans-serif;
 }
   
+/* Responsive Design */
+@media (max-width: 640px) {
+  .games-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(360px, 1fr));
+      gap: 54px;
+      padding: 120px;
+      padding-top: 25px;
+  }
+
+  .content-overlay {
+      padding: 16px;
+  }
+
+  .content-overlay h3 {
+      font-size: 1.15rem;
+      font-family: 'Lemon/Milk', sans-serif;
+  }
+
+  .final-price {
+      font-size: 1.15rem;
+      font-family: 'Lemon/Milk', sans-serif;
+  }
+}
