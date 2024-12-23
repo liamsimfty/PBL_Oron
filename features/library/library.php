@@ -124,7 +124,6 @@ oci_close($conn);
                     <tr>
                         <th>No</th>
                         <th>Games</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,7 +132,6 @@ oci_close($conn);
                             <tr>
                                 <td><?= $key + 1 ?></td>
                                 <td><?= htmlspecialchars($item['game_name']) ?></td>
-                                <td><button>Download</button></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

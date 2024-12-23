@@ -5,6 +5,7 @@ include '../connection/connection.php';
 session_start();
 if (!isset($_SESSION['account_id'])) {
     echo "<p>You need to log in to view your cart.</p>";
+    echo "<a href='../login/login.php'>Proceed to login</a>";
     exit();
 }
 $isLoggedIn = isset($_SESSION['username']);
